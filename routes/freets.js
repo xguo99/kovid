@@ -2,6 +2,7 @@ const express = require('express');
 const Freets = require('../models/Freets');
 const Users = require('../models/Users');
 const Busi = require('../models/Business')
+const convertGeo = require('../models/GeoCoder.js');
 const validators = require('./validators');
 
 const router = express.Router();
@@ -41,6 +42,22 @@ router.get('/myFeed',[validators.ensureUserLoggedIn] ,(req, res) => {
         message: testgeo,
         freets: feed      
     });
+});
+
+router.put('/search',(req,res)=>{
+    const business=req.body.busi;
+    console.log(business);
+    const address=convertGeo(business.phone);
+    address.then(addr=>{
+        const latitude=addr[0].latitude;
+        const longitude=addr[0].longitude;
+        const busiInfo=business;
+        busiInfo['latitude']=latitude;
+        busiInfo['longitude']=longitude;
+        console.log(busiInfo);
+        res.status(200).json(busiInfo).end();
+    });
+   
 });
 
 /**

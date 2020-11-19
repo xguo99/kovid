@@ -39,21 +39,26 @@
         :attribution="attribution"
       />
       <l-marker
-      :lat-lng="center"
-      :icon="icon"/>
-        <!-- v-for="business in businesses"
+        v-for="business in businesses"
         v-bind:key="business.id"
-        v-bind:lat-lng="latLng(business.latitude,business.longitude)"
-        v-bind:icon="icon"/> -->
+        :lat-lng="[business.latitude,business.longitude]"
+        :icon="icon">
+        <l-popup>
+          <div @click="innerClick">
+            <div>{{business.name}}</div>
+            <div>{{business.phone}}</div>
+            <div>{{business.status}}</div>
+          </div>
+        </l-popup>
+      </l-marker>
     </l-map>
-
-    {{this.data}}
   </div>
 </template>
 
 
 <script>
 import axios from "axios";
+import { eventBus } from "../main";
 import { latLng ,icon} from "leaflet";
 import { LMap, LTileLayer, LMarker, LPopup, LTooltip,LIcon } from "vue2-leaflet";
 
@@ -68,6 +73,21 @@ export default {
     LIcon
   },
   created: function () {
+    eventBus.$on("search-success", res => {
+      this.data=res;
+      this.data.forEach(busi=>{
+        const body = {busi};
+        /* eslint-disable no-console */
+          console.log(body);
+          /* eslint-enable no-console */
+        axios
+          .put('/api/freets/search',body)
+          .then(res=>{
+            this.businesses.push(res.data);
+            this.center=latLng(this.businesses[0].latitude,this.businesses[0].longitude);
+          })
+      })
+    });
   },
   data() {
     return {
@@ -92,7 +112,7 @@ export default {
       showMap: true,
       nameBusiness:'Dunkin Donuts',
       address:'222 Broadway',
-      data:{},
+      data:[],
       errors:[],
       content:"",
       businesses:[]
@@ -121,7 +141,11 @@ export default {
     getData:function(){
       axios.get('https://data.cambridgema.gov/resource/9q33-qjp4.json?name='+this.nameBusiness)
           .then((response) => {   
-          this.data= response.data;
+            /* eslint-disable no-console */
+            console.log(this.nameBusiness);
+            console.log(response.data);
+            /* eslint-enable no-console */
+            eventBus.$emit("search-success", response.data);
           }).catch(err => {
             // handle error
             this.errors.push(err.response.data.error);
@@ -138,20 +162,17 @@ export default {
         this.errors.push("Search cannot be empty.");
         this.clearMessages();
       } else {
+        this.businesses=[];
         this.nameBusiness=this.content;
         this.getData();
-        // this.businesses=this.data.map(busiInfo => {
-        //   const geo = Geo.convert(busiInfo.phone);
-        //   /* eslint-disable no-console */
-        //   console.log(busiInfo);
-        //   console.log(geo);
-        //   /* eslint-enable no-console */
-        //   const lat=geo.latitude;
-        //   const lon=geo.longitude;
-        //   return {busiInfo,lat,lon};
-        // });
 
       }
+    },
+    clearMessages: function() {
+      setInterval(() => {
+        this.errors = [];
+        this.success = "";
+      }, 5000);
     }
   }
 };

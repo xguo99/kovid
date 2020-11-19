@@ -15,9 +15,5 @@ async function convert(addr){
         city:'Cambridge',
         country: 'United States',
       });
-    /*eslint-disable no-console */
-    console.log(res);
-    /*eslint-enable no-console */
     return res;}
-convert();
-module.exports=geocoder;
+module.exports=convert;
