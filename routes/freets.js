@@ -27,6 +27,10 @@ router.post('/create', [validators.ensureUserLoggedIn, validators.validateFreetL
 router.get('/myFeed',[validators.ensureUserLoggedIn] ,(req, res) => {
     const user = Users.findUserID(req.session.uid);
     const testgeo=Busi.createBusi('a','b','222 Broadway');
+     /*eslint-disable no-console */
+    console.log(testgeo);
+    console.log('hello');
+    /*eslint-enable no-console */
     req.session.username = user.username;
     let feed = user.getFreetFeed();
     if (feed.length === 0){
@@ -34,6 +38,7 @@ router.get('/myFeed',[validators.ensureUserLoggedIn] ,(req, res) => {
     }
     res.status(200).json({
         username: req.session.username, 
+        message: testgeo,
         freets: feed      
     });
 });
