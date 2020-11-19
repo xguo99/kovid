@@ -1,7 +1,7 @@
 <template>
   <div class="error-container">
     <br>
-    <h1>Fritter 404</h1> 
+    <h1>K-ovid 404</h1> 
     <h2>One is never lost, only found what others have not.</h2>
     <br>
     <router-link 

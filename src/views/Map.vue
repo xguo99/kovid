@@ -7,15 +7,11 @@
       </button> -->
       <div class="searchbar">
         <form id='search-bar' v-on:submit.prevent='searchBusi' method='get'>
-
           <input id='content' v-model.trim='content' type='text' name='content'  placeholder="Business name...">
-
           <input type='submit' value="Search" id="searchBusi" class="button">
-
           <!-- <div v-if='success' class="success-message">
             {{ success }}
           </div>
-
           <div v-if='errors.length' class="error-message">
             <b>Please correct the following error(s):</b>
             <ul>
@@ -25,6 +21,7 @@
         </form>
       </div>
     </div>
+
     <l-map
       v-if="showMap"
       :zoom="zoom"
@@ -52,6 +49,11 @@
         </l-popup>
       </l-marker>
     </l-map>
+    <div v-if='errors.length' class="error-message">
+        <br>
+        <div v-for='error in errors' v-bind:key='error.id'>{{ error }}</div>
+    </div>
+
   </div>
 </template>
 
@@ -81,7 +83,7 @@ export default {
           console.log(body);
           /* eslint-enable no-console */
         axios
-          .put('/api/freets/search',body)
+          .put('/api/searches/search',body)
           .then(res=>{
             this.businesses.push(res.data);
             this.center=latLng(this.businesses[0].latitude,this.businesses[0].longitude);
@@ -109,8 +111,7 @@ export default {
         iconAnchor: [16, 37]}),
       iconSize: 64,
       showMap: true,
-      nameBusiness:'Dunkin Donuts',
-      address:'222 Broadway',
+      nameBusiness:'',
       data:[],
       errors:[],
       content:"",
@@ -164,7 +165,6 @@ export default {
         this.businesses=[];
         this.nameBusiness=this.content;
         this.getData();
-
       }
     },
     clearMessages: function() {
@@ -185,7 +185,6 @@ export default {
     padding: 10px;
     margin: 10px 0px;
   }
-
   .searchbar * {
     margin-right: 20px;
   }

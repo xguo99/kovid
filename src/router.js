@@ -10,16 +10,6 @@ export default new Router({
       path: '/',
       name: 'home',
       component: () => import('./views/Map.vue')
-    },
-    {
-      path: '/user/:username',
-      name: 'user',
-      component: () => import('./views/UserPage.vue')
-    }, 
-    {
-      path: '/signup/',
-      name: 'signup',
-      component: () => import('./views/SignUp.vue')
     }, 
     {
       // Used to catch error pages

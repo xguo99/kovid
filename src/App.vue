@@ -5,7 +5,6 @@
   </div>
 </template>
 
-
 <script>
 import { eventBus } from "./main";
 
@@ -14,29 +13,11 @@ export default {
   data() {
     return {
         messages: [],
-        isSignedIn: false,
     }  
   },
   beforeCreate: function() {
-    let authenticated = this.$cookie.get('user-auth');
-    if (!authenticated) {
-      this.$router.push("");
-    }
   },
   created: function() {
-    eventBus.$on("signin-success", (userName) => {
-      this.$cookie.set('user-auth', userName);
-      this.isSignedIn = true;
-      eventBus.$emit('user-status-update');
-      this.$router.push({name: 'home'});
-    });
-    
-    eventBus.$on("signout-success", () => {
-      this.$cookie.set('user-auth', '');
-      this.isSignedIn = false;
-      eventBus.$emit('user-status-update');
-      this.$router.push({name: 'home'});
-    });
   },
   components: {
       eventBus

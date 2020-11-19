@@ -9,15 +9,14 @@ const isProduction = process.env.NODE_ENV === 'production'; // process.env will 
 
 
 const indexRouter = require('./routes/index');
-const freetsRouter = require('./routes/freets');
-const usersRouter = require('./routes/users');
+const searchRouter = require('./routes/search');
 
 const app = express();
 var history = require('connect-history-api-fallback');
 
 // set up user session
 app.use(session({
-    secret: 'Freeter',
+    secret: 'K-ovid',
     resave: true,
     saveUninitialized: true
   }));
@@ -31,13 +30,11 @@ app.use(express.static(path.join(__dirname, isProduction ? 'dist' : 'public')));
 
 // connect url hierarchies to our routers
 app.use('/', indexRouter);
-app.use('/api/freets', freetsRouter);
-app.use('/api/users', usersRouter);
-
+app.use('/api/searches', searchRouter);
 
 /* GET 404 page. */
 app.get('*', (req, res) => {
-  res.send("<h1>Fritter 404</h1> <h2>One is never lost, only found what others have not.</h2>", 404);
+  res.send("<h1>K-ovid 404</h1> <h2>One is never lost, only found what others have not.</h2>", 404);
 });
 
 module.exports = app;
