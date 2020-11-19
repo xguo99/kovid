@@ -2,9 +2,28 @@
   <div style="height: 600px; width: 80%">
     <div style="height: 200px overflow: auto;">
       <p>Center is at {{ center }} and the zoom is: {{ currentZoom }}</p>
-      <button @click="showLongText">
+      <!-- <button @click="showLongText">
         Toggle long popup
-      </button>
+      </button> -->
+      <div class="searchbar">
+        <form id='search-bar' v-on:submit.prevent='searchBusi' method='get'>
+
+          <input id='content' v-model.trim='content' type='text' name='content'  placeholder="Business name...">
+
+          <input type='submit' value="Search" id="searchBusi" class="button">
+
+          <!-- <div v-if='success' class="success-message">
+            {{ success }}
+          </div>
+
+          <div v-if='errors.length' class="error-message">
+            <b>Please correct the following error(s):</b>
+            <ul>
+              <li v-for='error in errors' v-bind:key='error.id'>{{ error }}</li>
+            </ul>
+          </div> -->
+        </form>
+      </div>
     </div>
     <l-map
       v-if="showMap"
@@ -20,8 +39,12 @@
         :attribution="attribution"
       />
       <l-marker
-        :lat-lng="center"
-        :icon="icon"/>
+      :lat-lng="center"
+      :icon="icon"/>
+        <!-- v-for="business in businesses"
+        v-bind:key="business.id"
+        v-bind:lat-lng="latLng(business.latitude,business.longitude)"
+        v-bind:icon="icon"/> -->
     </l-map>
 
     {{this.data}}
@@ -45,7 +68,6 @@ export default {
     LIcon
   },
   created: function () {
-   this.getData();
   },
   data() {
     return {
@@ -68,9 +90,12 @@ export default {
       }),
       iconSize: 64,
       showMap: true,
-      nameBusiness:'Dunkin Donut',
+      nameBusiness:'Dunkin Donuts',
       address:'222 Broadway',
       data:{},
+      errors:[],
+      content:"",
+      businesses:[]
     };
   },
   computed: {
@@ -94,10 +119,54 @@ export default {
       alert("Click!");
     },
     getData:function(){
-      axios.get('https://data.cambridgema.gov/resource/9q33-qjp4.json?name='+this.nameBusiness+'s&&phone='+this.address)
-          .then((response) => {     
-          this.data= response.data;});
+      axios.get('https://data.cambridgema.gov/resource/9q33-qjp4.json?name='+this.nameBusiness)
+          .then((response) => {   
+          this.data= response.data;
+          }).catch(err => {
+            // handle error
+            this.errors.push(err.response.data.error);
+          })
+          .then(() => {
+            // always executed
+            this.content="";
+            this.errors=[];
+          });
     },
+    searchBusi:function(){
+      this.errors=[];
+      if (this.content === "") {
+        this.errors.push("Search cannot be empty.");
+        this.clearMessages();
+      } else {
+        this.nameBusiness=this.content;
+        this.getData();
+        // this.businesses=this.data.map(busiInfo => {
+        //   const geo = Geo.convert(busiInfo.phone);
+        //   /* eslint-disable no-console */
+        //   console.log(busiInfo);
+        //   console.log(geo);
+        //   /* eslint-enable no-console */
+        //   const lat=geo.latitude;
+        //   const lon=geo.longitude;
+        //   return {busiInfo,lat,lon};
+        // });
+
+      }
+    }
   }
 };
 </script>
+
+<style scoped>
+  .searchbar {
+    display : flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    margin: 10px 0px;
+  }
+
+  .searchbar * {
+    margin-right: 20px;
+  }
+</style>
