@@ -162,6 +162,7 @@ export default {
         this.errors.push("Search cannot be empty.");
         this.clearMessages();
       } else {
+        this.businesses=[];
         this.nameBusiness=this.content;
         this.getData();
 
