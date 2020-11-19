@@ -1,6 +1,7 @@
 const express = require('express');
 const Freets = require('../models/Freets');
 const Users = require('../models/Users');
+const Busi = require('../models/Business')
 const validators = require('./validators');
 
 const router = express.Router();
@@ -25,6 +26,7 @@ router.post('/create', [validators.ensureUserLoggedIn, validators.validateFreetL
  */
 router.get('/myFeed',[validators.ensureUserLoggedIn] ,(req, res) => {
     const user = Users.findUserID(req.session.uid);
+    const testgeo=Busi.createBusi('a','b','222 Broadway');
     req.session.username = user.username;
     let feed = user.getFreetFeed();
     if (feed.length === 0){
@@ -32,7 +34,6 @@ router.get('/myFeed',[validators.ensureUserLoggedIn] ,(req, res) => {
     }
     res.status(200).json({
         username: req.session.username, 
-        // message: "You are now signed in.",
         freets: feed      
     });
 });
