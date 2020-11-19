@@ -8,8 +8,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Map',
-      component: () => import('./views/Map.vue')
+      name: 'home',
+      component: () => import('./views/Home.vue')
     },
     {
       path: '/user/:username',
