@@ -9,15 +9,11 @@ const options = {
 
 const geocoder = NodeGeocoder(options);
 
-async function convert(){
+async function convert(addr){
     let res = await geocoder.geocode({
-        address: '222 Broadway Cambridge',
+        address: addr+'Cambridge',
         city:'Cambridge',
         country: 'United States',
       });
-    /*eslint-disable no-console */
-    console.log(res);
-    /*eslint-enable no-console */
     return res;}
-//convert();
-module.exports=geocoder;
+module.exports=convert;

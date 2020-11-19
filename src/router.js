@@ -8,7 +8,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'map',
+      name: 'home',
       component: () => import('./views/Map.vue')
     },
     {

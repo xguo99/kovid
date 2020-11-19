@@ -2,6 +2,7 @@ const express = require('express');
 const Freets = require('../models/Freets');
 const Users = require('../models/Users');
 const Busi = require('../models/Business')
+const convertGeo = require('../models/GeoCoder.js');
 const validators = require('./validators');
 
 const router = express.Router();
@@ -27,6 +28,10 @@ router.post('/create', [validators.ensureUserLoggedIn, validators.validateFreetL
 router.get('/myFeed',[validators.ensureUserLoggedIn] ,(req, res) => {
     const user = Users.findUserID(req.session.uid);
     const testgeo=Busi.createBusi('a','b','222 Broadway');
+     /*eslint-disable no-console */
+    console.log(testgeo);
+    console.log('hello');
+    /*eslint-enable no-console */
     req.session.username = user.username;
     let feed = user.getFreetFeed();
     if (feed.length === 0){
@@ -34,8 +39,25 @@ router.get('/myFeed',[validators.ensureUserLoggedIn] ,(req, res) => {
     }
     res.status(200).json({
         username: req.session.username, 
+        message: testgeo,
         freets: feed      
     });
+});
+
+router.put('/search',(req,res)=>{
+    const business=req.body.busi;
+    console.log(business);
+    const address=convertGeo(business.phone);
+    address.then(addr=>{
+        const latitude=addr[0].latitude;
+        const longitude=addr[0].longitude;
+        const busiInfo=business;
+        busiInfo['latitude']=latitude;
+        busiInfo['longitude']=longitude;
+        console.log(busiInfo);
+        res.status(200).json(busiInfo).end();
+    });
+   
 });
 
 /**
