@@ -9,17 +9,15 @@
         <form id='search-bar' v-on:submit.prevent='searchBusi' method='get'>
           <input id='content' v-model.trim='content' type='text' name='content'  placeholder="Business name...">
           <input type='submit' value="Search" id="searchBusi" class="button">
-          <!-- <div v-if='success' class="success-message">
-            {{ success }}
-          </div>
-          <div v-if='errors.length' class="error-message">
-            <b>Please correct the following error(s):</b>
-            <ul>
-              <li v-for='error in errors' v-bind:key='error.id'>{{ error }}</li>
-            </ul>
-          </div> -->
         </form>
       </div>
+
+      <div class="clearbar">
+        <form id='clear-bar' v-on:submit.prevent='clearPin' >
+          <input type='submit' value="Clear" id="clearPin" class="button">
+        </form>
+      </div>
+
     </div>
 
     <l-map
@@ -49,9 +47,12 @@
         </l-popup>
       </l-marker>
     </l-map>
+    <div v-if='success' class="success-message">
+            {{ success }}
+    </div>
     <div v-if='errors.length' class="error-message">
         <br>
-        <div v-for='error in errors' v-bind:key='error.id'>{{ error }}</div>
+    <div v-for='error in errors' v-bind:key='error.id'>{{ error }}</div>
     </div>
 
   </div>
@@ -172,6 +173,11 @@ export default {
         this.errors = [];
         this.success = "";
       }, 5000);
+    },
+    clearPin:function(){
+        this.error=[];
+        this.businesses=[];
+        this.nameBusiness='';
     }
   }
 };
@@ -187,5 +193,8 @@ export default {
   }
   .searchbar * {
     margin-right: 20px;
+  }
+  .clearbar{
+    display : flex;
   }
 </style>
