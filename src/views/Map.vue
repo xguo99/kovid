@@ -25,6 +25,7 @@
     </l-map>
 
     {{this.data}}
+    
   </div>
 </template>
 
@@ -64,13 +65,12 @@ export default {
       icon: icon({
         iconUrl: require("leaflet/dist/images/marker-icon.png"),
         iconSize: [32, 37],
-        iconAnchor: [16, 37]
-      }),
+        iconAnchor: [16, 37]}),
       iconSize: 64,
       showMap: true,
-      nameBusiness:'Dunkin Donut',
+      nameBusiness:'Dunkin Donuts',
       address:'222 Broadway',
-      data:{},
+      data:[],
     };
   },
   computed: {
@@ -94,9 +94,10 @@ export default {
       alert("Click!");
     },
     getData:function(){
-      axios.get('https://data.cambridgema.gov/resource/9q33-qjp4.json?name='+this.nameBusiness+'s&&phone='+this.address)
+      axios.get('https://data.cambridgema.gov/resource/9q33-qjp4.json?name='+this.nameBusiness)
           .then((response) => {     
-          this.data= response.data;});
+          this.data=response.data;
+          });
     },
   }
 };
