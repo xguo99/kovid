@@ -1,60 +1,67 @@
 <template>
-  <div style="height: 600px; width: 80%">
-    <div style="height: 200px overflow: auto;">
-      <p>Center is at {{ center }} and the zoom is: {{ currentZoom }}</p>
-      <!-- <button @click="showLongText">
-        Toggle long popup
-      </button> -->
-      <div class="searchbar">
-        <form id='search-bar' v-on:submit.prevent='searchBusi' method='get'>
-          <input id='content' v-model.trim='content' type='text' name='content'  placeholder="Business name...">
-          <input type='submit' value="Search" id="searchBusi" class="button">
-        </form>
+  <div>
+    <div class="business-login">
+      <div>
+        <router-link to="/account/business">For Business</router-link>
+      </div>
+    </div>
+    <div style="height: 600px; width: 80%">
+      <div style="height: 200px overflow: auto;">
+        <p>Center is at {{ center }} and the zoom is: {{ currentZoom }}</p>
+        <!-- <button @click="showLongText">
+          Toggle long popup
+        </button> -->
+        <div class="searchbar">
+          <form id='search-bar' v-on:submit.prevent='searchBusi' method='get'>
+            <input id='content' v-model.trim='content' type='text' name='content'  placeholder="Business name...">
+            <input type='submit' value="Search" id="searchBusi" class="button">
+          </form>
+        </div>
+
+        <div class="clearbar">
+          <form id='clear-bar' v-on:submit.prevent='clearPin' >
+            <input type='submit' value="Clear" id="clearPin" class="button">
+          </form>
+        </div>
+
       </div>
 
-      <div class="clearbar">
-        <form id='clear-bar' v-on:submit.prevent='clearPin' >
-          <input type='submit' value="Clear" id="clearPin" class="button">
-        </form>
+      <l-map
+        v-if="showMap"
+        :zoom="zoom"
+        :center="center"
+        :options="mapOptions"
+        style="height: 80%"
+        @update:center="centerUpdate"
+        @update:zoom="zoomUpdate"
+      >
+        <l-tile-layer
+          :url="url"
+          :attribution="attribution"
+        />
+        <l-marker
+          v-for="business in businesses"
+          v-bind:key="business.id"
+          :lat-lng="[business.latitude,business.longitude]"
+          :icon="icon">
+          <l-popup>
+            <div @click="innerClick">
+              <div>{{business.name}}</div>
+              <div>{{business.phone}}</div>
+              <div>{{business.status}}</div>
+            </div>
+          </l-popup>
+        </l-marker>
+      </l-map>
+      <div v-if='success' class="success-message">
+              {{ success }}
+      </div>
+      <div v-if='errors.length' class="error-message">
+          <br>
+      <div v-for='error in errors' v-bind:key='error.id'>{{ error }}</div>
       </div>
 
     </div>
-
-    <l-map
-      v-if="showMap"
-      :zoom="zoom"
-      :center="center"
-      :options="mapOptions"
-      style="height: 80%"
-      @update:center="centerUpdate"
-      @update:zoom="zoomUpdate"
-    >
-      <l-tile-layer
-        :url="url"
-        :attribution="attribution"
-      />
-      <l-marker
-        v-for="business in businesses"
-        v-bind:key="business.id"
-        :lat-lng="[business.latitude,business.longitude]"
-        :icon="icon">
-        <l-popup>
-          <div @click="innerClick">
-            <div>{{business.name}}</div>
-            <div>{{business.phone}}</div>
-            <div>{{business.status}}</div>
-          </div>
-        </l-popup>
-      </l-marker>
-    </l-map>
-    <div v-if='success' class="success-message">
-            {{ success }}
-    </div>
-    <div v-if='errors.length' class="error-message">
-        <br>
-    <div v-for='error in errors' v-bind:key='error.id'>{{ error }}</div>
-    </div>
-
   </div>
 </template>
 
