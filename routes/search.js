@@ -2,7 +2,6 @@ const express = require('express');
 const convertGeo = require('../models/GeoCoder.js');
 const router = express.Router();
 
-
 router.put('/search',(req,res)=>{
     const business=req.body.busi;
     const address=convertGeo(business.phone);

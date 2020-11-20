@@ -1,4 +1,6 @@
 const Geo = require('../models/GeoCoder.js');
+const db = require('../db/db_config');;
+
 /**
  * @typedef Business
  * @prop name - Business name
@@ -34,9 +36,10 @@ class Business {
     this.username = username.trim();
     this.password = password;
     this.address = address;
-    this.address = Geo.convert('222 Broadway');
     return this.address;
   }
+
+  
 
 }
 module.exports = Business;
