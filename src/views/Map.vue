@@ -4,6 +4,7 @@
       <router-link to="/account/business">For Business</router-link>
     </div>
 
+
     <div style="height: 600px; width: 80%">
       <div style="height: 200px overflow: auto;">
         <p>Center is at {{ center }} and the zoom is: {{ currentZoom }}</p>
@@ -56,6 +57,7 @@
           <br>
       <div v-for='error in errors' v-bind:key='error.id'>{{ error }}</div>
       </div>
+  </div>
   </div>
 </template>
 
@@ -197,5 +199,8 @@ export default {
   }
   .clearbar{
     display : flex;
+  }
+  .business-login{
+      font-size: x-large;
   }
 </style>
