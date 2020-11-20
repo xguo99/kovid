@@ -6,24 +6,24 @@ Purpose: Kovid aims to present users an interactive Cambridge map that embeds op
  
 
 ### Instructions to Run Locally:
-Command line: npm run serve frontend
-Another shell:npm run serve backend
-Access localhost 8080 browser
-Frontend- Map display center in Cambridge, MA,US
-Search bar with input EX: “Dunkin Donuts”
-Clear button
-Zoom in and out
-Business account creation (just frontend only)
-*Although we have created a local database that contains business accounts created, there is not yet a visibility difference between businesses that created accounts and ones that didn't in the frontend. 
+* Command line: npm run serve frontend
+* Another shell:npm run serve backend
+* Access localhost 8080 browser
+* Frontend- Map display center in Cambridge, MA,US
+* Search bar with input EX: “Dunkin Donuts”
+* Clear button
+* Zoom in and out
+* Business account creation (just frontend only)
+* Although we have created a local database that contains business accounts created, there is not yet a visibility difference between businesses that created accounts and ones that didn't in the frontend. 
 
 
 ### Authorship:
-General Code Structure: Winnie+Cindy
-Map API: Cindy+Winnie
-Search: Queenie
-PopUp: Queenie
-Geocode API:Winnie+Queenie
-GetData(government database):Winnie
-Initialized local database: Kelly+Cindy
-Account Login Page: Kelly+Cindy
+* General Code Structure: Winnie+Cindy
+* Map API: Cindy+Winnie
+* Search: Queenie
+* PopUp: Queenie
+* Geocode API:Winnie+Queenie
+* GetData(government database):Winnie
+* Initialized local database: Kelly+Cindy
+* Account Login Page: Kelly+Cindy
 
