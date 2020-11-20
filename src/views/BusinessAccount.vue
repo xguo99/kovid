@@ -31,7 +31,6 @@ export default {
   },
 
   created: function() {
-
     eventBus.$on("business-signup-success", () => {
       this.messages.push("Signup completed successfully.");
       this.clearMessages();

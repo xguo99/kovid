@@ -55,7 +55,7 @@
       <div v-if='errors.length' class="error-message">
           <br>
       <div v-for='error in errors' v-bind:key='error.id'>{{ error }}</div>
-      </div>
+    </div>
   </div>
 </template>
 

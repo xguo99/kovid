@@ -3,6 +3,7 @@
     <form id="sign-up" class='component' v-on:submit.prevent="signUp" method="post">
       <input id='username' v-model.trim='username' type='text' name='username' placeholder="User's name">
       <input id='password' v-model.trim='password' type='text' name='password' placeholder="User's password">
+      <input id='address' v-model.trim='address' type='text' name='address' placeholder="Business address">
       <input type='submit' value='Sign Up' class="button">
     </form>
     <div v-if='errors.length' class="error-message" style="width: 250px;">
@@ -25,13 +26,14 @@ export default {
     return {
       errors: [],
       username: "",
-      password: ""
+      password: "",
+      address: "",
     }
   },
 
   methods: {
     signUp: function() {
-      const bodyContent = { username: this.username, password: this.password};
+      const bodyContent = { username: this.username, password: this.password, address: this.address};
         axios
           .post("/account/business", bodyContent)
           .then(() => {
@@ -52,6 +54,7 @@ export default {
     resetForm: function() {
       this.username = "";
       this.password = "";
+      this.address = "";
     },
 
     clearMessages: function() {
