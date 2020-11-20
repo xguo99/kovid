@@ -46,3 +46,10 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+
+  .Map{
+      font-size: x-large;
+  }
+</style>
