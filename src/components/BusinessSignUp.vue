@@ -34,6 +34,7 @@ export default {
   methods: {
     signUp: function() {
       const bodyContent = { username: this.username, password: this.password, address: this.address};
+      eventBus.$emit('business-signup-success', true);
         axios
           .post("/account/business", bodyContent)
           .then(() => {
