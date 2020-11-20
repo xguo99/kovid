@@ -1,5 +1,9 @@
 <template>
   <div id="user-settings">
+    <div class="Map">
+      <router-link to="/">Interactive Map</router-link>
+    </div>
+
     <BusinessSignUp/>
 
     <div v-if='messages.length' class="success-message" style="text-align:center;">

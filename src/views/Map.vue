@@ -1,10 +1,9 @@
 <template>
   <div>
     <div class="business-login">
-      <div>
-        <router-link to="/account/business">For Business</router-link>
-      </div>
+      <router-link to="/account/business">For Business</router-link>
     </div>
+
     <div style="height: 600px; width: 80%">
       <div style="height: 200px overflow: auto;">
         <p>Center is at {{ center }} and the zoom is: {{ currentZoom }}</p>
