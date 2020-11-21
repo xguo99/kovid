@@ -10,7 +10,7 @@ const isProduction = process.env.NODE_ENV === 'production'; // process.env will 
 
 const indexRouter = require('./routes/index');
 const searchRouter = require('./routes/search');
-
+const businessRouter = require('./routes/business');
 const app = express();
 var history = require('connect-history-api-fallback');
 
@@ -31,6 +31,7 @@ app.use(express.static(path.join(__dirname, isProduction ? 'dist' : 'public')));
 // connect url hierarchies to our routers
 app.use('/', indexRouter);
 app.use('/api/searches', searchRouter);
+app.use('/api/account/business', businessRouter);
 
 /* GET 404 page. */
 app.get('*', (req, res) => {

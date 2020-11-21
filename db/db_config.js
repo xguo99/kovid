@@ -1,7 +1,7 @@
 require('dotenv').config(); // This allows us to use variables in .env file through process.env
 const pgp = require('pg-promise')();
 const isProduction = process.env.NODE_ENV === 'production'; // process.env will be used by heroku to provide configs and NODE_ENV will be set to production there.
-const localHostConnectionString = `postgresql://${'postgres'}:${'2020'}@${'localhost'}:${5432}/${'postgres'}`; // Make sure your .env file has all your database information for your localhost.
+const localHostConnectionString = `postgresql://${'postgres'}:${'2022'}@${'localhost'}:${5432}/${'postgres'}`; // Make sure your .env file has all your database information for your localhost.
 
 // name the columns of our tables for localization
 const columnNames = {
@@ -33,10 +33,10 @@ function createBusinessTable(){
         ${columnNames.address} TEXT NOT NULL,
         ${columnNames.latitude} REAL,
         ${columnNames.longitude} REAL,
-        ${columnNames.status} TEXT NOT NULL,
-        ${columnNames.category} TEXT NOT NULL,
-        ${columnNames.mask} TEXT NOT NULL,
-        ${columnNames.handSanitizer} TEXT NOT NULL,
+        ${columnNames.status} TEXT,
+        ${columnNames.category} TEXT,
+        ${columnNames.mask} TEXT,
+        ${columnNames.handSanitizer} TEXT,
         ${columnNames.capacity} SMALLINT
       )`).then(() => { console.log("Created Business table!");});
 }
