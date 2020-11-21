@@ -15,6 +15,7 @@ router.post('/', [], async (req, res) => {
         let business = await Business.addOne(name, req.body.password, req.body.address);
         res.status(200).json({business, message:"Business account created."}).end();
     } catch(err){
+        //res.status(400).json({error: err});
         res.status(400).json({error: `${name} has already been registered. Please register only once.`}).end();
     }
 });

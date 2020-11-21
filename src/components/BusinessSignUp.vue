@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form id="sign-up" class='component' v-on:submit.prevent="signUp" method="post">
+    <form id="sign-up" class='component' v-on:submit.prevent="validate" method="post">
       <input id='username' v-model.trim='username' type='text' name='username' placeholder="User's name">
       <input id='password' v-model.trim='password' type='text' name='password' placeholder="User's password">
       <input id='address' v-model.trim='address' type='text' name='address' placeholder="Business address">
@@ -31,24 +31,40 @@ export default {
     }
   },
 
-  methods: {
-    signUp: function() {
-      const bodyContent = { username: this.username, password: this.password, address: this.address};
-        axios
-          .post("/api/account/business", bodyContent)
-          .then(() => {
-            // handle success
-            eventBus.$emit('business-signup-success', true);
-          })
-          .catch(err => {
-            // handle error
-            this.errors.push(err.response.data.error);
-          })
-          .then(() => {
-            // always executed
-            this.resetForm();
-            this.clearMessages();
-          });
+  created: function() {
+      eventBus.$on("validate-success", () => {
+        const bodyContent = { username: this.username, password: this.password, address: this.address};
+          axios
+            .post("/api/account/business", bodyContent)
+            .then(() => {
+              // handle success
+              eventBus.$emit('business-signup-success', true);
+            })
+            .catch(err => {
+              // handle error
+              this.errors.push(err.response.data.error);
+            });
+      });
+  },
+
+  methods:{
+    validate: function() {
+      axios
+      .get(`https://data.cambridgema.gov/resource/9q33-qjp4.json?name=${this.username}&$$app_token=ERObVliHkBTapyjk2U0736EEU`)
+      .then((response)=>{
+        if (response.data.length === 0){ 
+          this.errors.push(`According the Cambridge government database, the entered business does not exist.`);
+        } else {
+          eventBus.$emit("validate-success");
+        }
+      })
+      .catch(() => {
+        this.errors.push(`trouble connecting to Cambridge government database.`);
+      })
+      .then(() => {
+        this.resetForm();
+        this.clearMessages();
+      });
     },
 
     resetForm: function() {

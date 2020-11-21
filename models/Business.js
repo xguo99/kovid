@@ -12,13 +12,7 @@ class Business {
     return db.run(`INSERT INTO businesses (
       ${db.columnNames.businessName}, ${db.columnNames.businessPassword}, ${db.columnNames.address})
       VALUES ('${name}', '${address}', '${password}');`)
-      .then(() => Business.findOne(name))
       .catch((err) => {throw err;});
-  }
-
-  static async findOne(name){
-    console.log(db.get(`SELECT * FROM businesses WHERE ${db.columnNames.businessName} = '${name}'`));
-    return db.get(`SELECT * FROM businesses WHERE ${db.columnNames.businessName} = '${name}'`);
   }
 }
 module.exports = Business;
