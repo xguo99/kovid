@@ -8,10 +8,10 @@ const db = require('../db/db_config');;
  */
 
 class Business {
-  static async addOne(name, password, businessName, address){
+  static async addOne(name, password, businessName, address, status, modification){
     return db.run(`INSERT INTO businesses (
-      ${db.columnNames.username}, ${db.columnNames.password}, ${db.columnNames.businessName}, ${db.columnNames.address})
-      VALUES ('${name}', '${password}', '${businessName}', '${address}');`)
+      ${db.columnNames.username}, ${db.columnNames.password}, ${db.columnNames.businessName}, ${db.columnNames.address}, ${db.columnNames.status}, ${db.columnNames.modification})
+      VALUES ('${name}', '${password}', '${businessName}', '${address}', '${status}', '${modification}');`)
       .catch((err) => {throw err;});
   }
   static async getOne(name, password){

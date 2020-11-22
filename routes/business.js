@@ -11,10 +11,10 @@ const router = express.Router();
  */
 router.post('/', [], async (req, res) => {        
     try{
-        let business = await Business.addOne(req.body.username, req.body.password, req.body.businessName, req.body.address);
+        let business = await Business.addOne(req.body.username, req.body.password, req.body.businessName, req.body.address, req.body.status, req.body.modification);
         res.status(200).json({business, message:"Business account created."}).end();
     } catch(err){
-        res.status(409).json({error: `${req.body.username} has already been registered. Please register only once.`}).end();
+      res.status(409).json({error: `${req.body.username} has already been registered. Please register only once.`}).end();
     }
 });
 
