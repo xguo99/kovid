@@ -53,9 +53,13 @@ export default {
       .get(`https://data.cambridgema.gov/resource/9q33-qjp4.json?name=${this.username}&$$app_token=ERObVliHkBTapyjk2U0736EEU`)
       .then((response)=>{
         if (response.data.length === 0){ 
-          this.errors.push(`According the Cambridge government database, the entered business does not exist.`);
+          this.errors.push(`According to the government database, the entered business does not exist.`);
         } else {
-          eventBus.$emit("validate-success");
+          if (response.data.map(b => b.phone).filter(e => e === this.address).length > 0){
+            eventBus.$emit("validate-success");
+          } else{
+            this.errors.push(`According to the government database, the entered address does not match the business.`);
+          }
         }
       })
       .catch(() => {
