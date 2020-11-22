@@ -1,13 +1,13 @@
 <template>
-  <div class="signup">
-    <form id="sign-up" class='component' v-on:submit.prevent="validate" method="post">
+  <div class="signin">
+    <form id="sign-in" class='component' v-on:submit.prevent="signin" method="post">
       <div class="header">
-        Sign Up
+        Sign In
       </div>
       <input id='username' v-model.trim='username' type='text' name='username' placeholder="User's name">
       <input id='password' v-model.trim='password' type='text' name='password' placeholder="User's password">
       <input id='address' v-model.trim='address' type='text' name='address' placeholder="Business address">
-      <input type='submit' value='Sign Up' class="button">
+      <input type='submit' value='Sign In' class="button">
     </form>
   </div>
 </template>
@@ -32,39 +32,37 @@ export default {
         const bodyContent = { username: this.username, password: this.password, address: this.address};
           axios
             .post("/api/business", bodyContent)
-            .then(() => {
+            .then((res) => {
               // handle success
-              eventBus.$emit('business-signup-success', true);
+              eventBus.$emit('business-signin-success', res.data.name);
             })
             .catch(err => {
               // handle error
-              eventBus.$emit('business-signup-error', err.response.data.error);
+              eventBus.$emit('business-signin-error', err.response.data.error);
             });
       });
   },
 
   methods:{
-    validate: function() {
+    signin: function(){
+      const bodyContent = { username: this.username,
+                            password: this.password,
+                            address: this.address
+                          };
       axios
-      .get(`https://data.cambridgema.gov/resource/9q33-qjp4.json?name=${this.username}&$$app_token=ERObVliHkBTapyjk2U0736EEU`)
-      .then((response)=>{
-        if (response.data.length === 0){ 
-          eventBus.$emit('business-signup-error', `According to the government database, the entered business does not exist.`);
-        } else {
-          if (response.data.map(b => b.phone).filter(e => e === this.address).length > 0){
-            eventBus.$emit("validate-success");
-          } else{
-            eventBus.$emit('business-signup-error', `According to the government database, the entered address does not match the business.`);
-          }
-        }
-      })
-      .catch(() => {
-        eventBus.$emit('business-signup-error', `trouble connecting to Cambridge government database.`);
-        this.errors.push(`trouble connecting to Cambridge government database.`);
-      })
-      .then(() => {
-        this.resetForm();
-      });
+          .post("/api/business/signin", bodyContent)
+          .then((res) => {
+            // handle success
+            eventBus.$emit('business-signin-success', res.data.businessname);
+          })
+          .catch(err => {
+            // handle error
+            eventBus.$emit('business-signin-error', err.response.data.error);
+          })
+          .then(() => {
+            // always executed
+            this.resetForm();
+          });
     },
 
     resetForm: function() {
@@ -83,10 +81,10 @@ export default {
 </script>
 
 <style scoped>
-.signup{
+.signin{
   width: 50%;
   display: flex;
-  justify-content: left;
+  justify-content: right;
   margin-top: 120px;
 }
 .header{
@@ -99,7 +97,8 @@ form {
   flex-direction: column;
   justify-content: center;
   width: fit-content;
-  padding-left: 50px;
+  padding-right: 50px;
+  margin-left: 50%;
 }
 
 input[type="text"],
