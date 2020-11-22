@@ -17,7 +17,7 @@ import axios from "axios";
 import { eventBus } from "../main";
 
 export default {
-  name: "BusinessSignUp",
+  name: "BusinessSignIn",
 
   data() {
     return {
@@ -40,7 +40,7 @@ export default {
           .post("/api/business/signin", bodyContent)
           .then((res) => {
             // handle success
-            eventBus.$emit('business-signin-success', res.data.businessname);
+            eventBus.$emit('business-signin-success', res.data.name);
           })
           .catch(err => {
             // handle error
