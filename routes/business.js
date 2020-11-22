@@ -25,15 +25,16 @@ router.post('/', [], async (req, res) => {
  */
 router.post('/signin', [], async (req, res) => { 
   if(req.body.username.length !== 0 && req.body.password.length !== 0 && req.body.address.length !== 0){
-    // if(req.session.username!==undefined){
-    //   res.status(400).json({error: `You are already signed in as ${req.session.username}.`}).end();
-    // }
-    let business = await Business.signIn(req.body.username, req.body.password, req.body.address);
-    if(business !== null){
-      req.session.username=req.body.username;
-      res.status(200).json({name:req.body.username, business, message:"Business account created."}).end();
+    if(req.session.username!==undefined){
+      res.status(400).json({error: `You are already signed in as ${req.session.username}.`}).end();
     }else{
-      res.status(400).json({error: `Credentials incorrect`}).end();
+      let business = await Business.signIn(req.body.username, req.body.password, req.body.address);
+      if(business !== null){
+        req.session.username=req.body.username;
+        res.status(200).json({name:req.body.username, business, message:"Business account created."}).end();
+      }else{
+        res.status(400).json({error: `Credentials incorrect`}).end();
+      }
     }
   }else{
     res.status(400).json({ error: 'Please enter username and password'}).end();

@@ -15,8 +15,8 @@ class Business {
       .catch((err) => {throw err;});
   }
   static async signIn(name, password, address){
-    return db.get(`SELECT * FROM businesses WHERE ${db.columnNames.businessName}='${name}' 
-      AND ${db.columnNames.businessPassword}='${password}' 
+    return db.get(`SELECT * FROM businesses WHERE ${db.columnNames.username}='${name}' 
+      AND ${db.columnNames.password}='${password}' 
       AND ${db.columnNames.address}='${address}'`)
       .catch((err)=> {throw err;});
   }
