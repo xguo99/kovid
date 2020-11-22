@@ -5,16 +5,17 @@ const localHostConnectionString = `postgresql://${'postgres'}:${'2022'}@${'local
 
 // name the columns of our tables for localization
 const columnNames = {
-    businessName: "businessName",
-    businessPassword: "businessPassword",
-    address: "address",
-    latitude: "latitude",
-    longitude: "longitude",
-    status: "status",
-    category: "category",
-    mask: "mask",
-    handSanitizer: "handSanitizer",
-    capacity: "capacity",
+  username: "username",
+  password: "password",
+  businessName: "businessName",
+  address: "address",
+  latitude: "latitude",
+  longitude: "longitude",
+  status: "status",
+  category: "category",
+  mask: "mask",
+  handSanitizer: "handSanitizer",
+  capacity: "capacity",
 };
 
 Object.freeze(columnNames);
@@ -28,9 +29,10 @@ function createBusinessDb(){
 
 function createBusinessTable(){
     return pgDb.none(`CREATE TABLE IF NOT EXISTS businesses (
-        ${columnNames.businessName} TEXT PRIMARY KEY,
-        ${columnNames.businessPassword} TEXT NOT NULL,
-        ${columnNames.address} TEXT NOT NULL,
+        ${columnNames.username} TEXT PRIMARY KEY,
+        ${columnNames.password} TEXT NOT NULL,
+        ${columnNames.businessName} TEXT NOT NULL,
+        ${columnNames.address} TEXT UNIQUE NOT NULL,
         ${columnNames.latitude} REAL,
         ${columnNames.longitude} REAL,
         ${columnNames.status} TEXT,

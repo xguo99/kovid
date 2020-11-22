@@ -6,6 +6,7 @@
       </div>
       <input id='username' v-model.trim='username' type='text' name='username' placeholder="User's name">
       <input id='password' v-model.trim='password' type='text' name='password' placeholder="User's password">
+      <input id='businessName' v-model.trim='businessName' type='text' name='businessName' placeholder="Business name">      
       <input id='address' v-model.trim='address' type='text' name='address' placeholder="Business address">
       <input type='submit' value='Sign Up' class="button">
     </form>
@@ -23,13 +24,14 @@ export default {
     return {
       username: "",
       password: "",
+      businessName: "",
       address: "",
     }
   },
 
   created: function() {
       eventBus.$on("validate-success", () => {
-        const bodyContent = { username: this.username, password: this.password, address: this.address};
+        const bodyContent = { username: this.username, password: this.password, businessName: this.businessName, address: this.address};
           axios
             .post("/api/business", bodyContent)
             .then(() => {
@@ -46,7 +48,7 @@ export default {
   methods:{
     validate: function() {
       axios
-      .get(`https://data.cambridgema.gov/resource/9q33-qjp4.json?name=${this.username}&$$app_token=ERObVliHkBTapyjk2U0736EEU`)
+      .get(`https://data.cambridgema.gov/resource/9q33-qjp4.json?name=${this.businessName}&$$app_token=ERObVliHkBTapyjk2U0736EEU`)
       .then((response)=>{
         if (response.data.length === 0){ 
           eventBus.$emit('business-signup-error', `According to the government database, the entered business does not exist.`);
@@ -70,6 +72,7 @@ export default {
     resetForm: function() {
       this.username = "";
       this.password = "";
+      this.businessName = "",
       this.address = "";
     },
 
