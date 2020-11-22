@@ -28,19 +28,6 @@ export default {
   },
 
   created: function() {
-      eventBus.$on("validate-success", () => {
-        const bodyContent = { username: this.username, password: this.password, address: this.address};
-          axios
-            .post("/api/business", bodyContent)
-            .then((res) => {
-              // handle success
-              eventBus.$emit('business-signin-success', res.data.name);
-            })
-            .catch(err => {
-              // handle error
-              eventBus.$emit('business-signin-error', err.response.data.error);
-            });
-      });
   },
 
   methods:{
