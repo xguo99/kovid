@@ -24,12 +24,12 @@ router.post('/', [], async (req, res) => {
  * @name POST /api/business/signin
  */
 router.post('/signin', [], async (req, res) => { 
-  if(req.body.username.length !== 0 && req.body.password.length !== 0 && req.body.address.length !== 0){
+  if(req.body.username.length !== 0 && req.body.password.length !== 0){
     if(req.session.username!==undefined){
       console.log(req.session.username);
       res.status(400).json({error: `You are already signed in as ${req.session.username}.`}).end();
     }else{
-      let business = await Business.getOne(req.body.username, req.body.password, req.body.address);
+      let business = await Business.getOne(req.body.username, req.body.password);
       if(business !== null){
         req.session.username=req.body.username;
         

@@ -14,10 +14,9 @@ class Business {
       VALUES ('${name}', '${password}', '${businessName}', '${address}');`)
       .catch((err) => {throw err;});
   }
-  static async getOne(name, password, address){
+  static async getOne(name, password){
     return db.get(`SELECT * FROM businesses WHERE ${db.columnNames.username}='${name}' 
-      AND ${db.columnNames.password}='${password}' 
-      AND ${db.columnNames.address}='${address}'`)
+      AND ${db.columnNames.password}='${password}'`)
       .catch((err)=> {throw err;});
   }
 }

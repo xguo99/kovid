@@ -6,7 +6,6 @@
       </div>
       <input id='username' v-model.trim='username' type='text' name='username' placeholder="User's name">
       <input id='password' v-model.trim='password' type='text' name='password' placeholder="User's password">
-      <input id='address' v-model.trim='address' type='text' name='address' placeholder="Business address">
       <input type='submit' value='Sign In' class="button">
     </form>
   </div>
@@ -23,7 +22,7 @@ export default {
     return {
       username: "",
       password: "",
-      address: "",
+
     }
   },
 
@@ -34,7 +33,6 @@ export default {
     signin: function(){
       const bodyContent = { username: this.username,
                             password: this.password,
-                            address: this.address
                           };
       axios
           .post("/api/business/signin", bodyContent)
@@ -55,7 +53,6 @@ export default {
     resetForm: function() {
       this.username = "";
       this.password = "";
-      this.address = "";
     },
 
     clearMessages: function() {
