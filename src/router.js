@@ -18,7 +18,7 @@ export default new Router({
       component: () => import('./views/ErrorPage.vue')
     }, 
     {
-      path: '/account/business',
+      path: '/business',
       name: 'businessAccount',
       component: () => import('./views/BusinessAccount.vue'),
     }

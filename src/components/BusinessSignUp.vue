@@ -35,7 +35,7 @@ export default {
       eventBus.$on("validate-success", () => {
         const bodyContent = { username: this.username, password: this.password, address: this.address};
           axios
-            .post("/api/account/business", bodyContent)
+            .post("/api/business", bodyContent)
             .then(() => {
               // handle success
               eventBus.$emit('business-signup-success', true);

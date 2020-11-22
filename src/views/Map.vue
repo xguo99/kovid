@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="business-login">
-      <router-link to="/account/business">For Business</router-link>
+      <router-link to="/business">For Business</router-link>
     </div>
 
 

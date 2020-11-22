@@ -7,7 +7,7 @@ const router = express.Router();
 /**
  * Create new business.
  * 
- * @name POST /api/account/business
+ * @name POST /api/business
  */
 router.post('/', [], async (req, res) => {
   const name = req.body.username;         
