@@ -1,7 +1,7 @@
 require('dotenv').config(); // This allows us to use variables in .env file through process.env
 const pgp = require('pg-promise')();
 const isProduction = process.env.NODE_ENV === 'production'; // process.env will be used by heroku to provide configs and NODE_ENV will be set to production there.
-const localHostConnectionString = `postgresql://${'postgres'}:${'2022'}@${'localhost'}:${5432}/${'postgres'}`; // Make sure your .env file has all your database information for your localhost.
+const localHostConnectionString = `postgresql://${'postgres'}:${'2020'}@${'localhost'}:${5432}/${'postgres'}`; // Make sure your .env file has all your database information for your localhost.
 
 // name the columns of our tables for localization
 const columnNames = {
@@ -45,19 +45,19 @@ function createBusinessTable(){
 
 // Helper wrapper functions that return promises that resolve when sql queries are complete.
 function run(sqlQuery) {
-  console.log("db run call", sqlQuery); // Adding this log to help with Heroku debugging if needed.
+  //console.log("db run call", sqlQuery); // Adding this log to help with Heroku debugging if needed.
   return pgDb.none(sqlQuery);
-};
+}
 
 function get(sqlQuery) {
-  console.log("db get call", sqlQuery); // Adding this log to help with Heroku debugging if needed.
+  //console.log("db get call", sqlQuery); // Adding this log to help with Heroku debugging if needed.
   return pgDb.oneOrNone(sqlQuery);
-};
+}
 
 function all(sqlQuery) {
-  console.log("db all call", sqlQuery); // Adding this log to help with Heroku debugging if needed.
+  //console.log("db all call", sqlQuery); // Adding this log to help with Heroku debugging if needed.
   return pgDb.any(sqlQuery);
-};
+}
 
 createBusinessDb();
 
