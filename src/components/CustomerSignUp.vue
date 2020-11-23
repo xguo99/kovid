@@ -1,12 +1,12 @@
 <template>
-  <div class="signin">
-    <form id="sign-in" class='component' v-on:submit.prevent="signin" method="post">
+  <div class="signup">
+    <form id="sign-up" class='component' v-on:submit.prevent="signup" method="post">
       <div class="header">
-        Sign In
+        Sign Up
       </div>
       <input id='username' v-model.trim='username' type='text' name='username' placeholder="User's name">
       <input id='password' v-model.trim='password' type='text' name='password' placeholder="User's password">
-      <input type='submit' value='Sign In' class="button">
+      <input type='submit' value='Sign Up' class="button">
     </form>
   </div>
 </template>
@@ -16,13 +16,12 @@ import axios from "axios";
 import { eventBus } from "../main";
 
 export default {
-  name: "BusinessSignIn",
+  name: "CustomerSignUp",
 
   data() {
     return {
       username: "",
       password: "",
-
     }
   },
 
@@ -30,23 +29,17 @@ export default {
   },
 
   methods:{
-    signin: function(){
-      const bodyContent = { username: this.username,
-                            password: this.password,
-                          };
-      axios
-          .post("/api/business/signin", bodyContent)
-          .then((res) => {
+    signup: function(){
+        const bodyContent = { username: this.username, password: this.password};
+        axios
+          .post("/api/customer", bodyContent)
+          .then(() => {
             // handle success
-            eventBus.$emit('business-signin-success', res.data.name);
+            eventBus.$emit('customer-signup-success', true);
           })
           .catch(err => {
             // handle error
-            eventBus.$emit('business-signin-error', err.response.data.error);
-          })
-          .then(() => {
-            // always executed
-            this.resetForm();
+            eventBus.$emit('customer-signup-error', err.response.data.error);
           });
     },
 
@@ -65,10 +58,10 @@ export default {
 </script>
 
 <style scoped>
-.signin{
+.signup{
   width: 50%;
   display: flex;
-  justify-content: right;
+  justify-content: left;
   margin-top: 70px;
 }
 .header{
@@ -81,8 +74,7 @@ form {
   flex-direction: column;
   justify-content: center;
   width: fit-content;
-  padding-right: 50px;
-  margin-left: 50%;
+  padding-left: 50px;
 }
 
 input[type="text"],

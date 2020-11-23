@@ -92,7 +92,7 @@ export default {
   width: 50%;
   display: flex;
   justify-content: left;
-  margin-top: 120px;
+  margin-top: 70px;
 }
 .header{
   margin-bottom: 10px;

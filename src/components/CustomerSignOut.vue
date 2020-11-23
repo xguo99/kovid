@@ -7,20 +7,19 @@
 <script>
 import axios from "axios";
 import { eventBus } from "../main";
-
 export default {
   name: "SignOut",
   
   methods: {
     signOut: function() {
-      axios.post('/api/business/signout',{})
+      axios.post('/api/customer/signout',{})
         .then(() => {
           // handle success
-          eventBus.$emit('business-signout-success', {});
+          eventBus.$emit('customer-signout-success', {});
         })
         .catch((err) => {
           // Still sign User out so they have to sign in again.
-          eventBus.$emit('business-signout-error', err.response);
+          eventBus.$emit('customer-signout-error', err.response);
         })
     }
   }

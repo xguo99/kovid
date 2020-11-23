@@ -1,9 +1,39 @@
 <template>
   <div>
-    <div class="business-login">
-      <router-link to="/business">For Business</router-link>
+    <div class="navbar">
+      <div class="left-bar">
+        <div class="Kovid">Kovid</div>
+        <div class="searchbar">
+          <form id='search-bar' v-on:submit.prevent='searchBusi' method='get'>
+            <input id='content' v-model.trim='content' type='text' name='content'  placeholder="Business name...">
+            <input type='submit' value="Search" id="searchBusi" class="button">
+            <input type='submit' value="Clear" id="clearPin" class="button">
+          </form>
+        </div>
+      </div>
+      <div v-if="!isSignedIn" class="login">
+        <div>
+          <router-link to="/business">Business SignIn</router-link>
+        </div>
+        <div>
+          <router-link to="/customer">Customer SignIn</router-link>
+        </div>
+      </div>
+      <div v-else class="login">
+        <router-link v-if="this.$cookie.get('account-type')==='business'" to="/business-homepage">{{username}}</router-link>
+        <router-link v-else to="/customer-profile">{{username}}</router-link>
+      </div>
     </div>
 
+    <div v-if='success.length' class="success-message" style="text-align:center;">
+      <div v-for='success_message in success' v-bind:key='success_message.id'>{{ success_message }}</div>
+    </div>
+    <div v-if='errors.length' class="error-message" style="width: 250px;">
+      <b>Please correct the following error(s):</b>
+      <ul>
+        <li v-for='error in errors' v-bind:key='error.id'>{{ error }}</li>
+      </ul>
+    </div>
 
     <div style="height: 600px; width: 80%">
       <div style="height: 200px overflow: auto;">
@@ -11,19 +41,6 @@
         <!-- <button @click="showLongText">
           Toggle long popup
         </button> -->
-        <div class="searchbar">
-          <form id='search-bar' v-on:submit.prevent='searchBusi' method='get'>
-            <input id='content' v-model.trim='content' type='text' name='content'  placeholder="Business name...">
-            <input type='submit' value="Search" id="searchBusi" class="button">
-          </form>
-        </div>
-
-        <div class="clearbar">
-          <form id='clear-bar' v-on:submit.prevent='clearPin' >
-            <input type='submit' value="Clear" id="clearPin" class="button">
-          </form>
-        </div>
-
       </div>
 
       <l-map
@@ -79,6 +96,13 @@ export default {
     LIcon
   },
   created: function () {
+    if(this.$cookie.get("auth")){
+      this.isSignedIn=true;
+      this.username=this.$cookie.get('auth');
+      /* eslint-disable no-console */
+          console.log(this.$cookie.get('auth'));
+          /* eslint-enable no-console */
+    }
     eventBus.$on("search-success", res => {
       this.data=res;
       this.data.forEach(busi=>{
@@ -118,8 +142,11 @@ export default {
       nameBusiness:'',
       data:[],
       errors:[],
+      success: '',
       content:"",
-      businesses:[]
+      businesses:[],
+      isSignedIn: false,
+      username: ''
     };
   },
   computed: {
@@ -197,10 +224,31 @@ export default {
   .searchbar * {
     margin-right: 20px;
   }
-  .clearbar{
-    display : flex;
-  }
-  .business-login{
+  .login{
       font-size: x-large;
+      display: flex;
+      flex-direction: row;
+      justify-content: right;
+  }
+  .login * {
+    margin-right: 10px;
+  }
+  .navbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .Kovid{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: xx-large;
+  }
+  .left-bar{
+    display: flex;
+    flex-direction: row;
+  }
+  .left-bar *{
+    margin-right: 15px;
   }
 </style>
