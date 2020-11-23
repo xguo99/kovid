@@ -40,7 +40,8 @@ export default {
           .catch(err => {
             // handle error
             eventBus.$emit('customer-signup-error', err.response.data.error);
-          });
+          })
+          .then(() => { this.resetForm(); });
     },
 
     resetForm: function() {
