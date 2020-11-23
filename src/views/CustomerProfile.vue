@@ -1,9 +1,11 @@
-
- <template>
- <div>
+<template>
+<div>
     <router-link to="/">Kovid</router-link>
     <div v-if="!this.$cookie.get('auth')">Not signed in view</div>
-    <div v-else-if="this.$cookie.get('account-type')==='customer'">Signed in customer view</div>
+    <div v-else-if="this.$cookie.get('account-type')==='customer'">
+      Signed in customer view
+      <button v-on:click="signOut">Sign Out</button>
+    </div>
     <div v-else>
         Signed in business view
         <button v-on:click="signOut">Sign Out</button>
@@ -17,23 +19,23 @@ import { eventBus } from "../main";
 export default {
   name: "SignOut",
   created:function(){
-    eventBus.$on("business-signout-success", () => {
+    eventBus.$on("customer-signout-success", () => {
       this.$cookie.set("auth",'');
       this.$cookie.set("account-type",'');
-      this.$router.push('/business').catch(()=>{});
+      this.$router.push('/customer').catch(()=>{});
     });
-
+    
   },
   methods: {
     signOut: function() {
-      axios.post('/api/business/signout',{})
+      axios.post('/api/customer/signout',{})
         .then(() => {
           // handle success
-          eventBus.$emit('business-signout-success', {});
+          eventBus.$emit('customer-signout-success', {});
         })
         .catch((err) => {
           // Still sign User out so they have to sign in again.
-          eventBus.$emit('business-signout-error', err.response.data.error);
+          eventBus.$emit('customer-signout-error', err.response.data.error);
         })
     }
   }

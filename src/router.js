@@ -24,9 +24,23 @@ export default new Router({
     },
     {
       path: '/business/:businessName/:businessAddress',
+      name: 'businessInfopage',
+      component: ()=> import('./views/BusinessInfoPage.vue'),
+    },
+    {
+      path: '/customer',
+      name: 'customerAccount',
+      component: () => import('./views/CustomerAccount.vue'),
+    },
+    {
+      path: '/business-homepage',
       name: 'businessHomepage',
-      component: ()=> import('./views/BusinessHomepage.vue'),
+      component: () => import('./views/BusinessHomepage.vue'),
+    },
+    {
+      path: '/customer-profile',
+      name: 'customerProfile',
+      component: () => import('./views/CustomerProfile.vue'),
     }
-
   ]
 })

@@ -11,6 +11,7 @@ const isProduction = process.env.NODE_ENV === 'production'; // process.env will 
 const indexRouter = require('./routes/index');
 const searchRouter = require('./routes/search');
 const businessRouter = require('./routes/business');
+const customerRouter = require('./routes/customer');
 const app = express();
 var history = require('connect-history-api-fallback');
 
@@ -32,6 +33,7 @@ app.use(express.static(path.join(__dirname, isProduction ? 'dist' : 'public')));
 app.use('/', indexRouter);
 app.use('/api/searches', searchRouter);
 app.use('/api/business', businessRouter);
+app.use('/api/customer', customerRouter);
 
 /* GET 404 page. */
 app.get('*', (req, res) => {

@@ -4,9 +4,12 @@
       <router-link id='link' to="/">Kovid</router-link>
     </div>
 
-    <div class="signin-signup">
-      <BusinessSignIn/>
-      <BusinessSignUp/>
+    <div v-if="!isSignedIn" class="signin-signup">
+      <CustomerSignIn/>
+      <CustomerSignUp/>
+    </div>
+    <div v-else class="signout">
+      <CustomerSignOut/>
     </div>
 
     <div v-if='success.length' class="success-message" style="text-align:center;">
@@ -22,51 +25,67 @@
 </template>
 
 <script>
-import BusinessSignUp from "../components/BusinessSignUp.vue";
-import BusinessSignIn from "../components/BusinessSignIn.vue";
+import CustomerSignUp from "../components/CustomerSignUp.vue";
+import CustomerSignIn from "../components/CustomerSignIn.vue";
+import CustomerSignOut from "../components/CustomerSignOut.vue";
 import { eventBus } from "../main";
 
 export default {
-  name: "BusinessAccount",
+  name: "CustomerAccount",
 
   components: {
-      BusinessSignUp,
-      BusinessSignIn
+      CustomerSignUp,
+      CustomerSignIn,
+      CustomerSignOut
   },
 
   data() {
     return {
+      isSignedIn: false,
       success: [],
       errors: []
     };
   },
 
   created: function() {
-    eventBus.$on("business-signup-success", () => {
+    let authenticated = this.$cookie.get("auth");
+    if (authenticated){
+      this.isSignedIn=true;
+    }
+    eventBus.$on("customer-signup-success", () => {
       this.success.push("Signup completed successfully.");
       this.clearMessages();
     });
 
-    eventBus.$on("business-signup-error", (err) => {
+    eventBus.$on("customer-signup-error", (err) => {
       this.errors.push(err);
       this.clearMessages();
     });
 
-    eventBus.$on("business-signin-success", (businessname) => {
-      this.$cookie.set("auth",businessname);
-      this.$cookie.set("account-type","business");
-      this.success.push(`Successfully signed in as ${businessname}.`);
-      if(this.$router.path!='/'){
-        this.$router.push('/').catch(()=>{});
-      }
+    eventBus.$on("customer-signin-success", (customername) => {
+      this.$cookie.set("auth",customername);
+      this.$cookie.set("account-type","customer");
+      this.isSignedIn=true;
+      this.success.push(`Successfully signed in as ${customername}.`);
+    //   if(this.$router.path!='/'){
+    //     this.$router.push('/');
+    //   }
       this.clearMessages();
     });
 
-    eventBus.$on("business-signin-error", (err) => {
+    eventBus.$on("customer-signin-error", (err) => {
       this.errors.push(err);
       this.clearMessages();
     });
-    eventBus.$on("business-signout-error", (err) => {
+    eventBus.$on("customer-signout-success", () => {
+      this.$cookie.set("auth",'');
+      this.$cookie.set("account-type",'');
+      this.isSignedIn=false;
+      this.success.push(`Successfully signed out.`);
+      this.clearMessages();
+    });
+
+    eventBus.$on("customer-signout-error", (err) => {
       this.errors.push(err);
       this.clearMessages();
     });

@@ -1,31 +1,31 @@
 const express = require('express');
 
-const Business = require('../models/Business');
+const Customer = require('../models/Customer');
 
 const router = express.Router();
 
 /**
- * Create new business.
+ * Create new customer.
  * 
- * @name POST /api/business
+ * @name POST /api/customer
  */
-router.post('/', [], async (req, res) => {   
-  if (req.body.username.length > 0 && req.body.password.length > 0){     
+router.post('/', [], async (req, res) => {
+  if(req.body.username.length !== 0 && req.body.password.length !== 0){        
     try{
-        let business = await Business.addOne(req.body.username, req.body.password, req.body.businessName, req.body.address, req.body.status, req.body.modification);
-        res.status(200).json({business, message:"Business account created."}).end();
+        let customer = await Customer.addOne(req.body.username, req.body.password);
+        res.status(200).json({customer, message:"Customer account created."}).end();
     } catch(err){
       res.status(409).json({error: `${req.body.username} has already been registered. Please register only once.`}).end();
     }
   } else{
-    res.status(400).json({ error: 'Please enter username and password'}).end();
+    res.status(400).json({error: `Please enter username and password`}).end();
   }
 });
 
 /**
- * Sign in to business account.
+ * Sign in to customer account.
  * 
- * @name POST /api/business/signin
+ * @name POST /api/customer/signin
  */
 router.post('/signin', [], async (req, res) => { 
   if(req.body.username.length !== 0 && req.body.password.length !== 0){
@@ -33,11 +33,10 @@ router.post('/signin', [], async (req, res) => {
       console.log(req.session.username);
       res.status(400).json({error: `You are already signed in as ${req.session.username}.`}).end();
     }else{
-      let business = await Business.getOne(req.body.username, req.body.password);
-      if(business !== null){
+      const match = await Customer.checkAuthentication(req.body.username, req.body.password);
+      if(match){
         req.session.username=req.body.username;
-        
-        res.status(200).json({name:req.body.username, business, message:"Sign in successful."}).end();
+        res.status(200).json({name: req.body.username,message:"Customer sign-in successful."}).end();
       }else{
         res.status(400).json({error: `Credentials incorrect`}).end();
       }
@@ -49,8 +48,8 @@ router.post('/signin', [], async (req, res) => {
 });
 
 /** 
- * Sign out of business account.
- * @name POST /api/business/signout 
+ * Sign out of customer account.
+ * @name POST /api/customer/signout 
  * @throws {400} if client is not already signed in
  */
 router.post('/signout', [], async (req, res) => { 

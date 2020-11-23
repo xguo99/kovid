@@ -8,16 +8,15 @@ const db = require('../db/db_config');;
  */
 
 class Business {
-  static async addOne(name, password, businessName, address){
+  static async addOne(name, password, businessName, address, status, modification){
     return db.run(`INSERT INTO businesses (
-      ${db.columnNames.username}, ${db.columnNames.password}, ${db.columnNames.businessName}, ${db.columnNames.address})
-      VALUES ('${name}', '${password}', '${businessName}', '${address}');`)
+      ${db.columnNames.username}, ${db.columnNames.password}, ${db.columnNames.businessName}, ${db.columnNames.address}, ${db.columnNames.status}, ${db.columnNames.modification})
+      VALUES ('${name}', '${password}', '${businessName}', '${address}', '${status}', '${modification}');`)
       .catch((err) => {throw err;});
   }
-  static async signIn(name, password, address){
+  static async getOne(name, password){
     return db.get(`SELECT * FROM businesses WHERE ${db.columnNames.username}='${name}' 
-      AND ${db.columnNames.password}='${password}' 
-      AND ${db.columnNames.address}='${address}'`)
+      AND ${db.columnNames.password}='${password}'`)
       .catch((err)=> {throw err;});
   }
 }

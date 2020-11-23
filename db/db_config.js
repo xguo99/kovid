@@ -12,6 +12,7 @@ const columnNames = {
   latitude: "latitude",
   longitude: "longitude",
   status: "status",
+  modification: "modification",
   category: "category",
   mask: "mask",
   handSanitizer: "handSanitizer",
@@ -25,23 +26,32 @@ let pgDb;
 function createBusinessDb(){
     pgDb = pgp(isProduction ? process.env.DATABASE_URL : localHostConnectionString);
     createBusinessTable();
+    createCustomerTable();
 }
 
 function createBusinessTable(){
-    return pgDb.none(`CREATE TABLE IF NOT EXISTS businesses (
-        ${columnNames.username} TEXT PRIMARY KEY,
-        ${columnNames.password} TEXT NOT NULL,
-        ${columnNames.businessName} TEXT NOT NULL,
-        ${columnNames.address} TEXT UNIQUE NOT NULL,
-        ${columnNames.latitude} REAL,
-        ${columnNames.longitude} REAL,
-        ${columnNames.status} TEXT,
-        ${columnNames.category} TEXT,
-        ${columnNames.mask} TEXT,
-        ${columnNames.handSanitizer} TEXT,
-        ${columnNames.capacity} SMALLINT
-      )`).then(() => { console.log("Created Business table!");});
-}
+  return pgDb.none(`CREATE TABLE IF NOT EXISTS businesses (
+    ${columnNames.username} TEXT PRIMARY KEY,
+    ${columnNames.password} TEXT NOT NULL,
+    ${columnNames.businessName} TEXT NOT NULL,
+    ${columnNames.address} TEXT UNIQUE NOT NULL,
+    ${columnNames.latitude} REAL,
+    ${columnNames.longitude} REAL,
+    ${columnNames.status} TEXT,
+    ${columnNames.modification} TEXT,
+    ${columnNames.category} TEXT,
+    ${columnNames.mask} TEXT,
+    ${columnNames.handSanitizer} TEXT,
+    ${columnNames.capacity} SMALLINT
+    )`).then(() => { console.log("Business table created.");});
+};
+
+function createCustomerTable(){
+  return pgDb.none(`CREATE TABLE IF NOT EXISTS customers (
+    ${columnNames.username} TEXT PRIMARY KEY,
+    ${columnNames.password} TEXT NOT NULL
+  )`).then(() => { console.log("Customer table created.");});
+};
 
 // Helper wrapper functions that return promises that resolve when sql queries are complete.
 function run(sqlQuery) {

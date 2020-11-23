@@ -30,18 +30,20 @@ export default {
   },
 
   created: function() {
-      eventBus.$on("validate-success", () => {
-        const bodyContent = { username: this.username, password: this.password, businessName: this.businessName, address: this.address};
-          axios
-            .post("/api/business", bodyContent)
-            .then(() => {
-              // handle success
-              eventBus.$emit('business-signup-success', true);
-            })
-            .catch(err => {
-              // handle error
-              eventBus.$emit('business-signup-error', err.response.data.error);
-            });
+      eventBus.$on("validate-success", (res) => {
+        const bodyContent = { username: this.username, password: this.password, 
+                              businessName: this.businessName, address: this.address,
+                              status: res[0].status, modification: res[0].modification};
+        axios
+          .post("/api/business", bodyContent)
+          .then(() => {
+            // handle success
+            eventBus.$emit('business-signup-success', true);
+          })
+          .catch(err => {
+            // handle error
+            eventBus.$emit('business-signup-error', err.response.data.error);
+          });
       });
   },
 
@@ -54,7 +56,7 @@ export default {
           eventBus.$emit('business-signup-error', `According to the government database, the entered business does not exist.`);
         } else {
           if (response.data.map(b => b.phone).filter(e => e === this.address).length > 0){
-            eventBus.$emit("validate-success");
+            eventBus.$emit("validate-success", response.data.filter(e => e.phone === this.address ));
           } else{
             eventBus.$emit('business-signup-error', `According to the government database, the entered address does not match the business.`);
           }
@@ -90,7 +92,7 @@ export default {
   width: 50%;
   display: flex;
   justify-content: left;
-  margin-top: 120px;
+  margin-top: 70px;
 }
 .header{
   margin-bottom: 10px;
