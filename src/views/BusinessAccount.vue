@@ -57,7 +57,7 @@ export default {
       this.$cookie.set("account-type","business");
       this.success.push(`Successfully signed in as ${businessname}.`);
       if(this.$router.path!='/'){
-        this.$router.push('/');
+        this.$router.push('/').catch(()=>{});
       }
       this.clearMessages();
     });

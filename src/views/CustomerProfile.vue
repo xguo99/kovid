@@ -22,7 +22,7 @@ export default {
     eventBus.$on("customer-signout-success", () => {
       this.$cookie.set("auth",'');
       this.$cookie.set("account-type",'');
-      this.$router.push('/customer');
+      this.$router.push('/customer').catch(()=>{});
     });
     
   },
