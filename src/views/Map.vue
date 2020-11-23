@@ -45,7 +45,7 @@
           :lat-lng="[business.latitude,business.longitude]"
           :icon="icon">
           <l-popup>
-            <div @click="innerClick">
+            <div @click="innerClick(business.name,business.phone)">
               <div>{{business.name}}</div>
               <div>{{business.phone}}</div>
               <div>{{business.status}}</div>
@@ -119,7 +119,7 @@ export default {
       data:[],
       errors:[],
       content:"",
-      businesses:[]
+      businesses:[],
     };
   },
   computed: {
@@ -139,8 +139,9 @@ export default {
     showLongText() {
       this.showParagraph = !this.showParagraph;
     },
-    innerClick() {
-      alert("Click!");
+    innerClick(name,address) {
+      //alert("Click!");
+      this.$router.push({ path: `/business/${name}/${address}` }) // -> /user/123;
     },
     getData:function(){
       axios.get('https://data.cambridgema.gov/resource/9q33-qjp4.json?name='+this.nameBusiness)
