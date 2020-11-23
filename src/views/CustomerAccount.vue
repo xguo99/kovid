@@ -67,9 +67,9 @@ export default {
       this.$cookie.set("account-type","customer");
       this.isSignedIn=true;
       this.success.push(`Successfully signed in as ${customername}.`);
-    //   if(this.$router.path!='/'){
-    //     this.$router.push('/');
-    //   }
+      if(this.$router.path!='/'){
+        this.$router.push('/').catch(()=>{});
+      }
       this.clearMessages();
     });
 
