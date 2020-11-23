@@ -38,7 +38,10 @@ export default {
           .post("/api/business/signin", bodyContent)
           .then((res) => {
             // handle success
-            eventBus.$emit('business-signin-success', res.data.name);
+          /* eslint-disable no-console */
+            console.log(res.data.name,res.data.bNam,res.data.bAdd);
+          /* eslint-enable no-console */
+            eventBus.$emit('business-signin-success', res.data.name,res.data.bName,res.data.bAdd);
           })
           .catch(err => {
             // handle error

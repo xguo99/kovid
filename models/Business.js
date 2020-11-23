@@ -19,5 +19,17 @@ class Business {
       AND ${db.columnNames.password}='${password}'`)
       .catch((err)=> {throw err;});
   }
+
+  static async getBusiName(name, password){
+    return db.get(`SELECT businessname FROM businesses WHERE ${db.columnNames.username}='${name}' 
+      AND ${db.columnNames.password}='${password}'`)
+      .catch((err)=> {throw err;});
+  }
+
+  static async getBusiAddress(name, password){
+    return db.get(`SELECT address FROM businesses WHERE ${db.columnNames.username}='${name}' 
+      AND ${db.columnNames.password}='${password}'`)
+      .catch((err)=> {throw err;});
+  }
 }
 module.exports = Business;

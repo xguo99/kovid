@@ -52,9 +52,11 @@ export default {
       this.clearMessages();
     });
 
-    eventBus.$on("business-signin-success", (businessname) => {
+    eventBus.$on("business-signin-success", (businessname,bName,bAdd) => {
       this.$cookie.set("auth",businessname);
-      this.$cookie.set("account-type","business");
+      this.$cookie.set("account-type","business");   
+      this.$cookie.set("bName",bName['businessname']); 
+      this.$cookie.set("bAdd",bAdd['address']); 
       this.success.push(`Successfully signed in as ${businessname}.`);
       if(this.$router.path!='/'){
         this.$router.push('/').catch(()=>{});

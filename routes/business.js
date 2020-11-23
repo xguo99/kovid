@@ -30,14 +30,17 @@ router.post('/', [], async (req, res) => {
 router.post('/signin', [], async (req, res) => { 
   if(req.body.username.length !== 0 && req.body.password.length !== 0){
     if(req.session.username!==undefined){
-      console.log(req.session.username);
+      //console.log(req.session.username);
       res.status(400).json({error: `You are already signed in as ${req.session.username}.`}).end();
     }else{
       let business = await Business.getOne(req.body.username, req.body.password);
+      let busiName = await Business.getBusiName(req.body.username, req.body.password);
+      let busiAddress= await Business.getBusiAddress(req.body.username, req.body.password);
       if(business !== null){
         req.session.username=req.body.username;
-        
-        res.status(200).json({name:req.body.username, business, message:"Sign in successful."}).end();
+        //console.log(busiName);
+        //console.log(busiAddress);
+        res.status(200).json({name:req.body.username, business,bName:busiName, bAdd: busiAddress,message:"Sign in successful."}).end();
       }else{
         res.status(400).json({error: `Credentials incorrect`}).end();
       }
@@ -45,7 +48,6 @@ router.post('/signin', [], async (req, res) => {
   }else{
     res.status(400).json({ error: 'Please enter username and password'}).end();
   }     
-      
 });
 
 /** 
