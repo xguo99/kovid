@@ -32,7 +32,7 @@ router.post('/signin', [], async (req, res) => {
       const match = await Customer.checkAuthentication(req.body.username, req.body.password);
       if(match){
         req.session.username=req.body.username;
-        res.status(200).json({message:"Customer sign-in successful."}).end();
+        res.status(200).json({name: req.body.username,message:"Customer sign-in successful."}).end();
       }else{
         res.status(400).json({error: `Credentials incorrect`}).end();
       }
