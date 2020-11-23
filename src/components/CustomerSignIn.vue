@@ -16,7 +16,7 @@ import axios from "axios";
 import { eventBus } from "../main";
 
 export default {
-  name: "BusinessSignIn",
+  name: "CustomerSignIn",
 
   data() {
     return {
@@ -35,14 +35,14 @@ export default {
                             password: this.password,
                           };
       axios
-          .post("/api/business/signin", bodyContent)
+          .post("/api/customer/signin", bodyContent)
           .then((res) => {
             // handle success
-            eventBus.$emit('business-signin-success', res.data.name);
+            eventBus.$emit('customer-signin-success', res.data.name);
           })
           .catch(err => {
             // handle error
-            eventBus.$emit('business-signin-error', err.response.data.error);
+            eventBus.$emit('customer-signin-error', err.response.data.error);
           })
           .then(() => {
             // always executed
