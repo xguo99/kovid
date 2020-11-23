@@ -36,12 +36,12 @@
     </div>
 
     <div style="height: 600px; width: 80%">
-      <div style="height: 200px overflow: auto;">
-        <p>Center is at {{ center }} and the zoom is: {{ currentZoom }}</p>
+      <!-- <div style="height: 200px overflow: auto;"> -->
+        <!-- <p>Center is at {{ center }} and the zoom is: {{ currentZoom }}</p> -->
         <!-- <button @click="showLongText">
           Toggle long popup
         </button> -->
-      </div>
+      <!-- </div> -->
 
       <l-map
         v-if="showMap"
