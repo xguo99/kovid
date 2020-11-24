@@ -232,7 +232,7 @@ export default {
     margin: 10px 0px;
   }
   .searchbar form{
-      margin-right:0px;
+    margin-right: 0px;
   }
   .searchbar * {
     display: flex;
