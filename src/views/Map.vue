@@ -20,10 +20,12 @@
         </div>
       </div>
       <div v-else class="login">
-        <router-link v-if="this.$cookie.get('account-type')==='business'" to="/business-homepage">{{username}}</router-link>
+        <router-link v-if="this.$cookie.get('account-type')==='business'" 
+        :to="{name:'businessInfopage',params:{businessName:this.$cookie.get('bName'),businessAddress:this.$cookie.get('bAdd')}}"
+        >{{username}}</router-link>
         <router-link v-else to="/customer-profile">{{username}}</router-link>
       </div>
-    </div>
+    </div>   
 
     <div v-if='success.length' class="success-message" style="text-align:center;">
       <div v-for='success_message in success' v-bind:key='success_message.id'>{{ success_message }}</div>
@@ -96,6 +98,7 @@ export default {
     LIcon
   },
   created: function () {
+    //this.$cookie.set("auth" ,'');
     if(this.$cookie.get("auth")){
       this.isSignedIn=true;
       this.username=this.$cookie.get('auth');

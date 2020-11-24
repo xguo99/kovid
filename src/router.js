@@ -33,11 +33,6 @@ export default new Router({
       component: () => import('./views/CustomerAccount.vue'),
     },
     {
-      path: '/business-homepage',
-      name: 'businessHomepage',
-      component: () => import('./views/BusinessHomepage.vue'),
-    },
-    {
       path: '/customer-profile',
       name: 'customerProfile',
       component: () => import('./views/CustomerProfile.vue'),
