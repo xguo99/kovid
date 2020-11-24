@@ -7,6 +7,8 @@
           <form id='search-bar' v-on:submit.prevent='searchBusi' method='get'>
             <input id='content' v-model.trim='content' type='text' name='content'  placeholder="Business name...">
             <input type='submit' value="Search" id="searchBusi" class="button">
+          </form>
+          <form id="clear-bar" v-on:submit.prevent='clearPin'>
             <input type='submit' value="Clear" id="clearPin" class="button">
           </form>
         </div>
@@ -220,12 +222,17 @@ export default {
 <style scoped>
   .searchbar {
     display : flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     padding: 10px;
     margin: 10px 0px;
   }
+  .searchbar form{
+    margin-right: 0px;
+  }
   .searchbar * {
+    display: flex;
+    align-items: center;
     margin-right: 20px;
   }
   .login{
