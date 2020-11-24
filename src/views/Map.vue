@@ -7,10 +7,15 @@
           <form id='search-bar' v-on:submit.prevent='searchBusi' method='get'>
             <input id='content' v-model.trim='content' type='text' name='content'  placeholder="Business name...">
             <input type='submit' value="Search" id="searchBusi" class="button">
+          </form>
+          <form id="clear-bar" v-on:submit.prevent='clearPin'>
             <input type='submit' value="Clear" id="clearPin" class="button">
           </form>
         </div>
+
       </div>
+
+      
       <div v-if="!isSignedIn" class="login">
         <div>
           <router-link to="/business">Business SignIn</router-link>
@@ -72,6 +77,7 @@
           </l-popup>
         </l-marker>
       </l-map>
+
       <div v-if='errors.length' class="error-message">
           <br>
       <div v-for='error in errors' v-bind:key='error.id'>{{ error }}</div>
@@ -85,7 +91,7 @@
 import axios from "axios";
 import { eventBus } from "../main";
 import { latLng ,icon} from "leaflet";
-import { LMap, LTileLayer, LMarker, LPopup, LTooltip,LIcon } from "vue2-leaflet";
+import { LMap, LTileLayer, LMarker, LPopup, LTooltip,LIcon} from "vue2-leaflet";
 
 export default {
   name: "Map",
@@ -220,12 +226,17 @@ export default {
 <style scoped>
   .searchbar {
     display : flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     padding: 10px;
     margin: 10px 0px;
   }
+  .searchbar form{
+      margin-right:0px;
+  }
   .searchbar * {
+    display: flex;
+    align-items: center;
     margin-right: 20px;
   }
   .login{

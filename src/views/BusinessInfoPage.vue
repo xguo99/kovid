@@ -1,19 +1,18 @@
 <template>
 <div>
-  <div class='back'>
+  <div class='button'>
+    <div id='back'>
       <router-link 
       :to="{name: 'home'}" 
       tag = "button"
       class='btn btn-primary'>
-      Back</router-link>   
-  </div>
-  <div>
+      Back</router-link> 
+    </div>  
     <div v-if="!this.$cookie.get('auth')">Not signed in view</div>
     <div v-else-if="this.$cookie.get('account-type')==='customer'">Signed in customer view</div>
-    <div v-else>
+    <div id='signout' v-else>
         <div v-if="this.$cookie.get('bAdd')==this.$route.params.businessAddress">
-        Signed in business view
-        <button v-on:click="signOut">Sign Out</button>
+        <button class='btn btn-primary' v-on:click="signOut">Sign Out</button>
         </div>
     </div>
 </div>
@@ -61,18 +60,14 @@ export default {
 </script>
 
 <style scoped>
-.signout{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin-top: 120px;
+.info{
+    font-size: x-large;
+    text-align: center;
 }
-*{
-    justify-content: flex;
-  }
-  .info{
-      font-size: x-large;
-      text-align: center;
-  }
+.button{
+  display: flex; 
+  justify-content: space-between;
+}
+  
 </style>
 
