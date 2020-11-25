@@ -18,6 +18,13 @@ const columnNames = {
   mask: "mask",
   handSanitizer: "handSanitizer",
   capacity: "capacity",
+  reviewer: "reviewer",
+  serviceRating: "serviceRating",
+  covidRating: "covidRating",
+  comment: "comment",
+  reviewID: "reviewID",
+  reviewTime: "reviewTime",
+  reply: "reply"
 };
 
 Object.freeze(columnNames);
@@ -28,6 +35,7 @@ function createBusinessDb(){
     pgDb = pgp(isProduction ? process.env.DATABASE_URL : localHostConnectionString);
     createBusinessTable();
     createCustomerTable();
+    createReviewReplyTable();
 }
 
 function createBusinessTable(){
@@ -53,6 +61,26 @@ function createCustomerTable(){
     ${columnNames.username} TEXT PRIMARY KEY,
     ${columnNames.password} TEXT NOT NULL
   )`).then(() => { console.log("Customer table created.");});
+};
+
+function createExtension(){
+  return pgDb.none(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`)
+    .then(() => { console.log("uuid extension created.");});
+};
+
+function createReviewReplyTable(){
+  createExtension();
+  return pgDb.none(`CREATE TABLE IF NOT EXISTS reviewreply (
+    ${columnNames.reviewer} TEXT NOT NULL,
+    ${columnNames.businessName} TEXT NOT NULL,
+    ${columnNames.address} TEXT NOT NULL,
+    ${columnNames.serviceRating} REAL NOT NULL,
+    ${columnNames.covidRating} REAL NOT NULL,
+    ${columnNames.comment} TEXT NOT NULL,
+    ${columnNames.reviewID} uuid DEFAULT uuid_generate_v4(),
+    ${columnNames.reviewTime} TIMESTAMPTZ NOT NULL,
+    ${columnNames.reply} TEXT
+  )`).then(() => { console.log("ReviewReply table created.");});
 };
 
 // Helper wrapper functions that return promises that resolve when sql queries are complete.
