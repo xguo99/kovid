@@ -65,4 +65,28 @@ router.post('/signout', [], async (req, res) => {
   }
 });
 
+/**
+ * Get Description
+ * @name POST /api/business/description
+ */
+router.post('/description',[],async (req,res)=>{
+  try{
+  let description = await Business.getBusiDescription(req.body.name, req.body.address);
+  res.status(200).json({data:description, message: 'Get description'});
+  }
+  catch{
+    res.status(400).json({error: `Failed`}).end();
+  }
+});
+
+/**
+ * Update Description
+ * @name PUT /api/business/description
+ */
+
+ router.put('/description',[],async (req,res)=>{
+    let business = await Business.addBusiDescription(req.body.name, req.body.address, req.body.content);
+    res.status(200).json({business, message:"Description Updated"}).end();
+ })
+
 module.exports = router;

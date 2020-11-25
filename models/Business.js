@@ -1,4 +1,4 @@
-const db = require('../db/db_config');;
+const db = require('../db/db_config');
 
 /**
  * @typedef Business
@@ -29,6 +29,18 @@ class Business {
   static async getBusiAddress(name, password){
     return db.get(`SELECT address FROM businesses WHERE ${db.columnNames.username}='${name}' 
       AND ${db.columnNames.password}='${password}'`)
+      .catch((err)=> {throw err;});
+  }
+
+  static async getBusiDescription(name, address){
+    return db.get(`SELECT description FROM businesses WHERE ${db.columnNames.businessName}='${name}' 
+      AND ${db.columnNames.address}='${address}'`)
+      .catch((err)=> {throw err;});
+  }
+
+  static async addBusiDescription(name, address,text){
+    return db.run(`UPDATE businesses SET ${db.columnNames.description}='${text}' WHERE ${db.columnNames.businessName}='${name}' 
+      AND ${db.columnNames.address}='${address}'`)
       .catch((err)=> {throw err;});
   }
 }
