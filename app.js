@@ -13,6 +13,7 @@ const searchRouter = require('./routes/search');
 const businessRouter = require('./routes/business');
 const customerRouter = require('./routes/customer');
 const reviewRouter = require('./routes/review');
+const replyRouter = require('./routes/reply');
 const app = express();
 var history = require('connect-history-api-fallback');
 
@@ -36,6 +37,7 @@ app.use('/api/searches', searchRouter);
 app.use('/api/business', businessRouter);
 app.use('/api/customer', customerRouter);
 app.use('/api/review', reviewRouter);
+app.use('/api/reply', replyRouter);
 
 /* GET 404 page. */
 app.get('*', (req, res) => {

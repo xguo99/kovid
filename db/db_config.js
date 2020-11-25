@@ -71,7 +71,7 @@ function createReviewReplyTable(){
   return pgDb.none(`CREATE TABLE IF NOT EXISTS reviewreply (
     ${columnNames.reviewer} TEXT NOT NULL,
     ${columnNames.businessName} TEXT NOT NULL,
-    ${columnNames.address} TEXT NOT NULL,
+    ${columnNames.address} TEXT PRIMARY KEY,
     ${columnNames.serviceRating} REAL NOT NULL,
     ${columnNames.covidRating} REAL NOT NULL,
     ${columnNames.comment} TEXT NOT NULL,
@@ -97,6 +97,10 @@ function all(sqlQuery) {
   return pgDb.any(sqlQuery);
 }
 
+function one(sqlQuery) {
+  return pgDb.one(sqlQuery);
+}
+
 createBusinessDb();
 
 module.exports = {
@@ -104,4 +108,5 @@ module.exports = {
   run,
   get,
   all,
+  one
 };
