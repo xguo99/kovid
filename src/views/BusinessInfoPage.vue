@@ -23,6 +23,10 @@
       <br>
       {{this.$route.params.businessAddress}}
   </div>
+
+  <div>
+    <Description/>
+  </div>
 </div>
 
 </template>
@@ -30,9 +34,13 @@
 <script>
 import axios from "axios";
 import { eventBus } from "../main";
+import Description from "../components/Description.vue";
 
 export default {
-  name: "SignOut",
+  name: "InfoPage",
+  components: {
+     Description
+  },
   created:function(){
     eventBus.$on("business-signout-success", () => {
       this.$cookie.set("auth",'');
