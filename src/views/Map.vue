@@ -77,7 +77,6 @@
           </l-popup>
         </l-marker>
       </l-map>
-
       <div v-if='errors.length' class="error-message">
           <br>
       <div v-for='error in errors' v-bind:key='error.id'>{{ error }}</div>

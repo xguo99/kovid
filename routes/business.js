@@ -89,4 +89,28 @@ router.post('/description',[],async (req,res)=>{
     res.status(200).json({business, message:"Description Updated"}).end();
  })
 
+ /**
+ * Get Category
+ * @name POST /api/business/category
+ */
+router.post('/category',[],async (req,res)=>{
+  try{
+  let category = await Business.getBusiCategory(req.body.name, req.body.address);
+  res.status(200).json({data:category, message: 'Get category'});
+  }
+  catch{
+    res.status(400).json({error: `Failed`}).end();
+  }
+});
+
+/**
+ * Update Category
+ * @name PUT /api/business/category
+ */
+
+ router.put('/category',[],async (req,res)=>{
+    let business = await Business.addBusiCategory(req.body.name, req.body.address, req.body.content);
+    res.status(200).json({business, message:"Category Updated"}).end();
+ })
+
 module.exports = router;

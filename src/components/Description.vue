@@ -12,10 +12,46 @@
         <input 
             v-model='newContent'
             type='text'>
-        <button type="button" class="btn-primary" size='sm'
+        <button type="button" class="btn-info" size='sm'
                 v-on:click='save'>Save
                 </button>
-         </div>  
+         </div> 
+        <div>
+          <span>Category: {{selected}}</span>
+          <div v-if="this.$cookie.get('bName')== this.$route.params.businessName && this.$cookie.get('bAdd')== this.$route.params.businessAddress" 
+          class='category'>
+            <button type="button" class="btn-primary" size='sm'
+                v-on:click='yesC'>Edit
+            </button>
+           <div v-if='editC'>
+            <select v-model="newSelected">
+            <option disabled value="">Please select one</option>
+            <option>Arts/Entertainment</option>
+            <option>Coffee/Tea</option>
+            <option>Education</option>
+            <option>Event Planning</option>
+            <option>Financial Services</option>
+            <option>Food</option>
+            <option>Health/Medicial</option>
+            <option>Hotels/Travel</option>
+            <option>Local Services</option>
+            <option>Mass Media</option>
+            <option>Pet</option>
+            <option>Professional Services</option>
+            <option>Public/Government Services</option>
+            <option>Real Estate</option>
+            <option>Religious Organizations</option>
+            <option>Others</option>
+        </select>
+          
+          <button type="button" class="btn-info" size='sm'
+                v-on:click='saveC'>Save
+          </button>
+          </div>
+        </div>
+
+        </div> 
+         
     </div> 
   </div>
   
@@ -23,15 +59,17 @@
 
 <script>
 import axios from "axios";
-import { eventBus } from "../main";
 
   export default {
     data() {
       return {
         text: 'N/A',
+        editC:false,
         edit:false,
         newContent:'',
         success:[],
+        selected:'',
+        newSelected:''
       }
     },
     created:function(){
@@ -42,12 +80,24 @@ import { eventBus } from "../main";
       this.edit=!this.edit;
       this.newContent=this.text;
     },
+    yesC:function(){
+      this.editC=!this.editC;
+      this.newSelected=this.selected;
+    },
     save:function(){
      this.text=this.newContent;
      const bodyContent = { name: this.$route.params.businessName, address: this.$route.params.businessAddress,content:this.text};
      axios.put('/api/business/description',bodyContent)
      .then(()=>{
-         eventBus.$emit('descrpition-success', {});
+         this.success.push('updated!');
+     })  
+    },
+    saveC:function(){
+      this.selected=this.newSelected;
+      const bodyContent = { name: this.$route.params.businessName, address: this.$route.params.businessAddress,content:this.selected};
+      axios.put('/api/business/category',bodyContent)
+      .then(()=>{
+         this.success.push('updated!');
      })  
     },
     update:function(){
@@ -60,6 +110,13 @@ import { eventBus } from "../main";
           }
           else{
               this.text=res.data.data['description'];
+          }
+        })
+        axios.post('/api/business/category',bodyContent)
+        .then((res) => {
+          // handle success
+          if(res.data.data['category'] != null){
+              this.selected=res.data.data['category'];
           }
         })
     }
@@ -84,6 +141,10 @@ import { eventBus } from "../main";
 .mt-2{
     text-align: left;
 }
+.category{
+  display:inline;
+}
+
 
 
 

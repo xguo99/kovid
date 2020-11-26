@@ -43,5 +43,17 @@ class Business {
       AND ${db.columnNames.address}='${address}'`)
       .catch((err)=> {throw err;});
   }
+
+  static async getBusiCategory(name, address){
+    return db.get(`SELECT category FROM businesses WHERE ${db.columnNames.businessName}='${name}' 
+      AND ${db.columnNames.address}='${address}'`)
+      .catch((err)=> {throw err;});
+  }
+
+  static async addBusiCategory(name, address,select){
+    return db.run(`UPDATE businesses SET ${db.columnNames.category}='${select}' WHERE ${db.columnNames.businessName}='${name}' 
+      AND ${db.columnNames.address}='${address}'`)
+      .catch((err)=> {throw err;});
+  }
 }
 module.exports = Business;
