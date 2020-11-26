@@ -30,6 +30,10 @@
     <Rating/>
     <Review/>
   </div>
+
+  <div v-if="this.$cookie.get('auth') && this.$cookie.get('account-type')==='customer'">
+    <ReviewBox/>
+  </div>
 </div>
 
 </template>
@@ -38,13 +42,17 @@
 import axios from "axios";
 import { eventBus } from "../main";
 import Description from "../components/Description.vue";
+
+import ReviewBox from "../components/ReviewBox.vue";
 import Rating from "../components/Rating.vue";
 import Review from "../components/Review.vue";
+
 
 export default {
   name: "InfoPage",
   components: {
      Description,
+     ReviewBox,
      Rating,
      Review
   },

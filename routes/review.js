@@ -10,7 +10,7 @@ const router = express.Router();
  * @name POST /api/review
  */
 router.post('/', [], async (req, res) => {   
-  if (req.body.service.length > 0 && req.body.covid.length > 0 && req.body.comment.length>0){     
+  if (req.body.service > 0 && req.body.covid > 0 && req.body.comment.length>0){     
     try{
         await Review.addOne(req.body.username, req.body.business, req.body.address, req.body.service, req.body.covid, req.body.comment);
         res.status(200).json({message:"Successfully posted your review!."}).end();
