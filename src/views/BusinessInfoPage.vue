@@ -27,6 +27,8 @@
 
   <div>
     <Description/>
+    <Rating/>
+    <Review/>
   </div>
 </div>
 
@@ -36,11 +38,15 @@
 import axios from "axios";
 import { eventBus } from "../main";
 import Description from "../components/Description.vue";
+import Rating from "../components/Rating.vue";
+import Review from "../components/Review.vue";
 
 export default {
   name: "InfoPage",
   components: {
-     Description
+     Description,
+     Rating,
+     Review
   },
   created:function(){
     eventBus.$on("business-signout-success", () => {
