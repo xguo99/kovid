@@ -1,40 +1,25 @@
 <template>
-  <div class='rating'>
+  <div class='review'>
       <div class='title'>
         Reviews
       </div>
       <hr> 
+      <ReviewList/>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+import ReviewList from "../components/ReviewList.vue";
 
   export default {
-    data() {
-      return {
-        serviceRating: "N/A",
-        covidRating:"N/A"
-      }
-    },
-    created:function(){
-      this.update();
-    },
-    methods: {
-      update:function(){
-        axios.get('/api/review/business/'+`${this.$route.params.businessName}/`+`${this.$route.params.businessAddress}`,{})
-        .then((res) => {
-          // handle success
-          this.serviceRating=(res.data.serviceRating!=="N/A")?`${res.data.serviceRating}`+"/5":res.data.serviceRating;
-          this.covidRating=(res.data.covidRating!=="N/A")?`${res.data.covidRating}`+"/5":res.data.covidRating;
-        })
-      }
+    components: {
+        ReviewList
     }
   }
 </script>
 
 <style scoped>
-.rating{
+.review{
     width: 100%;
     margin-top: 40px;
 }
@@ -53,36 +38,7 @@ hr{
   margin-bottom: 0;
 }
 /* #0275d8 */
-.rating-container{
-    display:flex;
-    flex-direction: row;
-    margin: 10%;
-    margin-top:0;
-    padding: 10px;
-    width: 80%;
-}
-.service{
-    width:50%;
-    font-size: 1.7em;
-}
-.covid{
-    width:50%;
-    font-size: 1.7em;
-}
-#service-title{
-    margin-left: 80px;
-    color: orange;
-}
-#service-rating{
-    margin-left: 100px;
-}
-#covid-title{
-    margin-left: 30px;
-    color: orange;
-}
-#covid-rating{
-    margin-left: 100px;
-}
+
 
 
 

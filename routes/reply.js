@@ -16,7 +16,6 @@ router.post('/', [], async (req, res) => {
         res.status(200).json({message:"Successfully posted your reply!."}).end();
     } catch(err){
         res.status(400).json({error: err}).end();
-
         //res.status(400).json({error: `You have to sign in as the business owner to reply to any review`}).end();
     }
   } else{

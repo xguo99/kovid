@@ -80,17 +80,21 @@ hr{
 }
 #service-title{
     margin-left: 80px;
-    color: orange;
+    /* color: orange; */
 }
 #service-rating{
     margin-left: 100px;
+        color: orange;
+
 }
 #covid-title{
     margin-left: 30px;
-    color: orange;
+    /* color: orange; */
 }
 #covid-rating{
     margin-left: 100px;
+        color: orange;
+
 }
 
 
