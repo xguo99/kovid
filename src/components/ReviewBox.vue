@@ -1,25 +1,28 @@
 <template>
-  <div class="subcontainer">
-    <div class="review-form-container">
-      <form id='create-review' v-on:submit.prevent='createReview' method='post'>
+  <div class="new-review">
+    <div class='title'>
+      Make a review:
+    </div>
+    <div class="review-container">
+        <form id='create-review' v-on:submit.prevent='createReview' method='post'>
+            service rating: <star-rating v-model="serviceRating" star-size="30"></star-rating>
+            covid rating: <star-rating v-model="covidRating" star-size="30"></star-rating>
+            <br>
+            <textarea id="content" v-model.trim='content' name="content" rows="4" cols="115" placeholder="How do you like our service? Enter here..."></textarea>
+            <div class='submit-button'>
+                <input type='submit' value="Post Review" id="createReview" class="button">
+            </div>
+            <div v-if='success' class="success-message">
+                {{ success }}
+            </div>
 
-        service rating: <star-rating v-model="serviceRating"></star-rating>
-        covid rating: <star-rating v-model="covidRating"></star-rating>
-        <input id='content' v-model.trim='content' type='text' name='content'  placeholder="How do you like our service? Enter here...">
-
-        <input type='submit' value="Post Review" id="createReview" class="button">
-
-        <div v-if='success' class="success-message">
-          {{ success }}
-        </div>
-
-        <div v-if='errors.length' class="error-message">
-          <b>Please correct the following error(s):</b>
-          <ul>
-            <li v-for='error in errors' v-bind:key='error.id'>{{ error }}</li>
-          </ul>
-        </div>
-      </form>
+            <div v-if='errors.length' class="error-message">
+                <b>Please correct the following error(s):</b>
+                <ul>
+                <li v-for='error in errors' v-bind:key='error.id'>{{ error }}</li>
+                </ul>
+            </div>
+        </form>
     </div>
   </div>
 </template>
@@ -98,3 +101,29 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.new-review{
+    width: 100%;
+    margin-top: 40px;
+}
+.title{
+  margin-top: 0;
+  margin-left: 10%;
+  font-size: 1.7em;
+  margin-bottom: 2px;
+}
+.submit-button{
+    text-align: right;
+}
+
+.review-container{
+    display:flex;
+    flex-direction: row;
+    margin: 10%;
+    margin-top:0;
+    padding: 10px;
+    width: 80%;
+    margin-bottom: 0;
+}
+</style>
