@@ -17,11 +17,12 @@
     </div>
 </div>
   <div class='info'>
-      Welcome!
-      <br>
+      <div class='bName'>
       {{this.$route.params.businessName}}
-      <br>
+      </div>
+      <div class='bAddr'>
       {{this.$route.params.businessAddress}}
+      </div>
   </div>
 
   <div>
@@ -69,8 +70,18 @@ export default {
 
 <style scoped>
 .info{
-    font-size: x-large;
+    margin-top: 20px;
     text-align: center;
+}
+.bName{
+  font: icon;
+  font-weight: 900;
+  font-size: 2.7em;
+}
+.bAddr{
+  margin-top: 5px;
+  font-size: 1.4em;
+  font-weight: 300;
 }
 .button{
   display: flex; 

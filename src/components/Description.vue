@@ -1,5 +1,8 @@
 <template>
   <div class='box'>
+      <div class='title'>
+        About the Business
+      </div>
       <div class='descript-container'>
           <div v-if="this.$cookie.get('bName')== this.$route.params.businessName && this.$cookie.get('bAdd')== this.$route.params.businessAddress" 
           class='actions'>
@@ -7,7 +10,7 @@
                 v-on:click='yes'>Edit
                 </button>
           </div>
-        <div class="mt-2">Business Description: {{ text }}</div>
+        <div class="mt-2">{{ text }}</div>
         <div class='edit-descript' v-if="edit">
         <input 
             v-model='newContent'
@@ -17,7 +20,7 @@
                 </button>
          </div> 
         <div>
-          <span>Category: {{selected}}</span>
+          <span id='category'>Category:</span><span id='selected'> {{selected}}</span>
           <div v-if="this.$cookie.get('bName')== this.$route.params.businessName && this.$cookie.get('bAdd')== this.$route.params.businessAddress" 
           class='category'>
             <button type="button" class="btn-primary" size='sm'
@@ -128,21 +131,37 @@ import axios from "axios";
 .box{
     width: 100%;
 }
+.title{
+  margin-top: 5%;
+  margin-left: 10%;
+  font-size: 1.7em;
+  /* font-weight: 500; */
+  margin-bottom: 2px;
+}
 .descript-container{
     margin: 10%;
-    margin-top:5%;
+    margin-top:0;
     padding: 10px;
     width: 80%;
-    border: 5px solid;
+    border: 1px solid;
 }
 .btn-primary{
     float:right;
 }
 .mt-2{
     text-align: left;
+    font-size: 1.4em;
 }
 .category{
   display:inline;
+}
+#category{
+  font-weight: 600;
+  color:orange;
+  font-size: 1.3em;
+}
+#selected{
+  font-size: 1.2em;
 }
 
 
