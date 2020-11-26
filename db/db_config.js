@@ -73,11 +73,11 @@ function createReviewReplyTable(){
   return pgDb.none(`CREATE TABLE IF NOT EXISTS reviewreply (
     ${columnNames.reviewer} TEXT NOT NULL,
     ${columnNames.businessName} TEXT NOT NULL,
-    ${columnNames.address} TEXT PRIMARY KEY,
+    ${columnNames.address} TEXT NOT NULL,
     ${columnNames.serviceRating} REAL NOT NULL,
     ${columnNames.covidRating} REAL NOT NULL,
     ${columnNames.comment} TEXT NOT NULL,
-    ${columnNames.reviewID} uuid DEFAULT uuid_generate_v4(),
+    ${columnNames.reviewID} uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
     ${columnNames.reviewTime} TIMESTAMPTZ NOT NULL,
     ${columnNames.reply} TEXT
   )`).then(() => { console.log("ReviewReply table created.");});

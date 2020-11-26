@@ -28,6 +28,10 @@
   <div>
     <Description/>
   </div>
+
+  <div v-if="this.$cookie.get('auth') && this.$cookie.get('account-type')==='customer'">
+    <ReviewBox/>
+  </div>
 </div>
 
 </template>
@@ -36,11 +40,13 @@
 import axios from "axios";
 import { eventBus } from "../main";
 import Description from "../components/Description.vue";
+import ReviewBox from "../components/ReviewBox.vue";
 
 export default {
   name: "InfoPage",
   components: {
-     Description
+     Description,
+     ReviewBox
   },
   created:function(){
     eventBus.$on("business-signout-success", () => {
