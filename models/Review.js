@@ -41,7 +41,7 @@ class Review {
   }
 
   static calculateRating(allRatings){
-    if(allRatings===null || allRatings.length==0){return -1}
+    if(allRatings===null || allRatings.length==0){return "N/A"}
     let rating=0;
     allRatings.forEach(r=>{rating+=r;});
     return rating/allRatings.length;

@@ -144,6 +144,7 @@ import axios from "axios";
     padding: 10px;
     width: 80%;
     border: 1px solid;
+    margin-bottom: 0;
 }
 .btn-primary{
     float:right;
