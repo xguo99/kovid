@@ -6,52 +6,44 @@
       <div class='descript-container'>
           <div v-if="this.$cookie.get('bName')== this.$route.params.businessName && this.$cookie.get('bAdd')== this.$route.params.businessAddress" 
           class='actions'>
-                <button type="button" class="btn-primary" size='sm'
+                <button v-if="!edit" type="button" class="btn-primary" size='sm'
                 v-on:click='yes'>Edit
                 </button>
+                <button v-else type="button" class="cancel" v-on:click='cancel' >Cancel</button>
           </div>
-        <div class="mt-2">{{ text }}</div>
+        <div v-if="!edit" class="mt-2">{{ text }}</div>
         <div class='edit-descript' v-if="edit">
-        <input 
-            v-model='newContent'
-            type='text'>
-        <button type="button" class="btn-info" size='sm'
-                v-on:click='save'>Save
-                </button>
-         </div> 
-        <div>
-          <span id='category'>Category:</span><span id='selected'> {{selected}}</span>
-          <div v-if="this.$cookie.get('bName')== this.$route.params.businessName && this.$cookie.get('bAdd')== this.$route.params.businessAddress" 
-          class='category'>
-            <button type="button" class="btn-primary" size='sm'
-                v-on:click='yesC'>Edit
-            </button>
-           <div v-if='editC'>
-            <select v-model="newSelected">
-            <option disabled value="">Please select one</option>
-            <option>Arts/Entertainment</option>
-            <option>Coffee/Tea</option>
-            <option>Education</option>
-            <option>Event Planning</option>
-            <option>Financial Services</option>
-            <option>Food</option>
-            <option>Health/Medicial</option>
-            <option>Hotels/Travel</option>
-            <option>Local Services</option>
-            <option>Mass Media</option>
-            <option>Pet</option>
-            <option>Professional Services</option>
-            <option>Public/Government Services</option>
-            <option>Real Estate</option>
-            <option>Religious Organizations</option>
-            <option>Others</option>
-        </select>
-          
-          <button type="button" class="btn-info" size='sm'
-                v-on:click='saveC'>Save
-          </button>
+          <textarea class="new-descript" v-model.trim='newContent' name="newContent" rows="2" cols="79"></textarea>
+        </div> 
+        <div class="catergory-container">
+          <div class="category-info">
+            <div id='category'>Category:</div>
+            <div v-if="!edit" id='selected'> {{selected}}</div>
+            <div v-if='edit'>
+              <select v-model="newSelected">
+              <option disabled value="">Please select one</option>
+              <option>Arts/Entertainment</option>
+              <option>Coffee/Tea</option>
+              <option>Education</option>
+              <option>Event Planning</option>
+              <option>Financial Services</option>
+              <option>Food</option>
+              <option>Health/Medicial</option>
+              <option>Hotels/Travel</option>
+              <option>Local Services</option>
+              <option>Mass Media</option>
+              <option>Pet</option>
+              <option>Professional Services</option>
+              <option>Public/Government Services</option>
+              <option>Real Estate</option>
+              <option>Religious Organizations</option>
+              <option>Others</option>
+              </select>
+            </div>
           </div>
-        </div>
+          <div v-if="edit" class='category'>
+            <button type="button" v-on:click='save' class="save-info">Save</button>
+          </div>
 
         </div> 
          
@@ -93,15 +85,17 @@ import axios from "axios";
      axios.put('/api/business/description',bodyContent)
      .then(()=>{
          this.success.push('updated!');
-     })  
-    },
-    saveC:function(){
-      this.selected=this.newSelected;
-      const bodyContent = { name: this.$route.params.businessName, address: this.$route.params.businessAddress,content:this.selected};
-      axios.put('/api/business/category',bodyContent)
+     }) 
+     this.selected=this.newSelected;
+     const bodyContent2 = { name: this.$route.params.businessName, address: this.$route.params.businessAddress,content:this.selected};
+      axios.put('/api/business/category',bodyContent2)
       .then(()=>{
          this.success.push('updated!');
      })  
+     this.edit=!this.edit; 
+    },
+    cancel:function(){
+      this.edit=!this.edit;
     },
     update:function(){
         const bodyContent = { name: this.$route.params.businessName, address: this.$route.params.businessAddress};
@@ -146,8 +140,17 @@ import axios from "axios";
     border: 1px solid;
     margin-bottom: 0;
 }
+.edit-descript{
+  align-items: baseline;
+}
 .btn-primary{
     float:right;
+}
+.cancel{
+  float:right;
+}
+.save-info{
+  margin-left: 10px;
 }
 .mt-2{
     text-align: left;
@@ -155,6 +158,21 @@ import axios from "axios";
 }
 .category{
   display:inline;
+  justify-content: right;
+}
+.catergory-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.category-info{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.category-info *{
+  margin-right: 10px;
 }
 #category{
   font-weight: 600;

@@ -6,10 +6,14 @@
         </div>
         <div class="review-ratings-container">
             <div class="service-rating">
-                <span id="service">Service</span><span id="service-rating">{{review.servicerating}}</span>
+                <div id="service">Service</div>
+                <star-rating v-model="review.servicerating" star-size="15" v-bind:read-only="true" v-bind:show-rating="false" inline="true"></star-rating>
+                <!-- <span id="service-rating">{{review.servicerating}}</span> -->
             </div>
             <div class="covid-rating">
-                <span id="covid">Covid-19</span><span id="covid-rating">{{review.covidrating}}</span>
+                <div id="covid">Covid-19</div>
+                <star-rating v-model="review.covidrating" star-size="15" v-bind:read-only="true" v-bind:show-rating="false"></star-rating>
+                <!-- <span id="covid-rating">{{review.covidrating}}</span> -->
             </div>
         </div>
         <div class="review-comment-container">
@@ -20,16 +24,19 @@
         
         <div v-if="review.reply" class="reply-container">
             <div class="reply-content-container">
-            {{review.reply}}
+            <span id="businame">{{this.$route.params.businessName}}: </span>{{review.reply}}
             </div>
         </div>
         <div v-else-if="this.$cookie.get('bAdd')===this.$route.params.businessAddress && !this.reply" class="reply-action">
             <button id="reply" v-on:click="showReplyBox">Reply</button>
         </div>
         <div v-if="this.reply" class="reply-input-container">
-            <input class="reply-input" v-model.trim='content' type="text" name="content" placeholder="Reply to your customer...">
-            <button id="cancel" v-on:click="showReplyBox">Cancel</button>
-            <button id="post" v-on:click="postReply">Post Reply</button>
+            <!-- <input class="reply-input" v-model.trim='content' type="text" name="content" placeholder="Reply to your customer..."> -->
+            <textarea class="reply-input" v-model.trim='content' name="content" rows="2" cols="79" placeholder="Reply to your customer..."></textarea>
+            <div class="reply-input-action">
+                <button id="cancel" v-on:click="showReplyBox">Cancel</button>
+                <button id="post" v-on:click="postReply">Post Reply</button>
+            </div>
         </div>
     </div>
   </div>
@@ -38,9 +45,14 @@
 <script>
 import axios from "axios";
 import { eventBus } from "../main";
+import StarRating from 'vue-star-rating'
 
 export default {
   name: "ReviewListItem",
+
+  components:{
+      StarRating
+  },
 
   props: {
     review: Object
@@ -104,25 +116,23 @@ export default {
     flex-direction: row;
 }
 .review-ratings-container *{
-    width: 13%;
+    width: 30%;
 }
-#service{
+.service-rating{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
-#service-rating{
-    margin-left: 15px;
-        color: orange;
-        font-size: 1.1em;
 
+.covid-rating{
+    display: flex;
+    flex-direction: row;
 }
-#covid{
-    font-size: 1em;
-}
-#covid-rating{
-    margin-left: 15px;
-        color: orange;
-        font-size: 1.1em;
 
+.covid-rating *{
+    margin-right: 10px;
 }
+
 .reply-container{
     border: 1px solid white;
 }
@@ -130,10 +140,24 @@ export default {
     padding: 15px;
     font-size: 1.2em;
 }
+#businame{
+    color: orange;
+    font-weight: 700;
+}
 .reply-action{
     display: flex;
     flex-direction: row;
     justify-content: right;
+}
+
+.reply-input-action{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+.reply-input-action *{
+    margin-top: 10px;
+    margin-left: 10px;
 }
 hr{
   border: 0.8px solid grey;

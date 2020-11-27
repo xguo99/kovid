@@ -3,13 +3,10 @@
     Operating Status
 
     <div class='container'>
-        <div v-if="this.$cookie.get('bName')== this.$route.params.businessName && this.$cookie.get('bAdd')== this.$route.params.businessAddress">
-        <v-btn type="button" x-small class="btn-primary" 
-        v-on:click='yes'>Edit
-        </v-btn>
-        <br>
+        <div v-if="this.$cookie.get('bName')== this.$route.params.businessName && this.$cookie.get('bAdd')== this.$route.params.businessAddress" class="edit">
+            <button type="button" x-small v-on:click='yes' class="btn-primary">Edit</button>
         </div> 
-        Monday: {{StatusMon}} {{StartMon}} {{apMon}} -- {{EndMon}} {{apMon2}}
+        <div class="date"><span id="day">Monday</span>: {{StatusMon}} {{StartMon}} {{apMon}} -- {{EndMon}} {{apMon2}}</div>
             <div v-if='edit'>
             <select class='status' v-model="newStatusMon">
             <option disabled value=""></option>
@@ -21,7 +18,8 @@
             <select class='ampm' v-if='newStatusMon=="Open"' v-model="newapMon">
             <option disabled value=""></option>
             <option>A.M</option>
-            <option>P.M</option></select> <span v-if='newStatusMon=="Open"'>--</span>
+            <option>P.M</option></select> 
+            <span v-if='newStatusMon=="Open"'> -- </span>
 
             <input class="time2" v-if='newStatusMon=="Open"' v-model='newEndMon' type='text'>
 
@@ -30,8 +28,7 @@
             <option>A.M</option>
             <option>P.M</option></select>
         </div>
-        <br>
-        Tuesday: {{StatusTue}} {{StartTue}} {{apTue}} -- {{EndTue}} {{apTue2}}
+        <div class="date"><span id="day">Tuesday</span>: {{StatusTue}} {{StartTue}} {{apTue}} -- {{EndTue}} {{apTue2}}</div>
             <div v-if='edit'>
             <select class='status' v-model="newStatusTue">
             <option disabled value=""></option>
@@ -52,8 +49,7 @@
             <option>A.M</option>
             <option>P.M</option></select>
         </div>
-        <br>
-        Wednesday:{{StatusW}} {{StartW}} {{apW}} -- {{EndW}} {{apW2}}
+        <div class="date"><span id="day">Wednesday</span>: {{StatusW}} {{StartW}} {{apW}} -- {{EndW}} {{apW2}}</div>
             <div v-if='edit'>
             <select class='status' v-model="newStatusW">
             <option disabled value=""></option>
@@ -74,8 +70,7 @@
             <option>A.M</option>
             <option>P.M</option></select>
         </div>
-        <br>
-        Thursday:{{StatusThur}} {{StartThur}} {{apThur}} -- {{EndThur}} {{apThur2}}
+        <div class="date"><span id="day">Thursday</span>: {{StatusThur}} {{StartThur}} {{apThur}} -- {{EndThur}} {{apThur2}}</div>
             <div v-if='edit'>
             <select class='status' v-model="newStatusThur">
             <option disabled value=""></option>
@@ -96,8 +91,7 @@
             <option>A.M</option>
             <option>P.M</option></select>
         </div>
-        <br>
-        Fridays:{{StatusF}} {{StartF}} {{apF}} -- {{EndF}} {{apF2}}
+        <div class="date"><span id="day">Fridays</span>: {{StatusF}} {{StartF}} {{apF}} -- {{EndF}} {{apF2}}</div>
             <div v-if='edit'>
             <select class='status' v-model="newStatusF">
             <option disabled value=""></option>
@@ -118,8 +112,7 @@
             <option>A.M</option>
             <option>P.M</option></select>
         </div>
-        <br>
-        Saturday:{{StatusSat}} {{StartSat}} {{apSat}} -- {{EndSat}} {{apSat2}}
+        <div class="date"><span id="day">Saturday</span>: {{StatusSat}} {{StartSat}} {{apSat}} -- {{EndSat}} {{apSat2}}</div>
             <div v-if='edit'>
             <select class='status' v-model="newStatusSat">
             <option disabled value=""></option>
@@ -140,8 +133,7 @@
             <option>A.M</option>
             <option>P.M</option></select>
         </div>
-        <br>
-        Sunday:{{StatusSun}} {{StartSun}} {{apSun}} -- {{EndSun}} {{apSun2}}
+        <div class="date"><span id="day">Sunday</span>: {{StatusSun}} {{StartSun}} {{apSun}} -- {{EndSun}} {{apSun2}}</div>
             <div v-if='edit'>
             <select class='status' v-model="newStatusSun">
             <option disabled value=""></option>
@@ -162,9 +154,9 @@
             <option>A.M</option>
             <option>P.M</option></select>
         </div>
-        <br>
-        <button v-if="edit" type="button" class='btn-primary'
-        v-on:click='save'>Save</button>
+        <div v-if="edit" class="save">
+            <button type="button" class='btn-primary' v-on:click='save'>Save</button>
+        </div>
     </div>
       {{this.result}}
       
@@ -402,7 +394,7 @@ export default {
        this.apSun=this.newapSun;
        this.apSun2=this.newapSun2;
        }
-
+       
        const bodyContent = { name: this.$route.params.businessName, address: this.$route.params.businessAddress,
        content:this.StatusMon+","+this.StartMon+","+this.EndMon+","+this.apMon+","+this.apMon2}; 
        axios.put('/api/business/monday',bodyContent)
@@ -447,6 +439,7 @@ export default {
         .then(()=>{
          this.success.push('updated!');
      }) 
+     this.edit=!this.edit;
     },
     update:function(){
         const bodyContent = { name: this.$route.params.businessName, address: this.$route.params.businessAddress};
@@ -598,20 +591,38 @@ export default {
     justify-content: space-evenly;
     text-align: center;
 }
-.btn-primary{
-    float:right;
+.edit{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    /* float:right; */
+}
+.save{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+.date{
+    margin-bottom: 5px;
 }
 .status{
-    width:80px;
+    width:100px;
 }
 .time{
-    width:60px;
+    width:40px;
+    height: 30px;
     margin-left:0.3cm;
+    margin-right: 0.1cm;
 }
 .time2{
-    width:60px;
+    width:40px;
+    height: 30px;
+    margin-right: 0.1cm;
 }
 .ampm{
-    width:60px;
+    width:80px;
+}
+#day{
+    font-weight: 800;
 }
 </style>

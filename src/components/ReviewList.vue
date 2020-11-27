@@ -98,4 +98,7 @@ export default {
   padding: 10px;
   width: 60%;
 }
+.reviews-container *{
+  margin-bottom: 10px;
+}
 </style>

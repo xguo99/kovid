@@ -9,7 +9,9 @@
       Back</router-link> 
     </div>  
     <div v-if="!this.$cookie.get('auth')">Not signed in view</div>
-    <div v-else-if="this.$cookie.get('account-type')==='customer'">Signed in customer view</div>
+    <div v-else-if="this.$cookie.get('account-type')==='customer'">
+      <router-link to="/customer-profile">{{this.$cookie.get('auth')}}</router-link>
+    </div>
     <div id='signout' v-else>
         <div v-if="this.$cookie.get('bAdd')==this.$route.params.businessAddress">
         <button class='btn btn-primary' v-on:click="signOut">Sign Out</button>

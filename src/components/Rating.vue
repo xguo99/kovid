@@ -6,10 +6,14 @@
       <hr>
       <div class='rating-container'>
         <div class="service">
-            <span id="service-title">Service </span><span id=service-rating>{{ serviceRating }}</span>
+            <span id="service-title">Service </span>
+            <star-rating v-model="serviceRating" star-size="30" v-bind:read-only="true" inline="true" v-bind:increment="0.01" v-bind:show-rating="false"></star-rating>
+            <span id="service-rating">{{serviceRating}}</span>
         </div>
         <div class="covid">
-            <span id="covid-title">Covid-19 </span><span id="covid-rating">{{ covidRating }}</span>
+            <span id="covid-title">Covid-19 </span>
+            <star-rating v-model="covidRating" star-size="30" v-bind:read-only="true" inline="true" v-bind:increment="0.01" v-bind:show-rating="false"></star-rating>
+            <span id="covid-rating">{{covidRating}}</span>
         </div>
       </div> 
   </div>
@@ -17,6 +21,8 @@
 
 <script>
 import axios from "axios";
+import StarRating from 'vue-star-rating'
+
 
 import { eventBus } from "../main";
 
@@ -26,6 +32,9 @@ import { eventBus } from "../main";
         serviceRating: "N/A",
         covidRating:"N/A"
       }
+    },
+    components:{
+        StarRating
     },
     created:function(){
       this.update();
@@ -39,8 +48,8 @@ import { eventBus } from "../main";
         axios.get('/api/review/business/'+`${this.$route.params.businessName}/`+`${this.$route.params.businessAddress}`,{})
         .then((res) => {
           // handle success
-          this.serviceRating=(res.data.serviceRating!=="N/A")?`${res.data.serviceRating}`+"/5":res.data.serviceRating;
-          this.covidRating=(res.data.covidRating!=="N/A")?`${res.data.covidRating}`+"/5":res.data.covidRating;
+          this.serviceRating=res.data.serviceRating;
+          this.covidRating=res.data.covidRating;
         })
       }
     }
@@ -80,29 +89,30 @@ hr{
     width:50%;
     font-size: 1.7em;
 }
+
 .covid{
     width:50%;
     font-size: 1.7em;
 }
 #service-title{
     margin-left: 80px;
+    margin-right: 50px
     /* color: orange; */
 }
 #service-rating{
-    margin-left: 100px;
-        color: orange;
-
+    margin-left: 10px;
+    color: orange;
 }
 #covid-title{
     margin-left: 30px;
+    margin-right: 50px;
     /* color: orange; */
 }
 #covid-rating{
-    margin-left: 100px;
+    margin-left: 10px;
         color: orange;
 
 }
-
 
 
 
