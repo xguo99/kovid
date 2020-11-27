@@ -27,7 +27,11 @@ class Customer {
 
   static async changeUsername(name, newname){
       return db.run(`UPDATE customers SET ${db.columnNames.username} = '${newname}' 
-                    WHERE ${db.columnNames.username} = '${name}'`);
+                    WHERE ${db.columnNames.username} = '${name}'`)
+              .then(() => {
+                return db.run(`UPDATE reviewreply SET ${db.columnNames.reviewer} = '${newname}' 
+                WHERE ${db.columnNames.reviewer} = '${name}'`)
+              });
   }
 
   static async changePassword(name, newPassword){

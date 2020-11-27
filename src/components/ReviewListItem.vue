@@ -1,7 +1,10 @@
 <template>
   <div class="review-container">
     <div class="review-content-container">
-        <div class="reviewer"> 
+        <div v-if="!this.$route.params.businessAddress" class="business">
+            to {{ review.businessname}}
+        </div>
+        <div v-else class="reviewer"> 
         {{ review.reviewer }} 
         </div>
         <div class="review-ratings-container">
@@ -102,6 +105,11 @@ export default {
     padding: 15px;
 }
 
+.business{
+    font-size: 1.7em;
+    color: orange;
+    font-weight: 700;
+}
 .reviewer{
     font-size: 1.7em;
     color: orange;

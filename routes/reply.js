@@ -29,8 +29,8 @@ router.post('/', [], async (req, res) => {
  * @name GET /api/reply/customer/:username
  */
 router.get('/customer/:username', [], async (req, res) => { 
-    const replies = await Reply.getAllByCust(req.params.username);
-    res.status(200).json({replies}).end();
+    const reviews = await Reply.getAllByCust(req.params.username);
+    res.status(200).json({reviews}).end();
 });
 
 module.exports = router;
