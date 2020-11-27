@@ -55,5 +55,51 @@ class Business {
       AND ${db.columnNames.address}='${address}'`)
       .catch((err)=> {throw err;});
   }
+
+  static async getBusiSchedule(name, address){
+    return db.get(`SELECT monday,tuesday,wednesday,thursday,friday,saturday,sunday FROM businesses WHERE ${db.columnNames.businessName}='${name}' 
+      AND ${db.columnNames.address}='${address}'`)
+      .catch((err)=> {throw err;});
+  }
+
+  static async addBusiMonday(name,address,schedule){
+    return db.run(`UPDATE businesses SET ${db.columnNames.monday}='${schedule}' WHERE ${db.columnNames.businessName}='${name}'
+    AND ${db.columnNames.address}='${address}'`)
+    .catch((err)=>{throw err;});
+  }
+
+  static async addBusiTuesday(name,address,schedule){
+    return db.run(`UPDATE businesses SET ${db.columnNames.tuesday}='${schedule}' WHERE ${db.columnNames.businessName}='${name}'
+    AND ${db.columnNames.address}='${address}'`)
+    .catch((err)=>{throw err;});
+  }
+
+  static async addBusiWednesday(name,address,schedule){
+    return db.run(`UPDATE businesses SET ${db.columnNames.wednesday}='${schedule}' WHERE ${db.columnNames.businessName}='${name}'
+    AND ${db.columnNames.address}='${address}'`)
+    .catch((err)=>{throw err;});
+  }
+  static async addBusiThursday(name,address,schedule){
+    return db.run(`UPDATE businesses SET ${db.columnNames.thursday}='${schedule}' WHERE ${db.columnNames.businessName}='${name}'
+    AND ${db.columnNames.address}='${address}'`)
+    .catch((err)=>{throw err;});
+  }
+  static async addBusiFriday(name,address,schedule){
+    return db.run(`UPDATE businesses SET ${db.columnNames.friday}='${schedule}' WHERE ${db.columnNames.businessName}='${name}'
+    AND ${db.columnNames.address}='${address}'`)
+    .catch((err)=>{throw err;});
+  }
+
+  static async addBusiSaturday(name,address,schedule){
+    return db.run(`UPDATE businesses SET ${db.columnNames.saturday}='${schedule}' WHERE ${db.columnNames.businessName}='${name}'
+    AND ${db.columnNames.address}='${address}'`)
+    .catch((err)=>{throw err;});
+  }
+  static async addBusiSunday(name,address,schedule){
+    return db.run(`UPDATE businesses SET ${db.columnNames.sunday}='${schedule}' WHERE ${db.columnNames.businessName}='${name}'
+    AND ${db.columnNames.address}='${address}'`)
+    .catch((err)=>{throw err;});
+  }
+
 }
 module.exports = Business;
