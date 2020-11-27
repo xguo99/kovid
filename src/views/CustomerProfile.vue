@@ -13,18 +13,39 @@
       <button class='btn btn-primary' v-on:click="signOut">Sign Out</button>
     </div>
   </div>
+
   <div class='info'>
     {{this.$cookie.get('auth')}}
   </div>
-  
+
+
+  <div class>
+    <b-card no-body class="tab">
+      <b-tabs pills card vertical end>
+        <b-tab title="Reviews I gave" active><b-card-text><CustomerReviewList/></b-card-text></b-tab>
+        <b-tab title="Replies I received"><b-card-text><CustomerReplyList/></b-card-text></b-tab>
+        <b-tab title="Manage My Account"><b-card-text>Tab contents 3</b-card-text></b-tab>
+      </b-tabs>
+    </b-card>
+  </div>
+
+
 </div>
 </template>
 <script>
 import axios from "axios";
 import { eventBus } from "../main";
+import CustomerReviewList from "../components/CustomerReviewList.vue";
+import CustomerReplyList from "../components/CustomerReplyList.vue";
 
 export default {
   name: "SignOut",
+
+  components:{
+    CustomerReviewList,
+    CustomerReplyList,
+  },
+
   created:function(){
     eventBus.$on("customer-signout-success", () => {
       this.$cookie.set("auth",'');
@@ -62,4 +83,10 @@ export default {
   font-weight: 900;
   font-size: 2.7em;
 }
+</style>
+
+<style>
+.tab {
+  background-color: #404040;
+}  
 </style>
