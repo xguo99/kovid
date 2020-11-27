@@ -15,7 +15,7 @@
   </div>
 
   <div class='info'>
-    {{this.$cookie.get('auth')}}
+    {{customername}}
   </div>
 
 
@@ -24,7 +24,7 @@
       <b-tabs pills card vertical end>
         <b-tab title="Reviews I gave" active><b-card-text><CustomerReviewList/></b-card-text></b-tab>
         <b-tab title="Replies I received"><b-card-text><CustomerReplyList/></b-card-text></b-tab>
-        <b-tab title="Manage My Account"><b-card-text>Tab contents 3</b-card-text></b-tab>
+        <b-tab title="Manage My Account"><b-card-text><ManageAccount/></b-card-text></b-tab>
       </b-tabs>
     </b-card>
   </div>
@@ -37,13 +37,20 @@ import axios from "axios";
 import { eventBus } from "../main";
 import CustomerReviewList from "../components/CustomerReviewList.vue";
 import CustomerReplyList from "../components/CustomerReplyList.vue";
+import ManageAccount from "../components/ManageAccount.vue";
 
 export default {
   name: "SignOut",
 
+  data() {
+    return {
+      customername: this.$cookie.get('auth'),
+    };
+  },
   components:{
     CustomerReviewList,
     CustomerReplyList,
+    ManageAccount,
   },
 
   created:function(){
@@ -53,6 +60,10 @@ export default {
       this.$router.push('/').catch(()=>{});
     });
     
+    eventBus.$on("customer-changeusername-success", (newname) => {
+      this.$cookie.set("auth", newname);
+      this.customername = newname;
+    });
   },
   methods: {
     signOut: function() {
