@@ -1,15 +1,22 @@
 <template>
 <div>
-    <router-link to="/">Kovid</router-link>
+  <div class='button'>
+    <div id='back'>
+      <router-link 
+      :to="{name: 'home'}" 
+      tag = "button"
+      class='btn btn-primary'>
+      Back</router-link> 
+    </div>  
     <div v-if="!this.$cookie.get('auth')">Not signed in view</div>
-    <div v-else-if="this.$cookie.get('account-type')==='customer'">
-      Signed in customer view
-      <button v-on:click="signOut">Sign Out</button>
+    <div id='signout' v-else-if="this.$cookie.get('account-type')==='customer'">
+      <button class='btn btn-primary' v-on:click="signOut">Sign Out</button>
     </div>
-    <div v-else>
-        Signed in business view
-        <button v-on:click="signOut">Sign Out</button>
-    </div>
+  </div>
+  <div class='info'>
+    {{this.$cookie.get('auth')}}
+  </div>
+  
 </div>
 </template>
 <script>
@@ -41,11 +48,18 @@ export default {
   }
 }
 </script>
+
 <style scoped>
-.signout{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin-top: 120px;
+.button{
+  display: flex; 
+  justify-content: space-between;
+}
+
+.info{
+  margin-top: 20px;
+  text-align: center;
+  font: icon;
+  font-weight: 900;
+  font-size: 2.7em;
 }
 </style>

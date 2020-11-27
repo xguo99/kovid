@@ -12,10 +12,10 @@
     <div v-else-if="this.$cookie.get('account-type')==='customer'">Signed in customer view</div>
     <div id='signout' v-else>
         <div v-if="this.$cookie.get('bAdd')==this.$route.params.businessAddress">
-        <button class='btn btn-primary' v-on:click="signOut">Sign Out</button>
+          <button class='btn btn-primary' v-on:click="signOut">Sign Out</button>
         </div>
     </div>
-</div>
+  </div>
   <div class='info'>
       <div class='bName'>
       {{this.$route.params.businessName}}
