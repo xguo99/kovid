@@ -96,6 +96,9 @@ export default {
   display:flex;
   flex-direction: column;
   padding: 10px;
-  width: 60%;
+  width: 760px;
+}
+.reviews-container *{
+  margin-bottom: 10px;
 }
 </style>

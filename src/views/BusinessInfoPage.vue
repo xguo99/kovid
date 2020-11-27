@@ -10,7 +10,7 @@
     </div>  
     <div v-if="!this.$cookie.get('auth')">Not signed in view</div>
     <div v-else-if="this.$cookie.get('account-type')==='customer'">
-      <router-link to="/customer-profile">{{this.$cookie.get('auth')}}</router-link>
+      <router-link id="profile" to="/customer-profile">{{this.$cookie.get('auth')}}</router-link>
     </div>
     <div id='signout' v-else>
         <div v-if="this.$cookie.get('bAdd')==this.$route.params.businessAddress">
@@ -111,6 +111,10 @@ export default {
   display: flex; 
   justify-content: space-between;
 }
-  
+#profile{
+  font-size: x-large;
+  margin-right: 25px;
+  margin-top: 20px;
+}
 </style>
 

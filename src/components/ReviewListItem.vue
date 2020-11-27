@@ -27,7 +27,7 @@
         
         <div v-if="review.reply" class="reply-container">
             <div class="reply-content-container">
-            <span id="businame">{{this.$route.params.businessName}}: </span>{{review.reply}}
+            <span id="businame">{{review.businessname}}: </span>{{review.reply}}
             </div>
         </div>
         <div v-else-if="this.$cookie.get('bAdd')===this.$route.params.businessAddress && !this.reply" class="reply-action">
@@ -139,6 +139,9 @@ export default {
 
 .covid-rating *{
     margin-right: 10px;
+}
+#covid{
+    font-size: 0.95em;
 }
 
 .reply-container{
