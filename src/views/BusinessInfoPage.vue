@@ -34,6 +34,9 @@
   <div v-if="this.$cookie.get('auth') && this.$cookie.get('account-type')==='customer'">
     <ReviewBox/>
   </div>
+  <div>
+    <ReviewList/>
+  </div>
 </div>
 
 </template>
@@ -46,6 +49,7 @@ import Description from "../components/Description.vue";
 import ReviewBox from "../components/ReviewBox.vue";
 import Rating from "../components/Rating.vue";
 import Review from "../components/Review.vue";
+import ReviewList from "../components/ReviewList.vue";
 
 
 export default {
@@ -54,7 +58,8 @@ export default {
      Description,
      ReviewBox,
      Rating,
-     Review
+     Review,
+     ReviewList
   },
   created:function(){
     eventBus.$on("business-signout-success", () => {

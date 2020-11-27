@@ -103,7 +103,6 @@ export default {
     LIcon
   },
   created: function () {
-    //this.$cookie.set("auth" ,'');
     if(this.$cookie.get("auth")){
       this.isSignedIn=true;
       this.username=this.$cookie.get('auth');
