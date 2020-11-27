@@ -24,7 +24,14 @@ const columnNames = {
   comment: "comment",
   reviewID: "reviewID",
   reviewTime: "reviewTime",
-  reply: "reply"
+  reply: "reply",
+  monday:'monday',
+  tuesday:'tuesday',
+  wednesday:'wednesday',
+  thursday:'thursday',
+  friday:'friday',
+  saturday:'saturday',
+  sunday:'sunday'
 };
 
 Object.freeze(columnNames);
@@ -52,7 +59,14 @@ function createBusinessTable(){
     ${columnNames.category} TEXT,
     ${columnNames.mask} TEXT,
     ${columnNames.handSanitizer} TEXT,
-    ${columnNames.capacity} SMALLINT
+    ${columnNames.capacity} SMALLINT,
+    ${columnNames.monday} TEXT,
+    ${columnNames.tuesday} TEXT,
+    ${columnNames.wednesday} TEXT,
+    ${columnNames.thursday} TEXT,
+    ${columnNames.friday} TEXT,
+    ${columnNames.saturday} TEXT,
+    ${columnNames.sunday} TEXT
     )`).then(() => { console.log("Business table created.");});
 };
 

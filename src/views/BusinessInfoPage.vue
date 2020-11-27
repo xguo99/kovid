@@ -27,6 +27,7 @@
 
   <div>
     <Description/>
+    <OperatingStatus/>
     <Rating/>
     <Review/>
   </div>
@@ -42,6 +43,7 @@
 import axios from "axios";
 import { eventBus } from "../main";
 import Description from "../components/Description.vue";
+import OperatingStatus from "../components/OperatingStatus.vue";
 
 import ReviewBox from "../components/ReviewBox.vue";
 import Rating from "../components/Rating.vue";
@@ -52,6 +54,7 @@ export default {
   name: "InfoPage",
   components: {
      Description,
+     OperatingStatus,
      ReviewBox,
      Rating,
      Review

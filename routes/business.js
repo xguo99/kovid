@@ -113,4 +113,90 @@ router.post('/category',[],async (req,res)=>{
     res.status(200).json({business, message:"Category Updated"}).end();
  })
 
+
+ /**
+ * Get Schedule
+ * @name POST /api/business/schedule
+ */
+router.post('/schedule',[],async (req,res)=>{
+  try{
+  let monday = await Business.getBusiSchedule(req.body.name, req.body.address);
+  res.status(200).json({data:monday, message: 'Get schedule'});
+  }
+  catch{
+    res.status(400).json({error: `Failed`}).end();
+  }
+});
+
+ /**
+ * Update Monday
+ * @name PUT /api/business/monday
+ */
+
+router.put('/monday',[],async (req,res)=>{
+  let business = await Business.addBusiMonday(req.body.name, req.body.address, req.body.content);
+  res.status(200).json({business, message:"Monday Updated"}).end();
+})
+
+ /**
+ * Update Tue
+ * @name PUT /api/business/tuesday
+ */
+
+router.put('/tuesday',[],async (req,res)=>{
+  let business = await Business.addBusiTuesday(req.body.name, req.body.address, req.body.content);
+  res.status(200).json({business, message:"Tuesday Updated"}).end();
+})
+
+/**
+ * Update Wedn
+ * @name PUT /api/business/wednesday
+ */
+
+router.put('/wednesday',[],async (req,res)=>{
+  let business = await Business.addBusiWednesday(req.body.name, req.body.address, req.body.content);
+  res.status(200).json({business, message:"Wedn Updated"}).end();
+})
+
+/**
+ * Update thur
+ * @name PUT /api/business/thursday
+ */
+
+router.put('/thursday',[],async (req,res)=>{
+  let business = await Business.addBusiThursday(req.body.name, req.body.address, req.body.content);
+  res.status(200).json({business, message:"Thur Updated"}).end();
+})
+
+/**
+ * Update fri
+ * @name PUT /api/business/friday
+ */
+
+router.put('/friday',[],async (req,res)=>{
+  let business = await Business.addBusiFriday(req.body.name, req.body.address, req.body.content);
+  res.status(200).json({business, message:"Fri Updated"}).end();
+})
+
+/**
+ * Update sat
+ * @name PUT /api/business/saturday
+ */
+
+router.put('/saturday',[],async (req,res)=>{
+  let business = await Business.addBusiSaturday(req.body.name, req.body.address, req.body.content);
+  res.status(200).json({business, message:"Sat Updated"}).end();
+})
+
+/**
+ * Update sun
+ * @name PUT /api/business/sunday
+ */
+
+router.put('/sunday',[],async (req,res)=>{
+  let business = await Business.addBusiSunday(req.body.name, req.body.address, req.body.content);
+  res.status(200).json({business, message:"Sun Updated"}).end();
+})
+
+
 module.exports = router;
