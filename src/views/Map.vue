@@ -184,7 +184,7 @@ export default {
       this.$router.push({ path: `/business/${name}/${address}` }) // -> /user/123;
     },
     getData:function(){
-      axios.get(`https://data.cambridgema.gov/resource/9q33-qjp4.json?$where=name LIKE '%25${this.nameBusiness}%25'`)
+      axios.get(`https://data.cambridgema.gov/resource/9q33-qjp4.json?$where=name LIKE '%25${this.nameBusiness}%25'&$limit=10`)
           .then((response) => {   
             /* eslint-disable no-console */
             console.log(this.nameBusiness);
