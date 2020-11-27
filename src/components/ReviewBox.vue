@@ -72,7 +72,7 @@ export default {
           .then(review => {
             // handle success
             this.success = "Review created successfully!";
-            eventBus.$emit("create-freet-success", review);
+            eventBus.$emit("create-review-success", review);
           })
           .catch(err => {
             // handle error

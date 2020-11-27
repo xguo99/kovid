@@ -18,6 +18,8 @@
 <script>
 import axios from "axios";
 
+import { eventBus } from "../main";
+
   export default {
     data() {
       return {
@@ -27,7 +29,11 @@ import axios from "axios";
     },
     created:function(){
       this.update();
+      eventBus.$on("create-review-success", () => {
+        this.update();
+      });
     },
+
     methods: {
       update:function(){
         axios.get('/api/review/business/'+`${this.$route.params.businessName}/`+`${this.$route.params.businessAddress}`,{})
