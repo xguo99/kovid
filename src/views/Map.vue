@@ -73,6 +73,8 @@
               <div>{{business.name}}</div>
               <div>{{business.phone}}</div>
               <div>{{business.status}}</div>
+              <router-link id="business-homepage" 
+              :to="{name:'businessInfopage',params:{businessName:business.name, businessAddress:business.phone}}">homepage</router-link>
             </div>
           </l-popup>
         </l-marker>
