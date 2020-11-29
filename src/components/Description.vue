@@ -59,7 +59,6 @@ import axios from "axios";
     data() {
       return {
         text: 'N/A',
-        editC:false,
         edit:false,
         newContent:'',
         success:[],
@@ -74,10 +73,6 @@ import axios from "axios";
     yes: function() {
       this.edit=!this.edit;
       this.newContent=this.text;
-    },
-    yesC:function(){
-      this.editC=!this.editC;
-      this.newSelected=this.selected;
     },
     save:function(){
      this.text=this.newContent;
