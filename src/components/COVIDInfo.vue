@@ -62,11 +62,8 @@ import axios from "axios";
         axios.post('/api/business/CovidInfo',bodyContent)
         .then((res) => {
           // handle success
-          /* eslint-disable no-console */
-          console.log(res);
-          /* eslint-enable no-console */
           if(res.data.data['covidinfo'] == null){
-              this.text='nothing in db';
+              this.text='N/A';
           }
           else{
               this.text=res.data.data['covidinfo'];
