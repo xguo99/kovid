@@ -29,9 +29,14 @@
 
   <div>
     <Description/>
-    <OperatingStatus/>
-    <Rating/>
-    <Review/>
+    <div class='horizontalInfo'>
+      <OperatingStatus/>
+      <COVIDInfo/>
+    </div>
+    <div>
+      <Rating/>
+      <Review/>
+    </div>
   </div>
 
   <div v-if="this.$cookie.get('auth') && this.$cookie.get('account-type')==='customer'">
@@ -49,6 +54,7 @@ import axios from "axios";
 import { eventBus } from "../main";
 import Description from "../components/Description.vue";
 import OperatingStatus from "../components/OperatingStatus.vue";
+import COVIDInfo from "../components/COVIDInfo.vue";
 
 import ReviewBox from "../components/ReviewBox.vue";
 import Rating from "../components/Rating.vue";
@@ -61,6 +67,7 @@ export default {
   components: {
      Description,
      OperatingStatus,
+     COVIDInfo,
      ReviewBox,
      Rating,
      Review,
@@ -93,6 +100,12 @@ export default {
 </script>
 
 <style scoped>
+.horizontalInfo{
+    display:flex; 
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 40%;
+}
 .info{
     margin-top: 20px;
     text-align: center;

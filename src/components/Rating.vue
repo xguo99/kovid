@@ -59,7 +59,7 @@ import { eventBus } from "../main";
 <style scoped>
 .rating{
     width: 100%;
-    margin-top: 40px;
+    margin-top: 100px;
 }
 .title{
   margin-top: 0;

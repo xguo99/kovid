@@ -106,10 +106,10 @@ export default {
   },
   created: function () {
     //harcode signout
-    // this.$cookie.set('auth','');
-    // this.$cookie.set('account-type','');
-    // this.$cookie.set('bName','');
-    // this.$cookie.set('bAdd','');
+    //this.$cookie.set('auth','');
+    //this.$cookie.set('account-type','');
+    //this.$cookie.set('bName','');
+    //this.$cookie.set('bAdd','');
     
     if(this.$cookie.get("auth")){
       this.isSignedIn=true;

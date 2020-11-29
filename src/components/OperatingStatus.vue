@@ -584,7 +584,7 @@ export default {
     margin-top:0;
     padding: 10px;
     margin-left:0%;
-    width: 45%;
+    width: 90%;
     border: 1px solid;
     margin-bottom: 0;
     font-size: 0.7em;

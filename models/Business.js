@@ -56,6 +56,18 @@ class Business {
       .catch((err)=> {throw err;});
   }
 
+  static async getBusiCovidInfo(name, address){
+    return db.get(`SELECT CovidInfo FROM businesses WHERE ${db.columnNames.businessName}='${name}' 
+      AND ${db.columnNames.address}='${address}'`)
+      .catch((err)=> {throw err;});
+  }
+
+  static async addBusiCovidInfo(name, address, text){
+    return db.run(`UPDATE businesses SET ${db.columnNames.CovidInfo}='${text}' WHERE ${db.columnNames.businessName}='${name}' 
+      AND ${db.columnNames.address}='${address}'`)
+      .catch((err)=> {throw err;});
+  }
+
   static async getBusiSchedule(name, address){
     return db.get(`SELECT monday,tuesday,wednesday,thursday,friday,saturday,sunday FROM businesses WHERE ${db.columnNames.businessName}='${name}' 
       AND ${db.columnNames.address}='${address}'`)

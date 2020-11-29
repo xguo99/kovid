@@ -90,6 +90,30 @@ router.post('/description',[],async (req,res)=>{
  })
 
  /**
+ * Get CovidInfo
+ * @name POST /api/business/CovidInfo
+ */
+router.post('/CovidInfo',[],async (req,res)=>{
+  try{
+  let CovidInfo = await Business.getBusiCovidInfo(req.body.name, req.body.address);
+  res.status(200).json({data: CovidInfo, message: 'Get CovidInfo'});
+  }
+  catch{
+    res.status(400).json({error: `Failed`}).end();
+  }
+});
+
+/**
+ * Update CovidInfo
+ * @name PUT /api/business/CovidInfo
+ */
+
+router.put('/CovidInfo',[],async (req,res)=>{
+  let business = await Business.addBusiCovidInfo(req.body.name, req.body.address, req.body.content);
+  res.status(200).json({business, message:"CovidInfo Updated"}).end();
+})
+
+ /**
  * Get Category
  * @name POST /api/business/category
  */

@@ -31,7 +31,8 @@ const columnNames = {
   thursday:'thursday',
   friday:'friday',
   saturday:'saturday',
-  sunday:'sunday'
+  sunday:'sunday',
+  CovidInfo:'CovidInfo'
 };
 
 Object.freeze(columnNames);
@@ -66,7 +67,8 @@ function createBusinessTable(){
     ${columnNames.thursday} TEXT,
     ${columnNames.friday} TEXT,
     ${columnNames.saturday} TEXT,
-    ${columnNames.sunday} TEXT
+    ${columnNames.sunday} TEXT,
+    ${columnNames.CovidInfo} TEXT
     )`).then(() => { console.log("Business table created.");});
 };
 
