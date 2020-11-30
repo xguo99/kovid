@@ -43,7 +43,7 @@
           </div>
         </div>
         <div class='edit-CovidInfo' v-if="edit">
-          <textarea class="new-descript" v-model.trim='newContent' name="newContent" rows="2" cols="79" placeholder="info1: rule1, info2: rule2, info3: rule3..."></textarea>
+          <textarea class="new-descript" v-model.trim='newContent' name="newContent" rows="2" cols="29" placeholder="info1: rule1, info2: rule2, info3: rule3..."></textarea>
         </div> 
         <div v-if="edit" class='saveButton'>
             <button type="button" v-on:click='save' class="save-info">Save</button>
@@ -173,7 +173,7 @@ import axios from "axios";
   margin-top: 13%;
   margin-left: 10%;
   font-size: 1.7em;
-  margin-bottom: 20px;
+  margin-bottom: 27px;
 }
 .covid-info-container{
     margin: 10%;
@@ -206,5 +206,8 @@ import axios from "axios";
 .maskInfo{
     text-align: left;
     font-size: 1.1em;
+}
+.mask{
+  display:inline;
 }
 </style>
