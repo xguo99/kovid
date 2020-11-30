@@ -156,3 +156,108 @@ business.js
     @name PUT /api/business/sunday
 
     res.status(200).json({business, message:"Sun Updated"}).end();
+
+customer.js
+
+1. Create new customer.
+
+    @name POST /api/customer
+
+    res.status(200).json({customer, message:"Customer account created."}).end();
+
+    res.status(409).json({error: the username you entered has already been registered. Please register only once.}).end();
+
+    res.status(400).json({error: Please enter username and password}).end();
+
+2.  Sign in to customer account.
+
+    @name POST /api/customer/signin
+
+    res.status(400).json({error: You are already signed in as a different user.}).end();
+
+    res.status(200).json({name: req.body.username,message:"Customer sign-in successful."}).end();
+
+    res.status(400).json({error: Credentials incorrect}).end();
+
+    res.status(400).json({ error: 'Please enter username and password'}).end();
+
+3. Sign out of customer account.
+
+    @name POST /api/customer/signout 
+
+    res.status(200).json({message: 'Successfully signed out'});
+
+    res.status(400).json({error: 'You are currently not signed in'});
+
+4. Update username
+
+    @name PUT /api/customer/username
+
+    res.status(200).json({name: req.body.username, message:"Username updated."}).end();
+
+    res.status(409).json({error: this username has already been registered. Please register only once.}).end();
+
+    res.status(400).json({error: Username cannot be empty.}).end();
+
+5. Update password
+
+    @name PUT /api/customer/password
+
+    res.status(200).json({message:"Password updated."}).end();
+
+    res.status(400).json({error: err}).end();
+
+    res.status(400).json({error: Password cannot be empty.}).end();
+
+reply.js
+
+1. Post a new reply.
+
+    @name POST /api/reply
+
+    res.status(200).json({message:"Successfully posted your reply!."}).end();
+
+    res.status(400).json({error: err}).end();
+
+    res.status(400).json({ error: 'Cannot submit an empty reply'}).end();
+
+
+2. Get all replies received by a customer.
+
+    @name GET /api/reply/customer/:username
+
+    res.status(200).json({reviews}).end();
+
+review.js
+
+1. Post a new review.
+
+    @name POST /api/review
+
+    res.status(200).json({message:"Successfully posted your review!."}).end();
+
+    res.status(400).json({error: err}).end();
+
+    res.status(400).json({ error: 'Please fill in all ratings and provide some comments!'}).end();
+
+2. Get all review data for business.
+
+    @name GET /api/review/business/:business/:address
+
+    res.status(200).json({reviews,serviceRating,covidRating}).end();
+
+
+3. Get all reviews made by a customer.
+
+    @name GET /api/review/customer/:username
+
+    res.status(200).json({reviews}).end();
+
+search.js
+
+1. Search for matching businesses
+
+    @name PUT /api/search  
+
+    res.status(200).json(busiInfo).end();
+
