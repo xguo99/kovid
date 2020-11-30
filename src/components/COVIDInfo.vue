@@ -170,10 +170,10 @@ import axios from "axios";
     width: 40%;
 }
 .title{
-  margin-top: 5%;
+  margin-top: 13%;
   margin-left: 10%;
   font-size: 1.7em;
-  margin-bottom: 2px;
+  margin-bottom: 20px;
 }
 .covid-info-container{
     margin: 10%;

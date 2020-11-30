@@ -576,12 +576,11 @@ export default {
   margin-top: 5%;
   margin-left: 10%;
   font-size: 1.7em;
-  /* font-weight: 500; */
   margin-bottom: 2px;
   
 }
 .container{
-    margin-top:0;
+    margin-top:10%;
     padding: 10px;
     margin-left:0%;
     width: 90%;

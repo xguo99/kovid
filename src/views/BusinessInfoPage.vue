@@ -104,7 +104,7 @@ export default {
     display:flex; 
     flex-direction: row;
     justify-content: space-evenly;
-    width: 40%;
+    width: 100%;
 }
 .info{
     margin-top: 20px;
