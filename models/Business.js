@@ -56,6 +56,30 @@ class Business {
       .catch((err)=> {throw err;});
   }
 
+  static async getBusiMask(name, address){
+    return db.get(`SELECT mask FROM businesses WHERE ${db.columnNames.businessName}='${name}' 
+      AND ${db.columnNames.address}='${address}'`)
+      .catch((err)=> {throw err;});
+  }
+
+  static async addBusiMask(name, address,select){
+    return db.run(`UPDATE businesses SET ${db.columnNames.mask}='${select}' WHERE ${db.columnNames.businessName}='${name}' 
+      AND ${db.columnNames.address}='${address}'`)
+      .catch((err)=> {throw err;});
+  }
+
+  static async getBusiHandSanitizer(name, address){
+    return db.get(`SELECT handSanitizer FROM businesses WHERE ${db.columnNames.businessName}='${name}' 
+      AND ${db.columnNames.address}='${address}'`)
+      .catch((err)=> {throw err;});
+  }
+
+  static async addBusiHandSanitizer(name, address,select){
+    return db.run(`UPDATE businesses SET ${db.columnNames.handSanitizer}='${select}' WHERE ${db.columnNames.businessName}='${name}' 
+      AND ${db.columnNames.address}='${address}'`)
+      .catch((err)=> {throw err;});
+  }
+
   static async getBusiCovidInfo(name, address){
     return db.get(`SELECT CovidInfo FROM businesses WHERE ${db.columnNames.businessName}='${name}' 
       AND ${db.columnNames.address}='${address}'`)

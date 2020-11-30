@@ -11,15 +11,41 @@
             </button>
             <button v-else type="button" class="cancel" v-on:click='cancel' >Cancel</button>
         </div>
+        <div class="mask-container">
+          <div class="mask-info">
+            <div id='mask'>Mask:</div>
+            <div v-if="!edit" id='selectedMask' class="maskInfo"> {{selectedMask}}</div>
+            <div v-if='edit'>
+              <select v-model="newSelectedMask">
+              <option disabled value="">Please select one</option>
+              <option>Required</option>
+              <option>Not Required</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="hand-container">
+          <div class="hand-info">
+            <div id='hand'>Hand Sanitizer:</div>
+            <div v-if="!edit" id='selectedHand' class="handInfo"> {{selectedHand}}</div>
+            <div v-if='edit'>
+              <select v-model="newSelectedHand">
+              <option disabled value="">Please select one</option>
+              <option>Provided</option>
+              <option>Not Provided</option>
+              </select>
+            </div>
+          </div>
+        </div>
         <div v-if="!edit" class="mt-2">{{ text }}</div>
         <div class='edit-CovidInfo' v-if="edit">
-          <textarea class="new-descript" v-model.trim='newContent' name="newContent" rows="2" cols="79"></textarea>
+          <textarea class="new-descript" v-model.trim='newContent' name="newContent" rows="2" cols="79" placeholder="Additional Covid related comments?"></textarea>
         </div> 
         <div v-if="edit" class='saveButton'>
             <button type="button" v-on:click='save' class="save-info">Save</button>
         </div>
          
-    </div> 
+      </div> 
   </div>
   
 </template>
@@ -34,7 +60,11 @@ import axios from "axios";
         text: 'empty',
         edit:false,
         newContent:'',
-        success:[]
+        success:[],
+        selectedMask:'',
+        newSelectedMask:'',
+        selectedHand:'',
+        newSelectedHand:''
       }
     },
     created:function(){
@@ -52,6 +82,18 @@ import axios from "axios";
      .then(()=>{
          this.success.push('updated!');
      })
+     this.selectedMask=this.newSelectedMask;
+     const bodyContent2 = { name: this.$route.params.businessName, address: this.$route.params.businessAddress,content:this.selectedMask};
+      axios.put('/api/business/mask',bodyContent2)
+      .then(()=>{
+         this.success.push('updated!');
+     })  
+     this.selectedHand=this.newSelectedHand;
+     const bodyContent3 = { name: this.$route.params.businessName, address: this.$route.params.businessAddress,content:this.selectedHand};
+     axios.put('/api/business/handSanitizer',bodyContent3)
+      .then(()=>{
+         this.success.push('updated!');
+     })  
      this.edit=!this.edit; 
     },
     cancel:function(){
@@ -66,7 +108,24 @@ import axios from "axios";
               this.text='N/A';
           }
           else{
-              this.text=res.data.data['covidinfo'];
+              this.text="Additional Covid related comments: " + res.data.data['covidinfo'];
+          }
+        })
+        axios.post('/api/business/mask',bodyContent)
+        .then((res) => {
+          // handle success
+          /* eslint-disable no-console */
+          console.log(res);
+          /* eslint-enable no-console */
+          if(res.data.data['mask'] != null){
+              this.selectedMask=res.data.data['mask'];
+          }
+        })
+        axios.post('/api/business/handSanitizer',bodyContent)
+        .then((res) => {
+          // handle success
+          if(res.data.data['handsanitizer'] != null){
+              this.selectedHand=res.data.data['handsanitizer'];
           }
         })
     }
@@ -107,6 +166,14 @@ import axios from "axios";
 }
 .mt-2{
     text-align: left;
-    font-size: 1.4em;
+    font-size: 1.1em;
+}
+.handInfo{
+    text-align: left;
+    font-size: 1.1em;
+}
+.maskInfo{
+    text-align: left;
+    font-size: 1.1em;
 }
 </style>

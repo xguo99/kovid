@@ -137,6 +137,53 @@ router.post('/category',[],async (req,res)=>{
     res.status(200).json({business, message:"Category Updated"}).end();
  })
 
+ /**
+ * Get Mask
+ * @name POST /api/business/mask
+ */
+router.post('/mask',[],async (req,res)=>{
+  try{
+  let mask = await Business.getBusiMask(req.body.name, req.body.address);
+  res.status(200).json({data:mask, message: 'Get mask'});
+  }
+  catch{
+    res.status(400).json({error: `Failed`}).end();
+  }
+});
+
+/**
+ * Update Mask
+ * @name PUT /api/business/mask
+ */
+
+router.put('/mask',[],async (req,res)=>{
+  let mask = await Business.addBusiMask(req.body.name, req.body.address, req.body.content);
+  res.status(200).json({mask, message:"mask Updated"}).end();
+})
+
+/**
+ * Get Hand Sanitizer
+ * @name POST /api/business/handSanitizer
+ */
+router.post('/handSanitizer',[],async (req,res)=>{
+  try{
+  let handSanitizer = await Business.getBusiHandSanitizer(req.body.name, req.body.address);
+  res.status(200).json({data:handSanitizer, message: 'Get hand sanitizer'});
+  }
+  catch{
+    res.status(400).json({error: `Failed`}).end();
+  }
+});
+
+/**
+ * Update Hand Sanitizer
+ * @name PUT /api/business/handSanitizer
+ */
+
+router.put('/handSanitizer',[],async (req,res)=>{
+  let handSanitizer = await Business.addBusiHandSanitizer(req.body.name, req.body.address, req.body.content);
+  res.status(200).json({handSanitizer, message:"hand sanitizer Updated"}).end();
+})
 
  /**
  * Get Schedule
