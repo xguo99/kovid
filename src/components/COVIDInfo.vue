@@ -38,8 +38,8 @@
           </div>
         </div>
         <div v-if="!edit" class="mt-2" >
-          <div v-for="te in text" :key="te.title">
-            {{te.title}}
+          <div v-for="show in showList" :key="show.title">
+            {{show.title}}
           </div>
         </div>
         <div class='edit-CovidInfo' v-if="edit">
@@ -61,7 +61,8 @@ import axios from "axios";
   export default {
     data() {
       return {
-        text: [],
+        text: '',
+        showList: [],
         edit:false,
         newContent:'',
         success:[],
@@ -78,20 +79,23 @@ import axios from "axios";
     yes: function() {
       this.edit=!this.edit;
       this.newContent=this.text;
+      this.newSelectedMask=this.selectedMask;
+      this.newSelectedHand=this.selectedHand;
     },
     save:function(){
      const bodyContent = { name: this.$route.params.businessName, address: this.$route.params.businessAddress,content:this.newContent};
+     this.text = this.newContent;
      let stored =this.newContent.split(',');
      if (stored == '') {
-      this.text = [];
-      this.text.push({
+      this.showList = [];
+      this.showList.push({
         title: 'N/A'
       });
      } else {
-       this.text = [];
+       this.showList = [];
        var i;
        for (i=0; i<stored.length; i++){
-        this.text.push({
+        this.showList.push({
         title: stored[i]
         })
       }
@@ -122,18 +126,19 @@ import axios from "axios";
         axios.post('/api/business/CovidInfo',bodyContent)
         .then((res) => {
           // handle success
+          this.text = res.data.data['covidinfo'];
           if(res.data.data['covidinfo'] == ''){
-              this.text=[];
-              this.text.push({
+              this.showList=[];
+              this.showList.push({
                 title: 'N/A'
               });
           }
           else{
             let stored = res.data.data['covidinfo'].split(',');
-            this.text = [];
+            this.showList = [];
             var i;
             for (i=0; i<stored.length; i++){
-              this.text.push({
+              this.showList.push({
                 title: stored[i]
               })
             }
@@ -143,9 +148,6 @@ import axios from "axios";
         axios.post('/api/business/mask',bodyContent)
         .then((res) => {
           // handle success
-          /* eslint-disable no-console */
-          console.log(res);
-          /* eslint-enable no-console */
           if(res.data.data['mask'] != null){
               this.selectedMask=res.data.data['mask'];
           }
