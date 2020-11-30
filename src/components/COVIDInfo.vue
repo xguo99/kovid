@@ -201,13 +201,23 @@ import axios from "axios";
 }
 .handInfo{
     text-align: left;
-    font-size: 1.1em;
 }
 .maskInfo{
     text-align: left;
-    font-size: 1.1em;
 }
 .mask{
   display:inline;
+}
+.mask-info{
+  font-size: 1.1em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.hand-info{
+  font-size: 1.1em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 </style>
