@@ -37,9 +37,13 @@
             </div>
           </div>
         </div>
-        <div v-if="!edit" class="mt-2">{{ text }}</div>
+        <div v-if="!edit" class="mt-2" >
+          <div v-for="te in text" :key="te.title">
+            {{te.title}}
+          </div>
+        </div>
         <div class='edit-CovidInfo' v-if="edit">
-          <textarea class="new-descript" v-model.trim='newContent' name="newContent" rows="2" cols="79" placeholder="Additional Covid related comments?"></textarea>
+          <textarea class="new-descript" v-model.trim='newContent' name="newContent" rows="2" cols="79" placeholder="info1: rule1, info2: rule2, info3: rule3..."></textarea>
         </div> 
         <div v-if="edit" class='saveButton'>
             <button type="button" v-on:click='save' class="save-info">Save</button>
@@ -57,7 +61,7 @@ import axios from "axios";
   export default {
     data() {
       return {
-        text: 'empty',
+        text: [],
         edit:false,
         newContent:'',
         success:[],
@@ -76,8 +80,22 @@ import axios from "axios";
       this.newContent=this.text;
     },
     save:function(){
-     this.text=this.newContent;
-     const bodyContent = { name: this.$route.params.businessName, address: this.$route.params.businessAddress,content:this.text};
+     const bodyContent = { name: this.$route.params.businessName, address: this.$route.params.businessAddress,content:this.newContent};
+     let stored =this.newContent.split(',');
+     if (stored == '') {
+      this.text = [];
+      this.text.push({
+        title: 'N/A'
+      });
+     } else {
+       this.text = [];
+       var i;
+       for (i=0; i<stored.length; i++){
+        this.text.push({
+        title: stored[i]
+        })
+      }
+     }
      axios.put('/api/business/CovidInfo',bodyContent)
      .then(()=>{
          this.success.push('updated!');
@@ -104,11 +122,22 @@ import axios from "axios";
         axios.post('/api/business/CovidInfo',bodyContent)
         .then((res) => {
           // handle success
-          if(res.data.data['covidinfo'] == null){
-              this.text='N/A';
+          if(res.data.data['covidinfo'] == ''){
+              this.text=[];
+              this.text.push({
+                title: 'N/A'
+              });
           }
           else{
-              this.text="Additional Covid related comments: " + res.data.data['covidinfo'];
+            let stored = res.data.data['covidinfo'].split(',');
+            this.text = [];
+            var i;
+            for (i=0; i<stored.length; i++){
+              this.text.push({
+                title: stored[i]
+              })
+            }
+
           }
         })
         axios.post('/api/business/mask',bodyContent)
