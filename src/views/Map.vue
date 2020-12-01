@@ -42,7 +42,7 @@
       </ul>
     </div>
 
-    <div style="height: 600px; width: 80%">
+    <div class="map" style="height: 670px; width: 75%">
       <!-- <div style="height: 200px overflow: auto;"> -->
         <!-- <p>Center is at {{ center }} and the zoom is: {{ currentZoom }}</p> -->
         <!-- <button @click="showLongText">
@@ -106,10 +106,10 @@ export default {
   },
   created: function () {
     //harcode signout
-    //this.$cookie.set('auth','');
-    //this.$cookie.set('account-type','');
-    //this.$cookie.set('bName','');
-    //this.$cookie.set('bAdd','');
+    // this.$cookie.set('auth','');
+    // this.$cookie.set('account-type','');
+    // this.$cookie.set('bName','');
+    // this.$cookie.set('bAdd','');
     
     if(this.$cookie.get("auth")){
       this.isSignedIn=true;
@@ -272,5 +272,8 @@ export default {
   }
   .left-bar *{
     margin-right: 15px;
+  }
+  .map{
+    margin-left: 15px;
   }
 </style>

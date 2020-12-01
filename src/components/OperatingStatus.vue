@@ -4,7 +4,8 @@
 
     <div class='container'>
         <div v-if="this.$cookie.get('bName')== this.$route.params.businessName && this.$cookie.get('bAdd')== this.$route.params.businessAddress" class="edit">
-            <button type="button" x-small v-on:click='yes' class="btn-primary">Edit</button>
+            <button v-if="!edit" type="button" x-small v-on:click='yes' class="btn-primary">Edit</button>
+            <button v-else type="button" x-small v-on:click='cancel' class="cancel">Cancel</button>
         </div> 
         <div class="date"><span id="day">Monday</span>: {{StatusMon}} {{StartMon}} {{apMon}} -- {{EndMon}} {{apMon2}}</div>
             <div v-if='edit'>
@@ -155,7 +156,7 @@
             <option>P.M</option></select>
         </div>
         <div v-if="edit" class="save">
-            <button type="button" class='btn-primary' v-on:click='save'>Save</button>
+            <button type="button" class='save' v-on:click='save'>Save</button>
         </div>
     </div>
       {{this.result}}
@@ -295,6 +296,50 @@ export default {
         this.newapSun=this.apSun;
         this.newapSun2=this.apSun2;
 
+    },
+    cancel:function(){
+        this.edit=!this.edit;
+        this.newStatusMon=this.StatusMon;
+        this.newStartMon=this.StartMon;
+        this.newEndMon=this.EndMon;
+        this.newapMon=this.apMon;
+        this.newapMon2=this.apMon2;
+
+        this.newStatusTue=this.StatusTue;
+        this.newStartTue=this.StartTue;
+        this.newEndTue=this.EndTue;
+        this.newapTue=this.apTue;
+        this.newapTue2=this.apTue2;
+
+        this.newStatusW=this.StatusW;
+        this.newStartW=this.StartW;
+        this.newEndW=this.EndW;
+        this.newapW=this.apW;
+        this.newapW2=this.apW2;
+
+        this.newStatusThur=this.StatusThur;
+        this.newStartThur=this.StartThur;
+        this.newEndThur=this.EndThur;
+        this.newapThur=this.apThur;
+        this.newapThur2=this.apThur2;
+
+        this.newStatusF=this.StatusF;
+        this.newStartF=this.StartF;
+        this.newEndF=this.EndF;
+        this.newapF=this.apF;
+        this.newapF2=this.apF2;
+
+        this.newStatusSat=this.StatusSat;
+        this.newStartSat=this.StartSat;
+        this.newEndSat=this.EndSat;
+        this.newapSat=this.apSat;
+        this.newapSat2=this.apSat2;
+
+        this.newStatusSun=this.StatusSun;
+        this.newStartSun=this.StartSun;
+        this.newEndSun=this.EndSun;
+        this.newapSun=this.apSun;
+        this.newapSun2=this.apSun2;
     },
     save:function(){
        this.StatusMon=this.newStatusMon;
@@ -575,19 +620,17 @@ export default {
 .title{
   margin-top: 5%;
   margin-left: 10%;
-  font-size: 1.7em;
-  margin-bottom: 2px;
-  
+  font-size: 1.7em; 
+  width: 100%;
 }
 .container{
-    margin-top:10%;
+    margin-top: 2px;
     padding: 10px;
-    margin-left:0%;
     width: 90%;
+    margin-right: 10%;
     border: 1px solid;
     margin-bottom: 0;
     font-size: 0.7em;
-    justify-content: space-evenly;
     text-align: center;
 }
 .edit{
@@ -596,6 +639,7 @@ export default {
     justify-content: right;
     /* float:right; */
 }
+
 .save{
     display: flex;
     flex-direction: row;

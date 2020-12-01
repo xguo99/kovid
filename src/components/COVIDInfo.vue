@@ -13,7 +13,7 @@
         </div>
         <div class="mask-container">
           <div class="mask-info">
-            <div id='mask'>Mask:</div>
+            <div><span id='mask'>Mask</span>:</div>
             <div v-if="!edit" id='selectedMask' class="maskInfo"> {{selectedMask}}</div>
             <div v-if='edit'>
               <select v-model="newSelectedMask">
@@ -26,7 +26,7 @@
         </div>
         <div class="hand-container">
           <div class="hand-info">
-            <div id='hand'>Hand Sanitizer:</div>
+            <div><span id='hand'>Hand Sanitizer</span>: </div>
             <div v-if="!edit" id='selectedHand' class="handInfo"> {{selectedHand}}</div>
             <div v-if='edit'>
               <select v-model="newSelectedHand">
@@ -167,24 +167,26 @@ import axios from "axios";
 
 <style scoped>
 .box{
-    width: 40%;
+    width: 100%;
+    margin-right: 10%;
 }
 .title{
   margin-top: 13%;
-  margin-left: 10%;
+  margin-left: 0%;
   font-size: 1.7em;
-  margin-bottom: 27px;
+  margin-left: 10%;
 }
 .covid-info-container{
-    margin: 10%;
-    margin-top:0;
     padding: 10px;
-    width: 80%;
+    width: 90%;
     border: 1px solid;
     margin-bottom: 0;
+    margin-left: 10%;
+    font-size: 1.1em;
 }
 .edit-CovidInfo{
   align-items: baseline;
+  margin-top: 3px;
 }
 .btn-primary{
     float:right;
@@ -195,11 +197,17 @@ import axios from "axios";
 .save-info{
   margin-left: 10px;
 }
+.saveButton{
+  display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
 .mt-2{
     text-align: left;
     font-size: 1.1em;
 }
 .handInfo{
+  margin-top: 4px;
     text-align: left;
 }
 .maskInfo{
@@ -207,6 +215,18 @@ import axios from "axios";
 }
 .mask{
   display:inline;
+}
+#mask{
+  font-weight: 700;
+}
+#hand{
+  font-weight: 700;
+}
+#selectedMask{
+  margin-left: 5px;
+}
+#selectedHand{
+  margin-left: 5px;
 }
 .mask-info{
   font-size: 1.1em;
