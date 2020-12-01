@@ -257,7 +257,7 @@ search.js
 
 1. Search for matching businesses
 
-    @name PUT /api/search  
+    @name GET /api/searches/:address  
 
-    res.status(200).json(busiInfo).end();
+    res.status(200).send({latitude,longitude}).end();
 
