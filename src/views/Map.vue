@@ -121,14 +121,17 @@ export default {
     eventBus.$on("search-success", res => {
       this.data=res;
       this.data.forEach(busi=>{
-        const body = {busi};
+        const business=busi;
+        const address = busi.phone;
         /* eslint-disable no-console */
-          console.log(body);
+          console.log(address);
           /* eslint-enable no-console */
         axios
-          .put('/api/searches/search',body)
+          .get('/api/searches/'+`${address}`,{})
           .then(res=>{
-            this.businesses.push(res.data);
+            business['latitude']=res.data.latitude;
+            business['longitude']=res.data.longitude
+            this.businesses.push(business);
             this.center=latLng(this.businesses[0].latitude,this.businesses[0].longitude);
           })
       })
