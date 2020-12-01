@@ -255,7 +255,7 @@ review.js
 
 search.js
 
-1. Search for matching businesses
+1. Get latlon of the address of the searched business
 
     @name GET /api/searches/:address  
 
