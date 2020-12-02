@@ -83,15 +83,25 @@ import axios from "axios";
       this.newSelectedHand=this.selectedHand;
     },
     save:function(){
+      /* eslint-disable no-console */
+          console.log(1);
+          /* eslint-enable no-console */
      const bodyContent = { name: this.$route.params.businessName, address: this.$route.params.businessAddress,content:this.newContent};
      this.text = this.newContent;
-     let stored =this.newContent.split(',');
-     if (stored == '') {
+     /* eslint-disable no-console */
+          console.log(2);
+          console.log(this.text)
+          /* eslint-enable no-console */
+     if (this.text == '' || this.text == null) {
+       /* eslint-disable no-console */
+          console.log(3);
+          /* eslint-enable no-console */
       this.showList = [];
       this.showList.push({
         title: 'N/A'
       });
      } else {
+       let stored =this.newContent.split(',');
        this.showList = [];
        var i;
        for (i=0; i<stored.length; i++){
@@ -100,6 +110,9 @@ import axios from "axios";
         })
       }
      }
+     /* eslint-disable no-console */
+          console.log(4);
+          /* eslint-enable no-console */
      axios.put('/api/business/CovidInfo',bodyContent)
      .then(()=>{
          this.success.push('updated!');
@@ -110,6 +123,9 @@ import axios from "axios";
       .then(()=>{
          this.success.push('updated!');
      })  
+     /* eslint-disable no-console */
+          console.log(5);
+          /* eslint-enable no-console */
      this.selectedHand=this.newSelectedHand;
      const bodyContent3 = { name: this.$route.params.businessName, address: this.$route.params.businessAddress,content:this.selectedHand};
      axios.put('/api/business/handSanitizer',bodyContent3)
