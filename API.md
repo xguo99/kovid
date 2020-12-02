@@ -1,3 +1,5 @@
+We understand that many of our request to get information need to change from "POST" to "GET". But because we were encountering some strange bugs working with GET, we decided to first work with POST to allow implementation of the entire pipeline but haven't got enough time to go back and fix the url. We will make sure to change the POST to GET for these get information requests for the final project.
+
 business.js
 
 1. Create new business.
