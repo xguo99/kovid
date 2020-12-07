@@ -2,9 +2,9 @@ const express = require('express');
 const convertGeo = require('../models/GeoCoder.js');
 const router = express.Router();
 
-router.get('/:address',(req,res)=>{
+router.get('/',(req,res)=>{
     // const business=req.body.busi;
-    const address=convertGeo(req.params.address);
+    const address=convertGeo(req.query.address);
     address.then(addr=>{
         const latitude=addr[0].latitude;
         const longitude=addr[0].longitude;

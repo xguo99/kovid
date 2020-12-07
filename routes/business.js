@@ -1,13 +1,14 @@
 const express = require('express');
 
 const Business = require('../models/Business');
+const Review = require('../models/Review');
 
 const router = express.Router();
 
 /**
  * Create new business.
  * 
- * @name POST /api/business
+ * @name POST /api/businesses
  */
 router.post('/', [], async (req, res) => {   
   if (req.body.username.length > 0 && req.body.password.length > 0){     
@@ -25,7 +26,7 @@ router.post('/', [], async (req, res) => {
 /**
  * Sign in to business account.
  * 
- * @name POST /api/business/signin
+ * @name POST /api/businesses/signin
  */
 router.post('/signin', [], async (req, res) => { 
   if(req.body.username.length !== 0 && req.body.password.length !== 0){
@@ -52,7 +53,7 @@ router.post('/signin', [], async (req, res) => {
 
 /** 
  * Sign out of business account.
- * @name POST /api/business/signout 
+ * @name POST /api/businesses/signout 
  * @throws {400} if client is not already signed in
  */
 router.post('/signout', [], async (req, res) => { 
@@ -67,11 +68,11 @@ router.post('/signout', [], async (req, res) => {
 
 /**
  * Get Description
- * @name POST /api/business/description
+ * @name GET /api/businesses/:businessName/:address/description
  */
-router.post('/description',[],async (req,res)=>{
+router.get('/:businessName/:address/description',[],async (req,res)=>{
   try{
-  let description = await Business.getBusiDescription(req.body.name, req.body.address);
+  let description = await Business.getBusiDescription(req.params.businessName, req.params.address);
   res.status(200).json({data:description, message: 'Get description'});
   }
   catch{
@@ -81,21 +82,21 @@ router.post('/description',[],async (req,res)=>{
 
 /**
  * Update Description
- * @name PUT /api/business/description
+ * @name PUT /api/businesses/:businessName/:address/description
  */
 
- router.put('/description',[],async (req,res)=>{
-    let business = await Business.addBusiDescription(req.body.name, req.body.address, req.body.content);
+ router.put('/:businessName/:address/description',[],async (req,res)=>{
+    let business = await Business.addBusiDescription(req.params.businessName, req.params.address, req.body.content);
     res.status(200).json({business, message:"Description Updated"}).end();
  })
 
  /**
  * Get CovidInfo
- * @name POST /api/business/CovidInfo
+ * @name GET /api/businesses/:businessName/:address/CovidInfo
  */
-router.post('/CovidInfo',[],async (req,res)=>{
+router.get('/:businessName/:address/CovidInfo',[],async (req,res)=>{
   try{
-  let CovidInfo = await Business.getBusiCovidInfo(req.body.name, req.body.address);
+  let CovidInfo = await Business.getBusiCovidInfo(req.params.businessName, req.params.address);
   res.status(200).json({data: CovidInfo, message: 'Get CovidInfo'});
   }
   catch{
@@ -105,21 +106,21 @@ router.post('/CovidInfo',[],async (req,res)=>{
 
 /**
  * Update CovidInfo
- * @name PUT /api/business/CovidInfo
+ * @name PUT /api/businesses/:businessName/:address/CovidInfo
  */
 
-router.put('/CovidInfo',[],async (req,res)=>{
-  let business = await Business.addBusiCovidInfo(req.body.name, req.body.address, req.body.content);
+router.put('/:businessName/:address/CovidInfo',[],async (req,res)=>{
+  let business = await Business.addBusiCovidInfo(req.params.businessName, req.params.address, req.body.content);
   res.status(200).json({business, message:"CovidInfo Updated"}).end();
 })
 
  /**
  * Get Category
- * @name POST /api/business/category
+ * @name GET /api/businesses/:businessName/:address/category
  */
-router.post('/category',[],async (req,res)=>{
+router.get('/:businessName/:address/category',[],async (req,res)=>{
   try{
-  let category = await Business.getBusiCategory(req.body.name, req.body.address);
+  let category = await Business.getBusiCategory(req.params.businessName, req.params.address);
   res.status(200).json({data:category, message: 'Get category'});
   }
   catch{
@@ -129,21 +130,21 @@ router.post('/category',[],async (req,res)=>{
 
 /**
  * Update Category
- * @name PUT /api/business/category
+ * @name PUT /api/businesses/:businessName/:address/category
  */
 
- router.put('/category',[],async (req,res)=>{
-    let business = await Business.addBusiCategory(req.body.name, req.body.address, req.body.content);
+ router.put('/:businessName/:address/category',[],async (req,res)=>{
+    let business = await Business.addBusiCategory(req.params.businessName, req.params.address, req.body.content);
     res.status(200).json({business, message:"Category Updated"}).end();
  })
 
  /**
  * Get Mask
- * @name POST /api/business/mask
+ * @name GET /api/businesses/:businessName/:address/mask
  */
-router.post('/mask',[],async (req,res)=>{
+router.get('/:businessName/:address/mask',[],async (req,res)=>{
   try{
-  let mask = await Business.getBusiMask(req.body.name, req.body.address);
+  let mask = await Business.getBusiMask(req.params.businessName, req.params.address);
   res.status(200).json({data:mask, message: 'Get mask'});
   }
   catch{
@@ -153,21 +154,21 @@ router.post('/mask',[],async (req,res)=>{
 
 /**
  * Update Mask
- * @name PUT /api/business/mask
+ * @name PUT /api/businesses/:businessName/:address/mask
  */
 
-router.put('/mask',[],async (req,res)=>{
-  let mask = await Business.addBusiMask(req.body.name, req.body.address, req.body.content);
+router.put('/:businessName/:address/mask',[],async (req,res)=>{
+  let mask = await Business.addBusiMask(req.params.businessName, req.params.address, req.body.content);
   res.status(200).json({mask, message:"mask Updated"}).end();
 })
 
 /**
  * Get Hand Sanitizer
- * @name POST /api/business/handSanitizer
+ * @name GET /api/businesses/:businessName/:address/handSanitizer
  */
-router.post('/handSanitizer',[],async (req,res)=>{
+router.get('/:businessName/:address/handSanitizer',[],async (req,res)=>{
   try{
-  let handSanitizer = await Business.getBusiHandSanitizer(req.body.name, req.body.address);
+  let handSanitizer = await Business.getBusiHandSanitizer(req.params.businessName, req.params.address);
   res.status(200).json({data:handSanitizer, message: 'Get hand sanitizer'});
   }
   catch{
@@ -177,21 +178,21 @@ router.post('/handSanitizer',[],async (req,res)=>{
 
 /**
  * Update Hand Sanitizer
- * @name PUT /api/business/handSanitizer
+ * @name PUT /api/businesses/:businessName/:address/handSanitizer
  */
 
-router.put('/handSanitizer',[],async (req,res)=>{
-  let handSanitizer = await Business.addBusiHandSanitizer(req.body.name, req.body.address, req.body.content);
+router.put('/:businessName/:address/handSanitizer',[],async (req,res)=>{
+  let handSanitizer = await Business.addBusiHandSanitizer(req.params.businessName, req.params.address, req.body.content);
   res.status(200).json({handSanitizer, message:"hand sanitizer Updated"}).end();
 })
 
  /**
  * Get Schedule
- * @name POST /api/business/schedule
+ * @name GET /api/businesses/:businessName/:address/schedule
  */
-router.post('/schedule',[],async (req,res)=>{
+router.get('/:businessName/:address/schedule',[],async (req,res)=>{
   try{
-  let monday = await Business.getBusiSchedule(req.body.name, req.body.address);
+  let monday = await Business.getBusiSchedule(req.params.businessName, req.params.address);
   res.status(200).json({data:monday, message: 'Get schedule'});
   }
   catch{
@@ -201,73 +202,87 @@ router.post('/schedule',[],async (req,res)=>{
 
  /**
  * Update Monday
- * @name PUT /api/business/monday
+ * @name PUT /api/businesses/:businessName/:address/monday
  */
 
-router.put('/monday',[],async (req,res)=>{
-  let business = await Business.addBusiMonday(req.body.name, req.body.address, req.body.content);
+router.put('/:businessName/:address/monday',[],async (req,res)=>{
+  let business = await Business.addBusiMonday(req.params.businessName, req.params.address, req.body.content);
   res.status(200).json({business, message:"Monday Updated"}).end();
 })
 
  /**
  * Update Tue
- * @name PUT /api/business/tuesday
+ * @name PUT /api/businesses/:businessName/:address/tuesday
  */
 
-router.put('/tuesday',[],async (req,res)=>{
-  let business = await Business.addBusiTuesday(req.body.name, req.body.address, req.body.content);
+router.put('/:businessName/:address/tuesday',[],async (req,res)=>{
+  let business = await Business.addBusiTuesday(req.params.businessName, req.params.address, req.body.content);
   res.status(200).json({business, message:"Tuesday Updated"}).end();
 })
 
 /**
  * Update Wedn
- * @name PUT /api/business/wednesday
+ * @name PUT /api/businesses/:businessName/:address/wednesday
  */
 
-router.put('/wednesday',[],async (req,res)=>{
-  let business = await Business.addBusiWednesday(req.body.name, req.body.address, req.body.content);
+router.put('/:businessName/:address/wednesday',[],async (req,res)=>{
+  let business = await Business.addBusiWednesday(req.params.businessName, req.params.address, req.body.content);
   res.status(200).json({business, message:"Wedn Updated"}).end();
 })
 
 /**
  * Update thur
- * @name PUT /api/business/thursday
+ * @name PUT /api/businesses/:businessName/:address/thursday
  */
 
-router.put('/thursday',[],async (req,res)=>{
-  let business = await Business.addBusiThursday(req.body.name, req.body.address, req.body.content);
+router.put('/:businessName/:address/thursday',[],async (req,res)=>{
+  let business = await Business.addBusiThursday(req.params.businessName, req.params.address, req.body.content);
   res.status(200).json({business, message:"Thur Updated"}).end();
 })
 
 /**
  * Update fri
- * @name PUT /api/business/friday
+ * @name PUT /api/businesses/:businessName/:address/friday
  */
 
-router.put('/friday',[],async (req,res)=>{
-  let business = await Business.addBusiFriday(req.body.name, req.body.address, req.body.content);
+router.put('/:businessName/:address/friday',[],async (req,res)=>{
+  let business = await Business.addBusiFriday(req.params.businessName, req.params.address, req.body.content);
   res.status(200).json({business, message:"Fri Updated"}).end();
 })
 
 /**
  * Update sat
- * @name PUT /api/business/saturday
+ * @name PUT /api/businesses/:businessName/:address/saturday
  */
 
-router.put('/saturday',[],async (req,res)=>{
-  let business = await Business.addBusiSaturday(req.body.name, req.body.address, req.body.content);
+router.put('/:businessName/:address/saturday',[],async (req,res)=>{
+  let business = await Business.addBusiSaturday(req.params.businessName, req.params.address, req.body.content);
   res.status(200).json({business, message:"Sat Updated"}).end();
 })
 
 /**
  * Update sun
- * @name PUT /api/business/sunday
+ * @name PUT /api/businesses/:businessName/:address/sunday
  */
 
-router.put('/sunday',[],async (req,res)=>{
-  let business = await Business.addBusiSunday(req.body.name, req.body.address, req.body.content);
+router.put('/:businessName/:address/sunday',[],async (req,res)=>{
+  let business = await Business.addBusiSunday(req.params.businessName, req.params.address, req.body.content);
   res.status(200).json({business, message:"Sun Updated"}).end();
 })
+
+/**
+ * Get all review data for business.
+ * 
+ * @name GET /api/businesses/:businessName/:address/reviews
+ */
+router.get('/:businessName/:address/reviews', [], async (req, res) => { 
+  console.log("here");
+  const reviewData=await Review.getReviewData(req.params.businessName,req.params.address);
+  const reviews=reviewData.allReviews;
+  const serviceRating=reviewData.serviceRating;
+  const covidRating=reviewData.covidRating;
+  res.status(200).json({reviews,serviceRating,covidRating}).end();
+});
 
 
 module.exports = router;

@@ -68,7 +68,7 @@ export default {
         const bodyContent = { service: this.serviceRating, covid: this.covidRating, comment: this.content,
         username: this.$cookie.get('auth'), business: this.$route.params.businessName, address: this.$route.params.businessAddress};
         axios
-          .post("/api/review/", bodyContent)
+          .post("/api/reviews", bodyContent)
           .then(review => {
             // handle success
             this.success = "Review created successfully!";

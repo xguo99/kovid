@@ -68,7 +68,7 @@ export default {
 
   methods: {
     loadReviews: function() {
-      axios.get("/api/review/business/"+`${this.$route.params.businessName}/`+`${this.$route.params.businessAddress}`)
+      axios.get(`/api/businesses/${this.$route.params.businessName}/${this.$route.params.businessAddress}/reviews`)
       .then(response => {
         this.reviews = response.data.reviews;
         /*eslint-disable no-console*/

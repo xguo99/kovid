@@ -440,55 +440,47 @@ export default {
        this.apSun2=this.newapSun2;
        }
        
-       const bodyContent = { name: this.$route.params.businessName, address: this.$route.params.businessAddress,
-       content:this.StatusMon+","+this.StartMon+","+this.EndMon+","+this.apMon+","+this.apMon2}; 
-       axios.put('/api/business/monday',bodyContent)
+       const bodyContent = { content:this.StatusMon+","+this.StartMon+","+this.EndMon+","+this.apMon+","+this.apMon2}; 
+       axios.put(`/api/businesses/${this.$route.params.businessName}/${this.$route.params.businessAddress}/monday`,bodyContent)
         .then(()=>{
          this.success.push('updated!');
      }) 
 
-       const bodyContent2 = { name: this.$route.params.businessName, address: this.$route.params.businessAddress,
-       content:this.StatusTue+","+this.StartTue+","+this.EndTue+","+this.apTue+","+this.apTue2}; 
-       axios.put('/api/business/tuesday',bodyContent2)
+       const bodyContent2 = { content:this.StatusTue+","+this.StartTue+","+this.EndTue+","+this.apTue+","+this.apTue2}; 
+       axios.put(`/api/businesses/${this.$route.params.businessName}/${this.$route.params.businessAddress}/tuesday`,bodyContent2)
         .then(()=>{
          this.success.push('updated!');
      })  
 
-       const bodyContent3 = { name: this.$route.params.businessName, address: this.$route.params.businessAddress,
-       content:this.StatusW+","+this.StartW+","+this.EndW+","+this.apW+","+this.apW2}; 
-       axios.put('/api/business/wednesday',bodyContent3)
+       const bodyContent3 = { content:this.StatusW+","+this.StartW+","+this.EndW+","+this.apW+","+this.apW2}; 
+       axios.put(`/api/businesses/${this.$route.params.businessName}/${this.$route.params.businessAddress}/wednesday`,bodyContent3)
         .then(()=>{
          this.success.push('updated!');
      })  
-        const bodyContent4 = { name: this.$route.params.businessName, address: this.$route.params.businessAddress,
-       content:this.StatusThur+","+this.StartThur+","+this.EndThur+","+this.apThur+","+this.apThur2}; 
-       axios.put('/api/business/thursday',bodyContent4)
+        const bodyContent4 = { content:this.StatusThur+","+this.StartThur+","+this.EndThur+","+this.apThur+","+this.apThur2}; 
+       axios.put(`/api/businesses/${this.$route.params.businessName}/${this.$route.params.businessAddress}/thursday`,bodyContent4)
         .then(()=>{
          this.success.push('updated!');
      })  
-        const bodyContent5 = { name: this.$route.params.businessName, address: this.$route.params.businessAddress,
-       content:this.StatusF+","+this.StartF+","+this.EndF+","+this.apF+","+this.apF2}; 
-       axios.put('/api/business/friday',bodyContent5)
+        const bodyContent5 = { content:this.StatusF+","+this.StartF+","+this.EndF+","+this.apF+","+this.apF2}; 
+       axios.put(`/api/businesses/${this.$route.params.businessName}/${this.$route.params.businessAddress}/friday`,bodyContent5)
         .then(()=>{
          this.success.push('updated!');
      })  
-      const bodyContent6 = { name: this.$route.params.businessName, address: this.$route.params.businessAddress,
-       content:this.StatusSat+","+this.StartSat+","+this.EndSat+","+this.apSat+","+this.apSat2}; 
-       axios.put('/api/business/saturday',bodyContent6)
+      const bodyContent6 = { content:this.StatusSat+","+this.StartSat+","+this.EndSat+","+this.apSat+","+this.apSat2}; 
+       axios.put(`/api/businesses/${this.$route.params.businessName}/${this.$route.params.businessAddress}/saturday`,bodyContent6)
         .then(()=>{
          this.success.push('updated!');
      })  
-     const bodyContent7 = { name: this.$route.params.businessName, address: this.$route.params.businessAddress,
-       content:this.StatusSun+","+this.StartSun+","+this.EndSun+","+this.apSun+","+this.apSun2}; 
-       axios.put('/api/business/sunday',bodyContent7)
+     const bodyContent7 = { content:this.StatusSun+","+this.StartSun+","+this.EndSun+","+this.apSun+","+this.apSun2}; 
+       axios.put(`/api/businesses/${this.$route.params.businessName}/${this.$route.params.businessAddress}/sunday`,bodyContent7)
         .then(()=>{
          this.success.push('updated!');
      }) 
      this.edit=!this.edit;
     },
     update:function(){
-        const bodyContent = { name: this.$route.params.businessName, address: this.$route.params.businessAddress};
-        axios.post('/api/business/schedule',bodyContent)
+        axios.get(`/api/businesses/${this.$route.params.businessName}/${this.$route.params.businessAddress}/schedule`)
         .then((res) => {
           // handle success
           if(res.data.data['monday'] != null){

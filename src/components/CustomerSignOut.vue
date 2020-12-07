@@ -12,7 +12,7 @@ export default {
   
   methods: {
     signOut: function() {
-      axios.post('/api/customer/signout',{})
+      axios.post('/api/customers/signout',{})
         .then(() => {
           // handle success
           eventBus.$emit('customer-signout-success', {});

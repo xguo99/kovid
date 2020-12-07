@@ -37,7 +37,7 @@ export default {
     changeUsername: function(){
       const bodyContent = { username: this.username };
       axios
-          .put("/api/customer/username", bodyContent)
+          .put("/api/customers/username", bodyContent)
           .then((res) => {
             // handle success
             eventBus.$emit('customer-changeusername-success', res.data.name);
@@ -55,7 +55,7 @@ export default {
     changePassword: function(){
       const bodyContent = { password: this.password };
       axios
-          .put("/api/customer/password", bodyContent)
+          .put("/api/customers/password", bodyContent)
           .then(() => {
             // handle success
             eventBus.$emit('customer-changepassword-success');

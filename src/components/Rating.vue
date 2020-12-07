@@ -7,12 +7,12 @@
       <div class='rating-container'>
         <div class="service">
             <span id="service-title">Service </span>
-            <star-rating v-model="serviceRating" star-size="30" v-bind:read-only="true" inline="true" v-bind:increment="0.01" v-bind:show-rating="false"></star-rating>
+            <star-rating v-model="serviceRating" star-size=30 v-bind:read-only="true" inline=true v-bind:increment="0.02" v-bind:show-rating="false"></star-rating>
             <span id="service-rating">{{serviceRating}}</span>
         </div>
         <div class="covid">
             <span id="covid-title">Covid-19 </span>
-            <star-rating v-model="covidRating" star-size="30" v-bind:read-only="true" inline="true" v-bind:increment="0.01" v-bind:show-rating="false"></star-rating>
+            <star-rating v-model="covidRating" star-size=30 v-bind:read-only="true" inline=true v-bind:increment="0.02" v-bind:show-rating="false"></star-rating>
             <span id="covid-rating">{{covidRating}}</span>
         </div>
       </div> 
@@ -45,7 +45,7 @@ import { eventBus } from "../main";
 
     methods: {
       update:function(){
-        axios.get('/api/review/business/'+`${this.$route.params.businessName}/`+`${this.$route.params.businessAddress}`,{})
+        axios.get(`/api/businesses/${this.$route.params.businessName}/${this.$route.params.businessAddress}/reviews`,{})
         .then((res) => {
           // handle success
           this.serviceRating=res.data.serviceRating;

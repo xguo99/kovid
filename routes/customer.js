@@ -1,13 +1,14 @@
 const express = require('express');
 
 const Customer = require('../models/Customer');
+const Review = require('../models/Review');
 
 const router = express.Router();
 
 /**
  * Create new customer.
  * 
- * @name POST /api/customer
+ * @name POST /api/customers
  */
 router.post('/', [], async (req, res) => {
   if(req.body.username.length !== 0 && req.body.password.length !== 0){        
@@ -25,7 +26,7 @@ router.post('/', [], async (req, res) => {
 /**
  * Sign in to customer account.
  * 
- * @name POST /api/customer/signin
+ * @name POST /api/customers/signin
  */
 router.post('/signin', [], async (req, res) => { 
   if(req.body.username.length !== 0 && req.body.password.length !== 0){
@@ -49,7 +50,7 @@ router.post('/signin', [], async (req, res) => {
 
 /** 
  * Sign out of customer account.
- * @name POST /api/customer/signout 
+ * @name POST /api/customers/signout 
  * @throws {400} if client is not already signed in
  */
 router.post('/signout', [], async (req, res) => { 
@@ -88,5 +89,17 @@ router.put('/password', [], async (req, res) =>{
     res.status(400).json({error: `Password cannot be empty.`}).end();
   }
 })
+
+/**
+ * Get all reviews made by a customer.
+ * 
+ * @name GET /api/customers/:username/reviews
+ */
+router.get('/:username/reviews', [], async (req, res) => { 
+  const reviews=await Review.getAllByCust(req.params.username);
+  res.status(200).json({reviews}).end();
+});
+
+module.exports = router;
 
 module.exports = router;

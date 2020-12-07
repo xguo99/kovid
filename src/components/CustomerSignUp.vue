@@ -32,7 +32,7 @@ export default {
     signup: function(){
         const bodyContent = { username: this.username, password: this.password};
         axios
-          .post("/api/customer", bodyContent)
+          .post("/api/customers", bodyContent)
           .then(() => {
             // handle success
             eventBus.$emit('customer-signup-success', true);

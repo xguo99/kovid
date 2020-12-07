@@ -35,7 +35,7 @@ export default {
                             password: this.password,
                           };
       axios
-          .post("/api/business/signin", bodyContent)
+          .post("/api/businesses/signin", bodyContent)
           .then((res) => {
             // handle success
           /* eslint-disable no-console */

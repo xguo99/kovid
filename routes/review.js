@@ -7,7 +7,7 @@ const router = express.Router();
 /**
  * Post a new review.
  * 
- * @name POST /api/review
+ * @name POST /api/reviews
  */
 router.post('/', [], async (req, res) => {   
   if (req.body.service > 0 && req.body.covid > 0 && req.body.comment.length>0){     
@@ -25,11 +25,11 @@ router.post('/', [], async (req, res) => {
 /**
  * Get all review data for business.
  * 
- * @name GET /api/review/business/:business/:address
+ * @name GET /api/reviews/?business=busiName&address=addr
  */
-router.get('/business/:business/:address', [], async (req, res) => { 
+router.get('/?business=busiName&address=addr', [], async (req, res) => { 
   console.log("here");
-  const reviewData=await Review.getReviewData(req.params.business,req.params.address);
+  const reviewData=await Review.getReviewData(req.query.business,req.query.address);
   const reviews=reviewData.allReviews;
   const serviceRating=reviewData.serviceRating;
   const covidRating=reviewData.covidRating;
@@ -39,10 +39,10 @@ router.get('/business/:business/:address', [], async (req, res) => {
 /**
  * Get all reviews made by a customer.
  * 
- * @name GET /api/review/customer/:username
+ * @name GET /api/reviews/?customer=username
  */
-router.get('/customer/:username', [], async (req, res) => { 
-    const reviews=await Review.getAllByCust(req.params.username);
+router.get('/?customer=username', [], async (req, res) => { 
+    const reviews=await Review.getAllByCust(req.query.customer);
     res.status(200).json({reviews}).end();
 });
 

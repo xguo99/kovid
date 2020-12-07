@@ -76,14 +76,14 @@ import axios from "axios";
     },
     save:function(){
      this.text=this.newContent;
-     const bodyContent = { name: this.$route.params.businessName, address: this.$route.params.businessAddress,content:this.text};
-     axios.put('/api/business/description',bodyContent)
+     const bodyContent = { content:this.text};
+     axios.put(`/api/businesses/${this.$route.params.businessName}/${this.$route.params.businessAddress}/description`,bodyContent)
      .then(()=>{
          this.success.push('updated!');
      }) 
      this.selected=this.newSelected;
-     const bodyContent2 = { name: this.$route.params.businessName, address: this.$route.params.businessAddress,content:this.selected};
-      axios.put('/api/business/category',bodyContent2)
+     const bodyContent2 = { content:this.selected};
+      axios.put(`/api/businesses/${this.$route.params.businessName}/${this.$route.params.businessAddress}/category`,bodyContent2)
       .then(()=>{
          this.success.push('updated!');
      })  
@@ -93,8 +93,8 @@ import axios from "axios";
       this.edit=!this.edit;
     },
     update:function(){
-        const bodyContent = { name: this.$route.params.businessName, address: this.$route.params.businessAddress};
-        axios.post('/api/business/description',bodyContent)
+        // const bodyContent = { name: this.$route.params.businessName, address: this.$route.params.businessAddress};
+        axios.get(`/api/businesses/${this.$route.params.businessName}/${this.$route.params.businessAddress}/description`,{})
         .then((res) => {
           // handle success
           if(res.data.data['description'] == null){
@@ -104,7 +104,7 @@ import axios from "axios";
               this.text=res.data.data['description'];
           }
         })
-        axios.post('/api/business/category',bodyContent)
+        axios.get(`/api/businesses/${this.$route.params.businessName}/${this.$route.params.businessAddress}/category`,{})
         .then((res) => {
           // handle success
           if(res.data.data['category'] != null){

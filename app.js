@@ -33,11 +33,11 @@ app.use(express.static(path.join(__dirname, isProduction ? 'dist' : 'public')));
 
 // connect url hierarchies to our routers
 app.use('/', indexRouter);
-app.use('/api/searches', searchRouter);
-app.use('/api/business', businessRouter);
-app.use('/api/customer', customerRouter);
-app.use('/api/review', reviewRouter);
-app.use('/api/reply', replyRouter);
+app.use('/api/latlong', searchRouter);
+app.use('/api/businesses', businessRouter);
+app.use('/api/customers', customerRouter);
+app.use('/api/reviews', reviewRouter);
+app.use('/api/replies', replyRouter);
 
 /* GET 404 page. */
 app.get('*', (req, res) => {

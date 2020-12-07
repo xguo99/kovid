@@ -7,7 +7,7 @@ const router = express.Router();
 /**
  * Post a new reply.
  * 
- * @name POST /api/reply
+ * @name POST /api/replies
  */
 router.post('/', [], async (req, res) => {   
   if (req.body.reply.length > 0){     
@@ -26,10 +26,10 @@ router.post('/', [], async (req, res) => {
 /**
  * Get all replies received by a customer.
  * 
- * @name GET /api/reply/customer/:username
+ * @name GET /api/replies/?customer=username
  */
-router.get('/customer/:username', [], async (req, res) => { 
-    const reviews = await Reply.getAllByCust(req.params.username);
+router.get('/', [], async (req, res) => { 
+    const reviews = await Reply.getAllByCust(req.query.customer);
     res.status(200).json({reviews}).end();
 });
 

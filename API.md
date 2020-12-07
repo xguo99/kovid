@@ -4,7 +4,7 @@ business.js
 
 1. Create new business.
     
-    @name POST /api/business
+    @name POST /api/businesses
 
     res.status(200).json({business, message:"Business account created."}).end();
 
@@ -14,7 +14,7 @@ business.js
 
 2. Sign in to business account. 
 
-    @name POST /api/business/signin
+    @name POST /api/businesses/signin
 
     res.status(400).json({error: You are already signed in as another user.}).end();
 
@@ -27,7 +27,7 @@ business.js
 
 3. Sign out of business account.
 
-    @name POST /api/business/signout 
+    @name POST /api/businesses/signout 
 
     res.status(200).json({message: 'Successfully signed out'});
 
@@ -36,7 +36,7 @@ business.js
 
 4. Get Description
 
-    @name POST /api/business/description
+    @name GET /api/businesses/:businessName/:address/description
 
     res.status(200).json({data:description, message: 'Get description'});
 
@@ -44,14 +44,14 @@ business.js
 
 5. Update Description
 
-    @name PUT /api/business/description
+    @name PUT /api/businesses/:businessName/:address/description
 
     res.status(200).json({business, message:"Description Updated"}).end();
 
 
 6. Get CovidInfo
 
-    @name POST /api/business/CovidInfo
+    @name GET /api/businesses/:businessName/:address/CovidInfo
 
     res.status(200).json({data: CovidInfo, message: 'Get CovidInfo'});
 
@@ -60,25 +60,25 @@ business.js
 
 7. Update CovidInfo
 
-    @name PUT /api/business/CovidInfo
+    @name PUT /api/businesses/:businessName/:address/CovidInfo
 
     res.status(200).json({business, message:"CovidInfo Updated"}).end();
 
 8.  Get Category
 
-    @name POST /api/business/category
+    @name GET /api/businesses/:businessName/:address/category
 
     res.status(200).json({data:category, message: 'Get category'});
 
 9. Update Category
 
-    @name PUT /api/business/category
+    @name PUT /api/businesses/:businessName/:address/category
 
     res.status(200).json({business, message:"Category Updated"}).end();
 
 10. Get Mask
 
-    @name POST /api/business/mask
+    @name GET /api/businesses/:businessName/:address/mask
 
     res.status(200).json({data:mask, message: 'Get mask'});
 
@@ -87,13 +87,13 @@ business.js
 
 11. Update Mask
 
-    @name PUT /api/business/mask
+    @name PUT /api/businesses/:businessName/:address/mask
 
     res.status(200).json({mask, message:"mask Updated"}).end();
 
 12. Get Hand Sanitizer
 
-    @name POST /api/business/handSanitizer
+    @name GET /api/businesses/:businessName/:address/handSanitizer
 
     res.status(200).json({data:handSanitizer, message: 'Get hand sanitizer'});
 
@@ -101,13 +101,13 @@ business.js
 
 13. Update Hand Sanitizer
 
-    @name PUT /api/business/handSanitizer
+    @name PUT /api/businesses/:businessName/:address/handSanitizer
 
     res.status(200).json({handSanitizer, message:"hand sanitizer Updated"}).end();
 
 14. Get Schedule
 
-    @name POST /api/business/schedule
+    @name GET /api/businesses/:businessName/:address/schedule
 
     res.status(200).json({data:monday, message: 'Get schedule'});
 
@@ -115,55 +115,61 @@ business.js
 
 15. Update Monday
 
-    @name PUT /api/business/monday
+    @name PUT /api/businesses/:businessName/:address/monday
 
     res.status(200).json({business, message:"Monday Updated"}).end();
 
 
 16. Update Tue
 
-    @name PUT /api/business/tuesday
+    @name PUT /api/businesses/:businessName/:address/tuesday
 
     res.status(200).json({business, message:"Tuesday Updated"}).end();
 
 
 17. Update Wedn
 
-    @name PUT /api/business/wednesday
+    @name PUT /api/businesses/:businessName/:address/wednesday
 
     res.status(200).json({business, message:"Wedn Updated"}).end();
 
 18. Update thur
 
-    @name PUT /api/business/thursday
+    @name PUT /api/businesses/:businessName/:address/thursday
 
     res.status(200).json({business, message:"Thur Updated"}).end();
 
 
 19. Update fri
 
-    @name PUT /api/business/friday
+    @name PUT /api/businesses/:businessName/:address/friday
 
     res.status(200).json({business, message:"Fri Updated"}).end();
 
 20. Update sat
 
-    @name PUT /api/business/saturday
+    @name PUT /api/businesses/:businessName/:address/saturday
 
     res.status(200).json({business, message:"Sat Updated"}).end();
 
 
 21. Update sun
 
-    @name PUT /api/business/sunday
+    @name PUT /api/businesses/:businessName/:address/sunday
 
     res.status(200).json({business, message:"Sun Updated"}).end();
 
-customer.js
+22. Get all review data for business.
+
+    @name GET /api/businesses/:businessName/:address/reviews
+    
+    res.status(200).json({reviews,serviceRating,covidRating}).end();
+
+customers.js
 
 1. Create new customer.
 
-    @name POST /api/customer
+    @name POST /api/customers
 
     res.status(200).json({customer, message:"Customer account created."}).end();
 
@@ -173,7 +179,7 @@ customer.js
 
 2.  Sign in to customer account.
 
-    @name POST /api/customer/signin
+    @name POST /api/customers/signin
 
     res.status(400).json({error: You are already signed in as a different user.}).end();
 
@@ -185,7 +191,7 @@ customer.js
 
 3. Sign out of customer account.
 
-    @name POST /api/customer/signout 
+    @name POST /api/customers/signout 
 
     res.status(200).json({message: 'Successfully signed out'});
 
@@ -193,7 +199,7 @@ customer.js
 
 4. Update username
 
-    @name PUT /api/customer/username
+    @name PUT /api/customers/username
 
     res.status(200).json({name: req.body.username, message:"Username updated."}).end();
 
@@ -203,7 +209,7 @@ customer.js
 
 5. Update password
 
-    @name PUT /api/customer/password
+    @name PUT /api/customers/password
 
     res.status(200).json({message:"Password updated."}).end();
 
@@ -211,11 +217,17 @@ customer.js
 
     res.status(400).json({error: Password cannot be empty.}).end();
 
+6. Get all reviews made by a customer.
+
+    @name GET /api/customers/:username/reviews
+
+    res.status(200).json({reviews}).end();
+
 reply.js
 
 1. Post a new reply.
 
-    @name POST /api/reply
+    @name POST /api/replies
 
     res.status(200).json({message:"Successfully posted your reply!."}).end();
 
@@ -226,7 +238,7 @@ reply.js
 
 2. Get all replies received by a customer.
 
-    @name GET /api/reply/customer/:username
+    @name GET /api/replies?customer=username
 
     res.status(200).json({reviews}).end();
 
@@ -234,7 +246,7 @@ review.js
 
 1. Post a new review.
 
-    @name POST /api/review
+    @name POST /api/reviews
 
     res.status(200).json({message:"Successfully posted your review!."}).end();
 
@@ -242,24 +254,11 @@ review.js
 
     res.status(400).json({ error: 'Please fill in all ratings and provide some comments!'}).end();
 
-2. Get all review data for business.
-
-    @name GET /api/review/business/:business/:address
-
-    res.status(200).json({reviews,serviceRating,covidRating}).end();
-
-
-3. Get all reviews made by a customer.
-
-    @name GET /api/review/customer/:username
-
-    res.status(200).json({reviews}).end();
-
 search.js
 
 1. Get latlon of the address of the searched business
 
-    @name GET /api/searches/:address  
+    @name GET /api/latlong?address=address
 
     res.status(200).send({latitude,longitude}).end();
 

@@ -8,8 +8,7 @@
       class='btn btn-primary'>
       Back</router-link> 
     </div>  
-    <div v-if="!this.$cookie.get('auth')">Not signed in view</div>
-    <div id='signout' v-else-if="this.$cookie.get('account-type')==='customer'">
+    <div id='signout' v-if="this.$cookie.get('account-type')==='customer'">
       <button class='btn btn-primary' v-on:click="signOut">Sign Out</button>
     </div>
   </div>
@@ -67,7 +66,7 @@ export default {
   },
   methods: {
     signOut: function() {
-      axios.post('/api/customer/signout',{})
+      axios.post('/api/customers/signout',{})
         .then(() => {
           // handle success
           eventBus.$emit('customer-signout-success', {});

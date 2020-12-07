@@ -35,7 +35,7 @@ export default {
                               businessName: this.businessName, address: this.address,
                               status: res[0].status, modification: res[0].modification};
         axios
-          .post("/api/business", bodyContent)
+          .post("/api/businesses", bodyContent)
           .then(() => {
             // handle success
             eventBus.$emit('business-signup-success', true);

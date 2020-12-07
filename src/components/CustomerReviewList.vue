@@ -68,7 +68,7 @@ export default {
 
   methods: {
     loadReviews: function() {
-      axios.get(`/api/review/customer/${this.$cookie.get('auth')}`)
+      axios.get(`/api/customers/${this.$cookie.get('auth')}/reviews`)
       .then(response => {
         this.reviews = response.data.reviews;
         /*eslint-disable no-console*/

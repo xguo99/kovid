@@ -127,7 +127,7 @@ export default {
           console.log(address);
           /* eslint-enable no-console */
         axios
-          .get('/api/searches/'+`${address}`,{})
+          .get(`/api/latlong/?address=${address}`,{})
           .then(res=>{
             business['latitude']=res.data.latitude;
             business['longitude']=res.data.longitude

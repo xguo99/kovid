@@ -35,7 +35,7 @@ export default {
                             password: this.password,
                           };
       axios
-          .post("/api/customer/signin", bodyContent)
+          .post("/api/customers/signin", bodyContent)
           .then((res) => {
             // handle success
             eventBus.$emit('customer-signin-success', res.data.name);

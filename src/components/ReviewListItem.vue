@@ -81,7 +81,7 @@ export default {
       },
       postReply:function(){
           const body={reviewID:this.review.reviewid,reply:this.content}
-          axios.post("/api/reply",body)
+          axios.post("/api/replies",body)
             .then(() => {
                 eventBus.$emit('reply-customer-success', {});
                 this.showReplyBox();

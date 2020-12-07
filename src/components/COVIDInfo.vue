@@ -86,7 +86,7 @@ import axios from "axios";
       /* eslint-disable no-console */
           console.log(1);
           /* eslint-enable no-console */
-     const bodyContent = { name: this.$route.params.businessName, address: this.$route.params.businessAddress,content:this.newContent};
+     const bodyContent = { content:this.newContent};
      this.text = this.newContent;
      /* eslint-disable no-console */
           console.log(2);
@@ -113,13 +113,13 @@ import axios from "axios";
      /* eslint-disable no-console */
           console.log(4);
           /* eslint-enable no-console */
-     axios.put('/api/business/CovidInfo',bodyContent)
+     axios.put(`/api/businesses/${this.$route.params.businessName}/${this.$route.params.businessAddress}/CovidInfo`,bodyContent)
      .then(()=>{
          this.success.push('updated!');
      })
      this.selectedMask=this.newSelectedMask;
-     const bodyContent2 = { name: this.$route.params.businessName, address: this.$route.params.businessAddress,content:this.selectedMask};
-      axios.put('/api/business/mask',bodyContent2)
+     const bodyContent2 = { content:this.selectedMask};
+      axios.put(`/api/businesses/${this.$route.params.businessName}/${this.$route.params.businessAddress}/mask`,bodyContent2)
       .then(()=>{
          this.success.push('updated!');
      })  
@@ -127,8 +127,8 @@ import axios from "axios";
           console.log(5);
           /* eslint-enable no-console */
      this.selectedHand=this.newSelectedHand;
-     const bodyContent3 = { name: this.$route.params.businessName, address: this.$route.params.businessAddress,content:this.selectedHand};
-     axios.put('/api/business/handSanitizer',bodyContent3)
+     const bodyContent3 = { content:this.selectedHand};
+     axios.put(`/api/businesses/${this.$route.params.businessName}/${this.$route.params.businessAddress}/handSanitizer`,bodyContent3)
       .then(()=>{
          this.success.push('updated!');
      })  
@@ -138,8 +138,7 @@ import axios from "axios";
       this.edit=!this.edit;
     },
     update:function(){
-        const bodyContent = { name: this.$route.params.businessName, address: this.$route.params.businessAddress};
-        axios.post('/api/business/CovidInfo',bodyContent)
+        axios.get(`/api/businesses/${this.$route.params.businessName}/${this.$route.params.businessAddress}/CovidInfo`)
         .then((res) => {
           // handle success
           this.text = res.data.data['covidinfo'];
@@ -161,14 +160,14 @@ import axios from "axios";
 
           }
         })
-        axios.post('/api/business/mask',bodyContent)
+        axios.get(`/api/businesses/${this.$route.params.businessName}/${this.$route.params.businessAddress}/mask`)
         .then((res) => {
           // handle success
           if(res.data.data['mask'] != null){
               this.selectedMask=res.data.data['mask'];
           }
         })
-        axios.post('/api/business/handSanitizer',bodyContent)
+        axios.get(`/api/businesses/${this.$route.params.businessName}/${this.$route.params.businessAddress}/handSanitizer`)
         .then((res) => {
           // handle success
           if(res.data.data['handsanitizer'] != null){
