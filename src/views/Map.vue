@@ -12,56 +12,6 @@
             <input type='submit' value="Clear" id="clearPin" class="button">
           </form>
         </div>
-        <div>
-            <b-button v-b-toggle.collapse class="m-1">Filter</b-button>
-            <b-collapse id="collapse">
-              <b-card class='collapse'>
-                <div class="category-filter">
-                  <select v-model="category">
-                  <option disabled value="">Please select category</option>
-                  <option>Arts/Entertainment</option>
-                  <option>Coffee/Tea</option>
-                  <option>Education</option>
-                  <option>Event Planning</option>
-                  <option>Financial Services</option>
-                  <option>Food</option>
-                  <option>Health/Medicial</option>
-                  <option>Hotels/Travel</option>
-                  <option>Local Services</option>
-                  <option>Mass Media</option>
-                  <option>Pet</option>
-                  <option>Professional Services</option>
-                  <option>Public/Government Services</option>
-                  <option>Real Estate</option>
-                  <option>Religious Organizations</option>
-                  <option>Others</option>
-                  </select>
-                </div>
-                <div>
-                  <select v-model="mask">
-                  <option disabled value="">Please select mask requirement</option>
-                  <option>Required</option>
-                  <option>Not Required</option>
-                  </select>
-                </div>
-                <div>
-                  <select v-model="handSanitizer">
-                  <option disabled value="">Please select hand sanitizer status</option>
-                  <option>Provided</option>
-                  <option>Not Provided</option>
-                  </select>
-                </div>
-                <div class='filter-buttons'>
-                  <div class='filter-button'>
-                    <button type="button" v-on:click='filter' class="filter-busi">Filter</button>
-                  </div>
-                  <div class='reset-button'>
-                    <button type="button" v-on:click='reset' class="reset">Reset</button>
-                  </div>
-                </div>
-              </b-card>
-            </b-collapse>
-          </div>
       </div>
 
       
@@ -90,49 +40,104 @@
         <li v-for='error in errors' v-bind:key='error.id'>{{ error }}</li>
       </ul>
     </div>
+    <div class="main-container">
 
-    <div class="map" style="height: 670px; width: 75%">
-      <!-- <div style="height: 200px overflow: auto;"> -->
-        <!-- <p>Center is at {{ center }} and the zoom is: {{ currentZoom }}</p> -->
-        <!-- <button @click="showLongText">
-          Toggle long popup
-        </button> -->
-      <!-- </div> -->
+      <div class="map" style="height: 670px; width: 92%">
+        <!-- <div style="height: 200px overflow: auto;"> -->
+          <!-- <p>Center is at {{ center }} and the zoom is: {{ currentZoom }}</p> -->
+          <!-- <button @click="showLongText">
+            Toggle long popup
+          </button> -->
+        <!-- </div> -->
 
-      <l-map
-        v-if="showMap"
-        :zoom="zoom"
-        :center="center"
-        :options="mapOptions"
-        style="height: 80%"
-        @update:center="centerUpdate"
-        @update:zoom="zoomUpdate"
-      >
-        <l-tile-layer
-          :url="url"
-          :attribution="attribution"
-        />
-        <l-marker
-          v-for="business in businesses"
-          v-bind:key="business.id"
-          :lat-lng="[business.latitude,business.longitude]"
-          :icon="icon">
-          <l-popup>
-            <div @click="innerClick(business.name,business.phone)">
-              <div>{{business.name}}</div>
-              <div>{{business.phone}}</div>
-              <div>{{business.status}}</div>
-              <router-link id="business-homepage" 
-              :to="{name:'businessInfopage',params:{businessName:business.name, businessAddress:business.phone}}">homepage</router-link>
+        <l-map
+          v-if="showMap"
+          :zoom="zoom"
+          :center="center"
+          :options="mapOptions"
+          style="height: 80%"
+          @update:center="centerUpdate"
+          @update:zoom="zoomUpdate"
+        >
+          <l-tile-layer
+            :url="url"
+            :attribution="attribution"
+          />
+          <l-marker
+            v-for="business in businesses"
+            v-bind:key="business.id"
+            :lat-lng="[business.latitude,business.longitude]"
+            :icon="icon">
+            <l-popup>
+              <div @click="innerClick(business.name,business.phone)">
+                <div>{{business.name}}</div>
+                <div>{{business.phone}}</div>
+                <div>{{business.status}}</div>
+                <router-link id="business-homepage" 
+                :to="{name:'businessInfopage',params:{businessName:business.name, businessAddress:business.phone}}">homepage</router-link>
+              </div>
+            </l-popup>
+          </l-marker>
+        </l-map>
+        <div v-if='errors.length' class="error-message">
+            <br>
+          <div v-for='error in errors' v-bind:key='error.id'>{{ error }}</div>
+        </div>
+      </div>
+      <div class="filter">
+        <b-button v-b-toggle.collapse class="m-1">Filter</b-button>
+        <b-collapse id="collapse">
+          <b-card class='collapse'>
+            <div class="category-filter">
+              <div class="filter-title">Category</div>
+              <select v-model="category">
+              <option disabled value="">Please select category</option>
+              <option>Arts/Entertainment</option>
+              <option>Coffee/Tea</option>
+              <option>Education</option>
+              <option>Event Planning</option>
+              <option>Financial Services</option>
+              <option>Food</option>
+              <option>Health/Medicial</option>
+              <option>Hotels/Travel</option>
+              <option>Local Services</option>
+              <option>Mass Media</option>
+              <option>Pet</option>
+              <option>Professional Services</option>
+              <option>Public/Government Services</option>
+              <option>Real Estate</option>
+              <option>Religious Organizations</option>
+              <option>Others</option>
+              </select>
             </div>
-          </l-popup>
-        </l-marker>
-      </l-map>
-      <div v-if='errors.length' class="error-message">
-          <br>
-      <div v-for='error in errors' v-bind:key='error.id'>{{ error }}</div>
+            <div class="mask-filter">
+              <div class="filter-title">Mask</div>
+              <select v-model="mask">
+              <option disabled value="">Please select mask requirement</option>
+              <option>Required</option>
+              <option>Not Required</option>
+              </select>
+            </div>
+            <div class="hand-filter">
+              <div class="filter-title">Hand Sanitizer</div>
+              <select v-model="handSanitizer">
+              <option disabled value="">Please select hand sanitizer status</option>
+              <option>Provided</option>
+              <option>Not Provided</option>
+              </select>
+            </div>
+            <div class='filter-buttons'>
+              <div class='filter-button'>
+                <button type="button" v-on:click='filter' class="filter-busi">Filter</button>
+              </div>
+              <div class='reset-button'>
+                <button type="button" v-on:click='reset' class="reset">Reset</button>
+              </div>
+            </div>
+          </b-card>
+        </b-collapse>
+      </div>
     </div>
-  </div>
   </div>
 </template>
 
@@ -172,9 +177,9 @@ export default {
       this.data.forEach(busi=>{
         const business=busi;
         const address = busi.phone;
-        /* eslint-disable no-console */
-          console.log(address);
-          /* eslint-enable no-console */
+        // /* eslint-disable no-console */
+        //   console.log(address);
+        //   /* eslint-enable no-console */
         axios
           .get(`/api/latlong/?address=${address}`,{})
           .then(res=>{
@@ -186,22 +191,25 @@ export default {
       })
     });
     eventBus.$on("filter-success", res => {
+      // /* eslint-disable no-console */
+      //     console.log(res);
+      //     /* eslint-enable no-console */
       this.data=res;
       this.data.forEach(busi=>{
         const business=busi;
         const address = busi.address;
-        /* eslint-disable no-console */
-          console.log(address);
-          /* eslint-enable no-console */
+        // /* eslint-disable no-console */
+        //   console.log(address);
+        //   /* eslint-enable no-console */
         axios
-          .get('/api/searches/'+`${address}`,{})
+          .get(`/api/latlong/?address=${address}`,{})
           .then(res=>{
             business['latitude']=res.data.latitude;
             business['longitude']=res.data.longitude
             this.businesses.push(business);
             this.center=latLng(this.businesses[0].latitude,this.businesses[0].longitude);
           })
-      })
+      });
     });
   },
   data() {
@@ -261,11 +269,11 @@ export default {
     getData:function(){
       axios.get(`https://data.cambridgema.gov/resource/9q33-qjp4.json?$where=lower(name) LIKE lower('%25${this.nameBusiness}%25')&$limit=10`)
           .then((response) => {   
-            /* eslint-disable no-console */
-            //console.log(this.nameBusiness);
-            console.log(response.data);
-            console.log(`https://data.cambridgema.gov/resource/9q33-qjp4.json?$where=lower(name) LIKE '%25lower(${this.nameBusiness})%25'&$limit=10`);
-            /* eslint-enable no-console */
+            // /* eslint-disable no-console */
+            // //console.log(this.nameBusiness);
+            // console.log(response.data);
+            // console.log(`https://data.cambridgema.gov/resource/9q33-qjp4.json?$where=lower(name) LIKE '%25lower(${this.nameBusiness})%25'&$limit=10`);
+            // /* eslint-enable no-console */
             eventBus.$emit("search-success", response.data);
           }).catch(err => {
             // handle error
@@ -283,42 +291,57 @@ export default {
       /* eslint-disable no-console */
       console.log(this.category);
       /* eslint-enable no-console */
+      let searchData=[];
+      if(this.businesses){
+        searchData=this.businesses;
+      }
       this.businesses=[];
       this.errors=[];
-      axios.post('/api/businesses/all').then((response) => { 
-            let allData = response.data.allData;
-            /* eslint-disable no-console */
-            // console.log('all found');
-            // console.log('data is ', response.data.allData);
-            /* eslint-enable no-console */
-            if (this.category !== '') {
-              allData = allData.filter(busi => busi.category === this.category);
+      axios.get('/api/businesses/all').then((response) => { 
+          let allData = response.data.allData;
+          if(searchData){
+            allData = allData.filter(data => {
+              searchData.filter(busi=>busi.phone===data.address);
+              return searchData.length>0;
+            })
+          }
+          /* eslint-disable no-console */
+          // console.log('all found');
+          // console.log('data is ', response.data.allData);
+          /* eslint-enable no-console */
+          // if (this.category !== '') {
+            allData = allData.filter(busi => {
+              return (!this.category || busi.category === this.category)
+                      &&(!this.mask || busi.mask===this.mask)
+                      &&(!this.handSanitizer || busi.handSanitizer===this.handSanitizer);
+            });
+          // }
+          // if (this.mask !== '') {
+          //   allData = allData.filter(busi => busi.mask === this.mask);
+          // }
+          // if (this.handSanitizer !== '') {
+          //   allData = allData.filter(busi => busi.handsanitizer === this.handSanitizer);
+          // }
+          if (allData.length > 0){
+            var i = 0;
+            for (i=0; i < allData.length; i++){
+              allData[i].name = allData[i].businessname;
+              allData[i].phone = allData[i].address;
             }
-            if (this.mask !== '') {
-              allData = allData.filter(busi => busi.mask === this.mask);
-            }
-            if (this.handSanitizer !== '') {
-              allData = allData.filter(busi => busi.handsanitizer === this.handSanitizer);
-            }
-            if (allData.length > 0){
-              var i = 0;
-              for (i=0; i < allData.length; i++){
-                allData[i].name = allData[i].businessname;
-                allData[i].phone = allData[i].address;
-              }
-              eventBus.$emit("filter-success", allData);
-            } else {
-              alert("No matching business in our database");
-            }
-          }).catch(err => {
-            // handle error
-            this.errors.push(err.response.data.error);
-          })
-          .then(() => {
-            // always executed
-            this.content="";
-            this.errors=[];
-          });
+            eventBus.$emit("filter-success", allData);
+          } else {
+            alert("No matching business in our database");
+          }
+        }).catch(err => {
+          // handle error
+          this.errors.push(err.response.data.error);
+        })
+        .then(() => {
+          // always executed
+          this.content="";
+          this.errors=[];
+        });
+      
     },
     reset: function() {
       this.category='';
@@ -374,7 +397,7 @@ export default {
       justify-content: right;
   }
   .login * {
-    margin-right: 10px;
+    margin-left: 10px;
   }
   .navbar{
     display: flex;
@@ -394,10 +417,15 @@ export default {
   .left-bar *{
     margin-right: 15px;
   }
+  .main-container{
+    display: flex;
+    flex-direction: row;
+  }
   .map{
     margin-left: 15px;
   }
   .collapse {
+    margin-top: 5px;
     display:flex; 
     flex-direction: column;
     justify-content: space-evenly;
@@ -418,5 +446,25 @@ export default {
     margin-top: 100px;
     margin-left: 100px;
     position: relative;
+  }
+  .filter{
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .category-filter{
+    margin-bottom:20px;
+  }
+  .mask-filter{
+    margin-bottom:20px;
+  }
+  .hand-filter{
+    margin-bottom:40px;
+  }
+  .filter-title{
+    font-weight: 700;
+    color: black;
+    font-size: 1.5em;
+    margin-bottom: 10px;
   }
 </style>

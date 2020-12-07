@@ -140,10 +140,10 @@ router.get('/:businessName/:address/category',[],async (req,res)=>{
 
   /**
    * Get all data
-   * @name POST /api/businesses/all
+   * @name GET /api/businesses/all
    */
 
-  router.post('/all', [], async (req, res) => {
+  router.get('/all', [], async (req, res) => {
     console.log('trying to get all data here');
     let allData = await Business.getAllData();
     console.log('data we got in db is ', allData);

@@ -167,7 +167,7 @@ business.js
 
 23. Get all data
 
-    @name POST /api/businesses/all
+    @name GET /api/businesses/all
  
     res.status(200).json({allData, message:"All data found"}).end();
 
