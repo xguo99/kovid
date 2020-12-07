@@ -12,7 +12,56 @@
             <input type='submit' value="Clear" id="clearPin" class="button">
           </form>
         </div>
-
+        <div>
+            <b-button v-b-toggle.collapse class="m-1">Filter</b-button>
+            <b-collapse id="collapse">
+              <b-card class='collapse'>
+                <div class="category-filter">
+                  <select v-model="category">
+                  <option disabled value="">Please select category</option>
+                  <option>Arts/Entertainment</option>
+                  <option>Coffee/Tea</option>
+                  <option>Education</option>
+                  <option>Event Planning</option>
+                  <option>Financial Services</option>
+                  <option>Food</option>
+                  <option>Health/Medicial</option>
+                  <option>Hotels/Travel</option>
+                  <option>Local Services</option>
+                  <option>Mass Media</option>
+                  <option>Pet</option>
+                  <option>Professional Services</option>
+                  <option>Public/Government Services</option>
+                  <option>Real Estate</option>
+                  <option>Religious Organizations</option>
+                  <option>Others</option>
+                  </select>
+                </div>
+                <div>
+                  <select v-model="mask">
+                  <option disabled value="">Please select mask requirement</option>
+                  <option>Required</option>
+                  <option>Not Required</option>
+                  </select>
+                </div>
+                <div>
+                  <select v-model="handSanitizer">
+                  <option disabled value="">Please select hand sanitizer status</option>
+                  <option>Provided</option>
+                  <option>Not Provided</option>
+                  </select>
+                </div>
+                <div class='filter-buttons'>
+                  <div class='filter-button'>
+                    <button type="button" v-on:click='filter' class="filter-busi">Filter</button>
+                  </div>
+                  <div class='reset-button'>
+                    <button type="button" v-on:click='reset' class="reset">Reset</button>
+                  </div>
+                </div>
+              </b-card>
+            </b-collapse>
+          </div>
       </div>
 
       
@@ -136,6 +185,24 @@ export default {
           })
       })
     });
+    eventBus.$on("filter-success", res => {
+      this.data=res;
+      this.data.forEach(busi=>{
+        const business=busi;
+        const address = busi.address;
+        /* eslint-disable no-console */
+          console.log(address);
+          /* eslint-enable no-console */
+        axios
+          .get('/api/searches/'+`${address}`,{})
+          .then(res=>{
+            business['latitude']=res.data.latitude;
+            business['longitude']=res.data.longitude
+            this.businesses.push(business);
+            this.center=latLng(this.businesses[0].latitude,this.businesses[0].longitude);
+          })
+      })
+    });
   },
   data() {
     return {
@@ -164,7 +231,10 @@ export default {
       content:"",
       businesses:[],
       isSignedIn: false,
-      username: ''
+      username: '',
+      category: '',
+      mask: '',
+      handSanitizer: ''
     };
   },
   computed: {
@@ -192,7 +262,7 @@ export default {
       axios.get(`https://data.cambridgema.gov/resource/9q33-qjp4.json?$where=lower(name) LIKE lower('%25${this.nameBusiness}%25')&$limit=10`)
           .then((response) => {   
             /* eslint-disable no-console */
-            console.log(this.nameBusiness);
+            //console.log(this.nameBusiness);
             console.log(response.data);
             console.log(`https://data.cambridgema.gov/resource/9q33-qjp4.json?$where=lower(name) LIKE '%25lower(${this.nameBusiness})%25'&$limit=10`);
             /* eslint-enable no-console */
@@ -206,6 +276,54 @@ export default {
             this.content="";
             this.errors=[];
           });
+    },
+    filter: function(){
+      // get all
+      // const bodyContent = {content: this.category};
+      /* eslint-disable no-console */
+      console.log(this.category);
+      /* eslint-enable no-console */
+      this.businesses=[];
+      this.errors=[];
+      axios.post('/api/businesses/all').then((response) => { 
+            let allData = response.data.allData;
+            /* eslint-disable no-console */
+            // console.log('all found');
+            // console.log('data is ', response.data.allData);
+            /* eslint-enable no-console */
+            if (this.category !== '') {
+              allData = allData.filter(busi => busi.category === this.category);
+            }
+            if (this.mask !== '') {
+              allData = allData.filter(busi => busi.mask === this.mask);
+            }
+            if (this.handSanitizer !== '') {
+              allData = allData.filter(busi => busi.handsanitizer === this.handSanitizer);
+            }
+            if (allData.length > 0){
+              var i = 0;
+              for (i=0; i < allData.length; i++){
+                allData[i].name = allData[i].businessname;
+                allData[i].phone = allData[i].address;
+              }
+              eventBus.$emit("filter-success", allData);
+            } else {
+              alert("No matching business in our database");
+            }
+          }).catch(err => {
+            // handle error
+            this.errors.push(err.response.data.error);
+          })
+          .then(() => {
+            // always executed
+            this.content="";
+            this.errors=[];
+          });
+    },
+    reset: function() {
+      this.category='';
+      this.mask='';
+      this.handSanitizer='';
     },
     searchBusi:function(){
       this.errors=[];
@@ -278,5 +396,27 @@ export default {
   }
   .map{
     margin-left: 15px;
+  }
+  .collapse {
+    display:flex; 
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+  .filter-buttons {
+    display:flex; 
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-top: 5%;
+  }
+  .m-1 {
+    background-color: #eee;
+    color: black;;
+    cursor: pointer;
+    text-align: center;
+    outline: none;
+    font-size: 16px;
+    margin-top: 100px;
+    margin-left: 100px;
+    position: relative;
   }
 </style>

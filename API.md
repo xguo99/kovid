@@ -165,7 +165,14 @@ business.js
     
     res.status(200).json({reviews,serviceRating,covidRating}).end();
 
-customers.js
+23. Get all data
+
+    @name POST /api/businesses/all
+ 
+    res.status(200).json({allData, message:"All data found"}).end();
+
+
+customer.js
 
 1. Create new customer.
 
