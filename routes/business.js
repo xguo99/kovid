@@ -138,6 +138,35 @@ router.post('/category',[],async (req,res)=>{
  })
 
  /**
+  * Filter Category
+  * @name POST /api/business/filter
+  */
+
+  router.post('/filter', [], async (req, res) => {
+    console.log('filter here');
+    try {
+      let business = await Business.filterBusiCategory(req.body.content);
+      res.status(200).json({business, message:"Category filtered"}).end();
+    } catch (err) {
+      console.log(err);
+    }
+ 
+  }
+  )
+
+  /**
+   * Get all data
+   * @name POST /api/business/all
+   */
+
+  router.post('/all', [], async (req, res) => {
+    console.log('trying to get all data here');
+    let allData = await Business.getAllData();
+    console.log('data we got in db is ', allData);
+    res.status(200).json({allData, message:"All data found"}).end();
+  })
+
+ /**
  * Get Mask
  * @name POST /api/business/mask
  */

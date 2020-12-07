@@ -56,6 +56,15 @@ class Business {
       .catch((err)=> {throw err;});
   }
 
+  static async filterBusiCategory(select){ 
+    return db.get(`SELECT address FROM businesses WHERE ${db.columnNames.category}='${select}'`)
+      .catch((err)=> {throw err;});
+  }
+
+  static async getAllData() {
+    return db.all(`SELECT * FROM businesses`).catch((err)=> {throw err;});
+  }
+
   static async getBusiMask(name, address){
     return db.get(`SELECT mask FROM businesses WHERE ${db.columnNames.businessName}='${name}' 
       AND ${db.columnNames.address}='${address}'`)
