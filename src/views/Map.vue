@@ -267,13 +267,20 @@ export default {
       this.$router.push({ path: `/business/${name}/${address}` }) // -> /user/123;
     },
     getData:function(){
-      axios.get(`https://data.cambridgema.gov/resource/9q33-qjp4.json?$where=lower(name) LIKE lower('%25${this.nameBusiness}%25')&$limit=10`)
+      axios.get(`https://data.cambridgema.gov/resource/9q33-qjp4.json?$where=lower(name) LIKE lower('%25${this.nameBusiness}%25')&$limit=50`)
           .then((response) => {   
             // /* eslint-disable no-console */
             // //console.log(this.nameBusiness);
             // console.log(response.data);
             // console.log(`https://data.cambridgema.gov/resource/9q33-qjp4.json?$where=lower(name) LIKE '%25lower(${this.nameBusiness})%25'&$limit=10`);
             // /* eslint-enable no-console */
+            /* eslint-disable no-console */
+           console.log('length is ', response.data.length);
+          // console.log('data is ', response.data.allData);
+          /* eslint-enable no-console */
+            if (response.data.length === 50) {
+              alert("There are more than 50 matching businesses. We will only show 50 top matches for your convenience.")
+            }
             eventBus.$emit("search-success", response.data);
           }).catch(err => {
             // handle error

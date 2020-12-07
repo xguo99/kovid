@@ -6,7 +6,7 @@
       :to="{name: 'home'}" 
       tag = "button"
       class='btn btn-primary'>
-      Back</router-link> 
+      Back To Map</router-link> 
     </div>  
     <div v-if="this.$cookie.get('account-type')==='customer'">
       <router-link id="profile" to="/customer-profile">{{this.$cookie.get('auth')}}</router-link>
