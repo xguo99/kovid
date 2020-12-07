@@ -11,10 +11,11 @@
           <form id="clear-bar" v-on:submit.prevent='clearPin'>
             <input type='submit' value="Clear" id="clearPin" class="button">
           </form>
-          <div>
+        </div>
+        <div>
             <b-button v-b-toggle.collapse class="m-1">Filter</b-button>
             <b-collapse id="collapse">
-              <b-card>
+              <b-card class='collapse'>
                 <div class="category-filter">
                   <select v-model="category">
                   <option disabled value="">Please select category</option>
@@ -36,17 +37,31 @@
                   <option>Others</option>
                   </select>
                 </div>
-                <div class='filter-button'>
-                  <button type="button" v-on:click='filter' class="filter-busi">Filter</button>
+                <div>
+                  <select v-model="mask">
+                  <option disabled value="">Please select mask requirement</option>
+                  <option>Required</option>
+                  <option>Not Required</option>
+                  </select>
                 </div>
-                <div class='reset-button'>
-                  <button type="button" v-on:click='reset' class="reset">Reset</button>
+                <div>
+                  <select v-model="handSanitizer">
+                  <option disabled value="">Please select hand sanitizer status</option>
+                  <option>Provided</option>
+                  <option>Not Provided</option>
+                  </select>
+                </div>
+                <div class='filter-buttons'>
+                  <div class='filter-button'>
+                    <button type="button" v-on:click='filter' class="filter-busi">Filter</button>
+                  </div>
+                  <div class='reset-button'>
+                    <button type="button" v-on:click='reset' class="reset">Reset</button>
+                  </div>
                 </div>
               </b-card>
             </b-collapse>
           </div>
-        </div>
-
       </div>
 
       
@@ -217,7 +232,9 @@ export default {
       businesses:[],
       isSignedIn: false,
       username: '',
-      category: ''
+      category: '',
+      mask: '',
+      handSanitizer: ''
     };
   },
   computed: {
@@ -277,7 +294,22 @@ export default {
             if (this.category !== '') {
               allData = allData.filter(busi => busi.category === this.category);
             }
-            eventBus.$emit("filter-success", allData);
+            if (this.mask !== '') {
+              allData = allData.filter(busi => busi.mask === this.mask);
+            }
+            if (this.handSanitizer !== '') {
+              allData = allData.filter(busi => busi.handsanitizer === this.handSanitizer);
+            }
+            if (allData.length > 0){
+              var i = 0;
+              for (i=0; i < allData.length; i++){
+                allData[i].name = allData[i].businessname;
+                allData[i].phone = allData[i].address;
+              }
+              eventBus.$emit("filter-success", allData);
+            } else {
+              alert("No matching business in our database");
+            }
           }).catch(err => {
             // handle error
             this.errors.push(err.response.data.error);
@@ -290,6 +322,8 @@ export default {
     },
     reset: function() {
       this.category='';
+      this.mask='';
+      this.handSanitizer='';
     },
     searchBusi:function(){
       this.errors=[];
@@ -362,5 +396,27 @@ export default {
   }
   .map{
     margin-left: 15px;
+  }
+  .collapse {
+    display:flex; 
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+  .filter-buttons {
+    display:flex; 
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-top: 5%;
+  }
+  .m-1 {
+    background-color: #eee;
+    color: black;;
+    cursor: pointer;
+    text-align: center;
+    outline: none;
+    font-size: 16px;
+    margin-top: 100px;
+    margin-left: 100px;
+    position: relative;
   }
 </style>
