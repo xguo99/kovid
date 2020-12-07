@@ -17,7 +17,7 @@
               <b-card>
                 <div class="category-filter">
                   <select v-model="category">
-                  <option disabled value="">Please select one</option>
+                  <option disabled value="">Please select category</option>
                   <option>Arts/Entertainment</option>
                   <option>Coffee/Tea</option>
                   <option>Education</option>
