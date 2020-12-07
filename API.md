@@ -159,6 +159,13 @@ business.js
 
     res.status(200).json({business, message:"Sun Updated"}).end();
 
+22. Get all data
+
+    @name POST /api/business/all
+ 
+    res.status(200).json({allData, message:"All data found"}).end();
+
+
 customer.js
 
 1. Create new customer.
