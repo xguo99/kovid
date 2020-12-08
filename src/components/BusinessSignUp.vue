@@ -49,6 +49,8 @@ export default {
 
   methods:{
     validate: function() {
+      this.clearMessages();
+      if(this.username.length>0 && this.password.length>0){
       axios
       .get(`https://data.cambridgema.gov/resource/9q33-qjp4.json?name=${this.businessName}&$$app_token=ERObVliHkBTapyjk2U0736EEU`)
       .then((response)=>{
@@ -67,8 +69,11 @@ export default {
         this.errors.push(`trouble connecting to Cambridge government database.`);
       })
       .then(() => {
-        this.resetForm();
+        this.resetForm(); 
       });
+    }else{
+      eventBus.$emit('business-signup-error', `Please enter username and password`);
+    }
     },
 
     resetForm: function() {
@@ -79,9 +84,7 @@ export default {
     },
 
     clearMessages: function() {
-      setInterval(() => {
         this.errors = [];
-      }, 5000);
     }
   }
 }

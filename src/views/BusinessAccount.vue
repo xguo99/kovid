@@ -43,16 +43,19 @@ export default {
 
   created: function() {
     eventBus.$on("business-signup-success", () => {
-      this.success.push("Signup completed successfully.");
       this.clearMessages();
+      this.success.push("Signup completed successfully.");
+      //this.clearMessages();
     });
 
     eventBus.$on("business-signup-error", (err) => {
-      this.errors.push(err);
       this.clearMessages();
+      this.errors.push(err);
+      //this.clearMessages();
     });
 
     eventBus.$on("business-signin-success", (businessname,bName,bAdd) => {
+      this.clearMessages();
       this.$cookie.set("auth",businessname);
       this.$cookie.set("account-type","business");   
       this.$cookie.set("bName",bName['businessname']); 
@@ -61,25 +64,25 @@ export default {
       if(this.$router.path!='/'){
         this.$router.push('/').catch(()=>{});
       }
-      this.clearMessages();
+      //this.clearMessages();
     });
 
     eventBus.$on("business-signin-error", (err) => {
-      this.errors.push(err);
       this.clearMessages();
+      this.errors.push(err);
+      //this.clearMessages();
     });
     eventBus.$on("business-signout-error", (err) => {
-      this.errors.push(err);
       this.clearMessages();
+      this.errors.push(err);
+      //this.clearMessages();
     });
   },
 
   methods: {
-    clearMessages: function() {
-      setInterval(() => {
+    clearMessages: function() {   
         this.success = [];
         this.errors = [];
-      }, 5000);
     }
   }
 };
