@@ -5,7 +5,9 @@
         Sign Up
       </div>
       <input id='username' v-model.trim='username' type='text' name='username' placeholder="User's name">
-      <input id='password' v-model.trim='password' type='text' name='password' placeholder="User's password">
+      <input id='password' v-model.trim='password' :type= passwordType  name='password' placeholder="User's password">
+      <div><input type="checkbox" @click= showPassword > Show Password</div>
+      <br>
       <input type='submit' value='Sign Up' class="button">
     </form>
   </div>
@@ -22,6 +24,7 @@ export default {
     return {
       username: "",
       password: "",
+      passwordType:'password',
     }
   },
 
@@ -42,6 +45,16 @@ export default {
             eventBus.$emit('customer-signup-error', err.response.data.error);
           })
           .then(() => { this.resetForm(); });
+    },
+
+    showPassword:function(){
+      if(this.passwordType=='password')
+      {
+        this.passwordType='text';
+      }
+      else{
+        this.passwordType='password';
+      }
     },
 
     resetForm: function() {
