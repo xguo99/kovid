@@ -242,7 +242,8 @@ export default {
       username: '',
       category: '',
       mask: '',
-      handSanitizer: ''
+      handSanitizer: '',
+      searchData: []
     };
   },
   computed: {
@@ -298,19 +299,28 @@ export default {
       /* eslint-disable no-console */
       console.log(this.category);
       /* eslint-enable no-console */
-      let searchData=[];
       if(this.businesses){
-        searchData=this.businesses;
+        this.searchData=this.businesses;
       }
       this.businesses=[];
       this.errors=[];
       axios.get('/api/businesses/all').then((response) => { 
           let allData = response.data.allData;
-          if(searchData){
+          if(this.searchData.length > 0){
+            /* eslint-disable no-console */
+           console.log('has search result');
+           console.log(this.searchData);
+          // console.log('data is ', response.data.allData);
+          /* eslint-enable no-console */
             allData = allData.filter(data => {
-              searchData.filter(busi=>busi.phone===data.address);
-              return searchData.length>0;
+              let matchData = this.searchData.filter(busi=>busi.phone===data.address);
+              return matchData.length>0;
             })
+            /* eslint-disable no-console */
+           console.log('new all data is');
+           console.log(allData);
+          // console.log('data is ', response.data.allData);
+          /* eslint-enable no-console */
           }
           /* eslint-disable no-console */
           // console.log('all found');
@@ -376,6 +386,7 @@ export default {
         this.error=[];
         this.businesses=[];
         this.nameBusiness='';
+        this.searchData=[];
     }
   }
 };
