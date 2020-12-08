@@ -270,6 +270,7 @@ export default {
     getData:function(){
       axios.get(`https://data.cambridgema.gov/resource/9q33-qjp4.json?$where=lower(name) LIKE lower('%25${this.nameBusiness}%25')&$limit=50`)
           .then((response) => {   
+            alert("We are searching for matching businesses. Please allow up to 30 seconds for results to be shown.")
             // /* eslint-disable no-console */
             // //console.log(this.nameBusiness);
             // console.log(response.data);
@@ -281,6 +282,8 @@ export default {
           /* eslint-enable no-console */
             if (response.data.length === 50) {
               alert("There are more than 50 matching businesses. We will only show 50 top matches for your convenience.")
+            } else if (response.data.length === 0) {
+              alert("We failed to find any matching business. Please try again.")
             }
             eventBus.$emit("search-success", response.data);
           }).catch(err => {
