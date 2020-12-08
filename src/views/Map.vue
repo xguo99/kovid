@@ -17,10 +17,7 @@
       
       <div v-if="!isSignedIn" class="login">
         <div>
-          <router-link to="/business">Business SignIn</router-link>
-        </div>
-        <div>
-          <router-link to="/customer">Customer SignIn</router-link>
+          <router-link to="/business">SignIn</router-link>
         </div>
       </div>
       <div v-else class="login">

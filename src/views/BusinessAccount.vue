@@ -4,9 +4,16 @@
       <router-link id='link' to="/">Kovid</router-link>
     </div>
 
+    <div class="header">
+      Business Login Page
+    </div>
     <div class="signin-signup">
       <BusinessSignIn/>
       <BusinessSignUp/>
+    </div>
+    <br>
+    <div class="bot">
+          <router-link to="/customer">Not a Business? SignIn as Customer</router-link>
     </div>
 
     <div v-if='success.length' class="success-message" style="text-align:center;">
@@ -99,7 +106,14 @@ export default {
     flex-direction: row;
     justify-content: space-around;
 }
-
+  .header{
+    text-align: center;
+    font-size: 30px;
+  }
+  .bot{
+    text-align: center;
+    font-size: 20px;
+  }
   .error-message{
     margin-top: 10px;
   }

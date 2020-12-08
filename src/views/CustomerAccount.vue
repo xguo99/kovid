@@ -3,13 +3,20 @@
     <div class="Map">
       <router-link id='link' to="/">Kovid</router-link>
     </div>
-
+    <div class="header">
+      Customer Login Page
+    </div>
     <div v-if="!isSignedIn" class="signin-signup">
       <CustomerSignIn/>
       <CustomerSignUp/>
     </div>
     <div v-else class="signout">
       <CustomerSignOut/>
+    </div>
+
+    <br>
+     <div class="bot">
+          <router-link to="/business">Not a Cusotmer? SignIn as Business</router-link>
     </div>
 
     <div v-if='success.length' class="success-message" style="text-align:center;">
@@ -113,6 +120,14 @@ export default {
     flex-direction: row;
     justify-content: space-around;
 }
+.header{
+    text-align: center;
+    font-size: 30px;
+  }
+  .bot{
+    text-align: center;
+    font-size: 20px;
+  }
 
   .error-message{
     margin-top: 10px;
