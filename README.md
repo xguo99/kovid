@@ -19,6 +19,7 @@ For Minimum Viable Product, we added user and business homepage and their suppor
 3) User homepage with reviews gave and replies received
 4) Business homepage with category, description, operating status, COVID info, rating, and reviews
 
+For FP, we added a filter function that allow users to filter by category, mask requirement, and hand sanitizer status of businesses. Users can also filter on their search results.
 
 
 
@@ -32,7 +33,8 @@ For Minimum Viable Product, we added user and business homepage and their suppor
 * We support search of any business in this government db: https://data.cambridgema.gov/Economic-Development/Open-and-Closed-Businesses-During-Covid-19-Pandemi/9q33-qjp4
 * We now support partial search, which will return a max of 10 businesses that contains the input of search bar as a substring, regardless of cases
 * Clear button
-* Zoom in and out
+* Filter by category, mask requirement, and hand sanitizer status of businesses (only filter on businesses that created accounts and are in our database)
+* We connected search and filter to allow users to filter on their search result. For example, if user search dunkin, and then filter by require mask, then only dunkin that require mask would be shown. To go back to filtering on all businsses in the database, click the clear button.
 * Customer and business account creation and log in
 * Customer/Business homepage
 * Post rating and review (Customer Only)
@@ -74,5 +76,11 @@ For MVP:
 * Customer Profile Page (showing reviews, change username/password, showing reviews given by customer): Cindy
 * General Frontend Routing+Interface Polish: Queenie
 * Routing from PopUp to Business Homepage: Winnie
+
+For FP:
+* Filter: Kelly + Queenie
+* Fix feedback problems and general testing: all
+* API.md: Queenie + Kelly
+* Design update: Kelly + Winnie
 
 
