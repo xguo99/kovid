@@ -186,7 +186,6 @@ export default {
             business['latitude']=res.data.latitude;
             business['longitude']=res.data.longitude
             this.businesses.push(business);
-            this.center=latLng(this.businesses[0].latitude,this.businesses[0].longitude);
           })
       })
     });
@@ -207,7 +206,6 @@ export default {
             business['latitude']=res.data.latitude;
             business['longitude']=res.data.longitude
             this.businesses.push(business);
-            this.center=latLng(this.businesses[0].latitude,this.businesses[0].longitude);
           })
       });
     });
@@ -221,7 +219,7 @@ export default {
         '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
       //withPopup: latLng(47.41322, -1.219482),
       //withTooltip: latLng(47.41422, -1.250482),
-      currentZoom: 11.5,
+      currentZoom: 13,
       showParagraph: false,
       mapOptions: {
         zoomSnap: 0.5
@@ -254,11 +252,11 @@ export default {
       return [this.iconSize / 2, this.iconSize * 1.15];
     }},
   methods: {
-    zoomUpdate(zoom) {
-      this.currentZoom = zoom;
+    zoomUpdate() {
+      this.currentZoom = 13;
     },
-    centerUpdate(center) {
-      this.currentCenter = center;
+    centerUpdate() {
+      this.currentCenter = latLng(42.3736, -71.1097);
     },
     showLongText() {
       this.showParagraph = !this.showParagraph;
