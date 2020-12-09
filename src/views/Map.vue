@@ -88,7 +88,7 @@
             <b-button block v-b-toggle.accordion-1 color=#eee>Category 
               <div v-if=category>Selected: {{category}}</div>
             </b-button>
-            <b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel">
+            <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
               <b-card-body>
                 <div class="category-filter">
                   <b-form-group class="black-text">
@@ -118,7 +118,7 @@
             <b-button block v-b-toggle.accordion-2 color=#eee>Mask
               <div v-if=mask>Selected: {{mask}}</div>
             </b-button>
-            <b-collapse id="accordion-2" visible accordion="my-accordion" role="tabpanel">
+            <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
               <b-card-body>
                 <div class="mask-filter">
                   <b-form-group class="black-text">
@@ -147,7 +147,7 @@
           </b-card>
           <div class='filter-buttons'>
             <div class='filter-button'>
-              <b-button v-on:click='filter' class="filter-busi">Filter</b-button>
+              <b-button v-on:click='filter' class="filter-busi" >Apply</b-button>
             </div>
             <div class='reset-button'>
               <b-button v-on:click='reset' class="reset">Reset</b-button>
@@ -374,6 +374,7 @@ export default {
         })
         .then(() => {
           // always executed
+          this.content="";
           this.errors=[];
         });
       
@@ -478,6 +479,14 @@ export default {
     margin-right: 10px;
     width: 400px;
   }
+  .filter-busi{
+    background-color:steelblue;
+    font-weight: 700;
+  }
+  .reset{
+    background-color:steelblue;
+    font-weight: 700;
+  }
 
   .category-filter{
     margin-bottom:20px;
@@ -490,11 +499,11 @@ export default {
   }
   .filter-title{
     font-weight: 700;
-    color: aliceblue;
+    color: white;
     font-size: 1.5em;
     margin-bottom: 10px;
     text-align: center;
-    background-color:grey;
+    background-color:steelblue;
   }
   .black-text{
     color: black;
