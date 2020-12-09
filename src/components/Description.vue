@@ -28,7 +28,7 @@
               <option>Event Planning</option>
               <option>Financial Services</option>
               <option>Food</option>
-              <option>Health/Medicial</option>
+              <option>Health/Medical</option>
               <option>Hotels/Travel</option>
               <option>Local Services</option>
               <option>Mass Media</option>

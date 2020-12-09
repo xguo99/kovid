@@ -5,9 +5,11 @@
         Sign Up
       </div>
       <input id='username' v-model.trim='username' type='text' name='username' placeholder="User's name">
-      <input id='password' v-model.trim='password' type='text' name='password' placeholder="User's password">
+      <input id='password' v-model.trim='password' :type= passwordType name='password' placeholder="User's password">
       <input id='businessName' v-model.trim='businessName' type='text' name='businessName' placeholder="Business name">      
       <input id='address' v-model.trim='address' type='text' name='address' placeholder="Business address">
+      <div><input type="checkbox" @click= showPassword > Show Password</div>
+      <br>
       <input type='submit' value='Sign Up' class="button">
     </form>
   </div>
@@ -26,6 +28,7 @@ export default {
       password: "",
       businessName: "",
       address: "",
+      passwordType:'password',
     }
   },
 
@@ -74,6 +77,16 @@ export default {
     }else{
       eventBus.$emit('business-signup-error', `Please enter username and password`);
     }
+    },
+
+    showPassword:function(){
+      if(this.passwordType=='password')
+      {
+        this.passwordType='text';
+      }
+      else{
+        this.passwordType='password';
+      }
     },
 
     resetForm: function() {
