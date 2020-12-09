@@ -8,7 +8,7 @@
             service rating: <star-rating v-model="serviceRating" star-size="30"></star-rating>
             covid rating: <star-rating v-model="covidRating" star-size="30"></star-rating>
             <br>
-            <textarea id="content" v-model.trim='content' name="content" rows="4" cols="115" placeholder="How do you like our service? Enter here..."></textarea>
+            <textarea id="content" v-model.trim='content' name="content" rows="4" cols="115" placeholder="How do you like our service? i.e. I rate a 5 for Covid because the business have great overall precaution..."></textarea>
             <div class='submit-button'>
                 <input type='submit' value="Post Review" id="createReview" class="button">
             </div>

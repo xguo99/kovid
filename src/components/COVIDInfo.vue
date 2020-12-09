@@ -86,7 +86,7 @@ import axios from "axios";
       /* eslint-disable no-console */
           console.log(1);
           /* eslint-enable no-console */
-     const bodyContent = { content:this.newContent};
+     const bodyContent = { content:(this.newContent==''||this.newContent==null)?'N/A':this.newContent};
      this.text = this.newContent;
      /* eslint-disable no-console */
           console.log(2);
