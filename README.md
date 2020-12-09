@@ -24,9 +24,13 @@ For FP, we added a filter function that allow users to filter by category, mask 
 
 
 ### Instructions to Run Locally:
-* Command line: npm run serve frontend (may need to npm install)
-* Another shell:npm run serve backend
-* Access localhost 8080 browser
+* Command line: 
+* npm install
+* npm build
+* npm serve
+* Another shell: 
+* npm run start backend
+* On browser: go to localhost:8080
 * Frontend- Map display center in Cambridge, MA,US
 * Search bar with input
 * EX: “dUNkIn”
