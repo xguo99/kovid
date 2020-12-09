@@ -374,7 +374,6 @@ export default {
         })
         .then(() => {
           // always executed
-          this.content="";
           this.errors=[];
         });
       
