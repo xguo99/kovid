@@ -79,6 +79,7 @@ For MVP:
 
 For FP:
 * Filter: Kelly + Queenie
+* Filter frontend: Cindy
 * Fix feedback problems and general testing: all
 * API.md: Queenie + Kelly
 * Design update: Kelly + Winnie
