@@ -88,7 +88,7 @@
             <b-button block v-b-toggle.accordion-1 color=#eee>Category 
               <div v-if=category>Selected: {{category}}</div>
             </b-button>
-            <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
+            <b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel">
               <b-card-body>
                 <div class="category-filter">
                   <b-form-group class="black-text">
@@ -118,7 +118,7 @@
             <b-button block v-b-toggle.accordion-2 color=#eee>Mask
               <div v-if=mask>Selected: {{mask}}</div>
             </b-button>
-            <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
+            <b-collapse id="accordion-2" visible accordion="my-accordion" role="tabpanel">
               <b-card-body>
                 <div class="mask-filter">
                   <b-form-group class="black-text">
