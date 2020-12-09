@@ -61,7 +61,7 @@ export default {
     createReview: function() {
       this.errors = [];
 
-      if (this.content === "") {
+      if (this.content === ""||!this.serviceRating>0||!this.covidRating>0) {
         this.errors.push("Review cannot be empty.");
         this.clearMessages();
       } else {

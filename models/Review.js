@@ -20,12 +20,12 @@ class Review {
   }
   static async getAllForBusi(business, address){
     return db.all(`SELECT * FROM reviewreply WHERE ${db.columnNames.businessName}='${business}' 
-        AND ${db.columnNames.address}='${address}'`)
+        AND ${db.columnNames.address}='${address}' ORDER BY ${db.columnNames.reviewTime} desc`)
       .catch((err)=> {throw err;});
   }
 
   static async getAllByCust(username){
-    return db.all(`SELECT * FROM reviewreply WHERE ${db.columnNames.reviewer}='${username}'`)
+    return db.all(`SELECT * FROM reviewreply WHERE ${db.columnNames.reviewer}='${username}' ORDER BY ${db.columnNames.reviewTime} desc`)
       .catch((err)=> {throw err;});
   }
 

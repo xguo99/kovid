@@ -204,14 +204,16 @@ export default {
             business['latitude']=res.data.latitude;
             business['longitude']=res.data.longitude
             this.businesses.push(business);
-          })
-      })
+          });
+      });
+      this.searchData=this.businesses;
     });
     eventBus.$on("filter-success", res => {
       // /* eslint-disable no-console */
       //     console.log(res);
       //     /* eslint-enable no-console */
       this.data=res;
+      this.searchData=[];
       this.data.forEach(busi=>{
         const business=busi;
         const address = busi.address;
@@ -318,9 +320,9 @@ export default {
       /* eslint-disable no-console */
       console.log(this.category);
       /* eslint-enable no-console */
-      if(this.businesses){
-        this.searchData=this.businesses;
-      }
+      // if(this.searchData){
+      //   this.searchData=this.businesses;
+      // }
       this.businesses=[];
       this.errors=[];
       axios.get('/api/businesses/all').then((response) => { 
@@ -351,13 +353,6 @@ export default {
                       &&(!this.mask || busi.mask===this.mask)
                       &&(!this.handSanitizer || busi.handsanitizer===this.handSanitizer);
             });
-          // }
-          // if (this.mask !== '') {
-          //   allData = allData.filter(busi => busi.mask === this.mask);
-          // }
-          // if (this.handSanitizer !== '') {
-          //   allData = allData.filter(busi => busi.handsanitizer === this.handSanitizer);
-          // }
           if (allData.length > 0){
             var i = 0;
             for (i=0; i < allData.length; i++){
@@ -367,6 +362,7 @@ export default {
             eventBus.$emit("filter-success", allData);
           } else {
             alert("No matching business in our database");
+            this.searchData=[];
           }
         }).catch(err => {
           // handle error
@@ -391,6 +387,7 @@ export default {
         this.clearMessages();
       } else {
         this.businesses=[];
+        this.searchData=[];
         this.nameBusiness=this.content;
         this.getData();
       }

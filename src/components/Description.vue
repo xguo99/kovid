@@ -75,7 +75,7 @@ import axios from "axios";
       this.newContent=this.text;
     },
     save:function(){
-     this.text=this.newContent;
+     this.text=(this.newContent=="")?"N/A":this.newContent;
      const bodyContent = { content:this.text};
      axios.put(`/api/businesses/${this.$route.params.businessName}/${this.$route.params.businessAddress}/description`,bodyContent)
      .then(()=>{
@@ -97,7 +97,7 @@ import axios from "axios";
         axios.get(`/api/businesses/${this.$route.params.businessName}/${this.$route.params.businessAddress}/description`,{})
         .then((res) => {
           // handle success
-          if(res.data.data['description'] == null){
+          if(res.data.data['description'] == null||res.data.data['description']==""){
               this.text='N/A';
           }
           else{
