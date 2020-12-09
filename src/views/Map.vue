@@ -82,57 +82,78 @@
         </div>
       </div>
       <div class="filter">
-        <b-button v-b-toggle.collapse class="m-1">Filter</b-button>
-        <b-collapse id="collapse">
-          <b-card class='collapse'>
-            <div class="category-filter">
-              <div class="filter-title">Category</div>
-              <select v-model="category">
-              <option disabled value="">Please select category</option>
-              <option>Arts/Entertainment</option>
-              <option>Coffee/Tea</option>
-              <option>Education</option>
-              <option>Event Planning</option>
-              <option>Financial Services</option>
-              <option>Food</option>
-              <option>Health/Medicial</option>
-              <option>Hotels/Travel</option>
-              <option>Local Services</option>
-              <option>Mass Media</option>
-              <option>Pet</option>
-              <option>Professional Services</option>
-              <option>Public/Government Services</option>
-              <option>Real Estate</option>
-              <option>Religious Organizations</option>
-              <option>Others</option>
-              </select>
-            </div>
-            <div class="mask-filter">
-              <div class="filter-title">Mask</div>
-              <select v-model="mask">
-              <option disabled value="">Please select mask requirement</option>
-              <option>Required</option>
-              <option>Not Required</option>
-              </select>
-            </div>
-            <div class="hand-filter">
-              <div class="filter-title">Hand Sanitizer</div>
-              <select v-model="handSanitizer">
-              <option disabled value="">Please select hand sanitizer status</option>
-              <option>Provided</option>
-              <option>Not Provided</option>
-              </select>
-            </div>
-            <div class='filter-buttons'>
-              <div class='filter-button'>
-                <button type="button" v-on:click='filter' class="filter-busi">Filter</button>
-              </div>
-              <div class='reset-button'>
-                <button type="button" v-on:click='reset' class="reset">Reset</button>
-              </div>
-            </div>
+        <div class="filter-title"> Filter </div>
+          <div class="accordion" role="tablist">
+          <b-card no-body class="mb-1">
+            <b-button block v-b-toggle.accordion-1 color=#eee>Category 
+              <div v-if=category>Selected: {{category}}</div>
+            </b-button>
+            <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
+              <b-card-body>
+                <div class="category-filter">
+                  <b-form-group class="black-text">
+                    <b-form-radio v-model="category" value="Arts/Entertainment">Arts/Entertainment</b-form-radio>
+                    <b-form-radio v-model="category" value="Coffee/Tea">Coffee/Tea</b-form-radio>
+                    <b-form-radio v-model="category" value="Education">Education</b-form-radio>
+                    <b-form-radio v-model="category" value="Event Planning">Event Planning</b-form-radio>
+                    <b-form-radio v-model="category" value="Financial Services">Financial Services</b-form-radio>
+                    <b-form-radio v-model="category" value="Food">Food</b-form-radio>
+                    <b-form-radio v-model="category" value="Health/Medical">Health/Medical</b-form-radio>
+                    <b-form-radio v-model="category" value="Hotels/Travel">Hotels/Travel</b-form-radio>
+                    <b-form-radio v-model="category" value="Local Services">Local Services</b-form-radio>
+                    <b-form-radio v-model="category" value="Mass Media">Mass Media</b-form-radio>
+                    <b-form-radio v-model="category" value="Pet">Pet</b-form-radio>
+                    <b-form-radio v-model="category" value="Professional Services">Professional Services</b-form-radio>
+                    <b-form-radio v-model="category" value="Public/Government Services">Public/Government Services</b-form-radio>
+                    <b-form-radio v-model="category" value="Real Estate">Real Estate</b-form-radio>
+                    <b-form-radio v-model="category" value="Religious Organizations">Religious Organizations</b-form-radio>
+                    <b-form-radio v-model="category" value="Others">Others</b-form-radio>
+                  </b-form-group>
+                </div>
+              </b-card-body>
+            </b-collapse>
           </b-card>
-        </b-collapse>
+
+          <b-card no-body class="mb-1">
+            <b-button block v-b-toggle.accordion-2 color=#eee>Mask
+              <div v-if=mask>Selected: {{mask}}</div>
+            </b-button>
+            <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
+              <b-card-body>
+                <div class="mask-filter">
+                  <b-form-group class="black-text">
+                    <b-form-radio v-model="mask" value="Required">Required</b-form-radio>
+                    <b-form-radio v-model="mask" value="Not Required">Not Required</b-form-radio>
+                  </b-form-group>
+                </div>
+              </b-card-body>
+            </b-collapse>
+          </b-card>
+
+          <b-card no-body class="mb-1">
+            <b-button block v-b-toggle.accordion-3 color=#eee>Hand Sanitizer
+              <div v-if=handSanitizer>Selected: {{handSanitizer}}</div>
+            </b-button>
+            <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
+              <b-card-body>
+                <div class="hand-filter">
+                  <b-form-group class="black-text">
+                    <b-form-radio v-model="handSanitizer" value="Provided">Provided</b-form-radio>
+                    <b-form-radio v-model="handSanitizer" value="Not Provided">Not Provided</b-form-radio>
+                  </b-form-group>
+                </div>
+              </b-card-body>
+            </b-collapse>
+          </b-card>
+          <div class='filter-buttons'>
+            <div class='filter-button'>
+              <b-button v-on:click='filter' class="filter-busi">Filter</b-button>
+            </div>
+            <div class='reset-button'>
+              <b-button v-on:click='reset' class="reset">Reset</b-button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -328,7 +349,7 @@ export default {
             allData = allData.filter(busi => {
               return (!this.category || busi.category === this.category)
                       &&(!this.mask || busi.mask===this.mask)
-                      &&(!this.handSanitizer || busi.handSanitizer===this.handSanitizer);
+                      &&(!this.handSanitizer || busi.handsanitizer===this.handSanitizer);
             });
           // }
           // if (this.mask !== '') {
@@ -452,20 +473,11 @@ export default {
     justify-content: space-evenly;
     margin-top: 5%;
   }
-  .m-1 {
-    background-color: #eee;
-    color: black;;
-    cursor: pointer;
-    text-align: center;
-    outline: none;
-    font-size: 16px;
-    margin-top: 100px;
-    margin-left: 100px;
-    position: relative;
-  }
+
   .filter{
     margin-left: 10px;
     margin-right: 10px;
+    width: 400px;
   }
 
   .category-filter{
@@ -479,8 +491,13 @@ export default {
   }
   .filter-title{
     font-weight: 700;
-    color: black;
+    color: aliceblue;
     font-size: 1.5em;
     margin-bottom: 10px;
+    text-align: center;
+    background-color:grey;
+  }
+  .black-text{
+    color: black;
   }
 </style>
