@@ -10,7 +10,7 @@ Purpose: Kovid aims to present users an interactive Cambridge map that embeds op
 For proof of concept, we implemented an interactive map that 
 1) allows zooming in and zooming out
 2) allows searching for a business name-- if the business is in the government database, must   share identical name with the government database
-3) Pinpoint business location on the map and a pop-up window summarizing the business’s    information will show.
+3) Pinpoint business location on the map and a pop-up window summarizing the business’s information will show.
 4) Remove pinpoint by clear button
 
 For Minimum Viable Product, we added user and business homepage and their supporting functions as follow:
@@ -50,3 +50,6 @@ For FP, we added a filter function that allow users to filter by category, mask 
 * Choose a category for future filter purpose
 * Free to add description
 * Edit hour of operations
+
+### API
+* see API.md https://github.com/xguo99/kovid/blob/main/API.md
